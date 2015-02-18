@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Goodness App"
+        android:text="Goodness App App"
         android:id="@+id/textView"
         android:textSize="100px"
         android:layout_alignParentBottom="true"
