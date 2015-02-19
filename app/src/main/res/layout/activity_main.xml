@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bre's\nBake Shop"
+        android:text="Bre's\nBake Shop Ricardo"
         android:id="@+id/textView"
         android:textSize="80px"
         android:layout_alignParentTop="true"
@@ -26,7 +26,17 @@
         android:maxHeight="200dp"
         android:scaleType="fitCenter"
         android:src="@drawable/wedding_cake"
-        android:layout_below="@+id/textView"/>
+        android:layout_below="@+id/textView"
+        android:id="@+id/logo"/>
 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/logo"
+        android:layout_alignParentBottom="true"
+        android:text="Sign In"
+        android:layout_marginBottom="30dp"
+        android:textSize="30dp"/>
 
 </RelativeLayout>
