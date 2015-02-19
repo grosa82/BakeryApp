@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bre's Specialty\nBake Shop"
+        android:text="Bre's\nBake Shop"
         android:id="@+id/textView"
         android:textSize="80px"
         android:layout_alignParentTop="true"
