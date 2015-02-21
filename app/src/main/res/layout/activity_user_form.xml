@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.cs246.bakery.myapplication.UserForm">
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:layout_marginTop="30dp"
+        android:id="@+id/name"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone"
+        android:layout_marginTop="20dp"
+        android:id="@+id/phone"
+        android:layout_below="@+id/name"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_marginTop="20dp"
+        android:id="@+id/email"
+        android:layout_below="@+id/phone"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_marginTop="20dp"
+        android:id="@+id/password"
+        android:layout_below="@+id/email"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm password"
+        android:layout_marginTop="20dp"
+        android:id="@+id/confirm"
+        android:layout_below="@+id/password"
+        android:inputType="textPassword" />
+
+    <Button android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirm"
+        android:layout_marginTop="30dp"
+        android:text="Create my account"
+        android:onClick="addUser">
+
+    </Button>
+</RelativeLayout>

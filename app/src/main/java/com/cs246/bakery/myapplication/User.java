@@ -1,5 +1,11 @@
 package com.cs246.bakery.myapplication;
 
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
+
+import java.io.Serializable;
+import java.util.Hashtable;
+
 /**
  * User class
  */
@@ -24,13 +30,14 @@ public class User {
      * User phone number
      */
     public String phone;
-    /**
-     * User profile (A Admin - U Regular user)
-     */
-    public char profile;
 
     public boolean authenticateUser(String username, String password) {
         // Connect to the database to search for user
+        return true;
+    }
+
+    public boolean addUser(String name, String email, String password, String phone) {
+        // call web service to add user
         return true;
     }
 }
