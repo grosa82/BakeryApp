@@ -110,9 +110,16 @@ public class UserForm extends ActionBarActivity {
         newUser.password = ((EditText)findViewById(R.id.password)).getText().toString();
         String confirm = ((EditText)findViewById(R.id.confirm)).getText().toString();
 
+        // proceed only when the form is valid
+        if (isFormValid(newUser, confirm)) {
+            new Services().execute(newUser);
+        }
+    }
+
+    private boolean isFormValid(User newUser, String confirm) {
         /*
         http://www.regexlib.net/
-         */
+        */
 
         // Matches 800-555-5555 | 333-444-5555 | 212-666-1234
         // Non-Matches 000-000-0000 | 123-456-7890 | 2126661234
@@ -132,33 +139,37 @@ public class UserForm extends ActionBarActivity {
             showAlert("Invalid name. Please try again");
             ((EditText)findViewById(R.id.name)).setText("");
             ((EditText)findViewById(R.id.name)).requestFocus();
+            return false;
         }
         else if (!newUser.phone.matches(regexForPhone)) {
             showAlert("Phone should be in the form of ###-###-####");
             ((EditText)findViewById(R.id.phone)).setText("");
             ((EditText)findViewById(R.id.phone)).requestFocus();
+            return false;
         }
         else if (!newUser.email.matches(regexForEmail)) {
             showAlert("Invalid email. Please try again");
             ((EditText)findViewById(R.id.email)).setText("");
             ((EditText)findViewById(R.id.email)).requestFocus();
+            return false;
         }
         else if (!newUser.password.equals(confirm)) {
             showAlert("Password and confirmation does not match");
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
+            return false;
         }
         else if (newUser.password.length() < 8) {
             showAlert("Password should be at least 8 characters long");
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
+            return false;
         }
-        else
-            new Services().execute(newUser);
-    }
 
+        return true;
+    }
     /**
      * Display a temporary message on screen
      * @param message message to display
