@@ -3,6 +3,7 @@ package com.cs246.bakery.myapplication;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -109,7 +110,40 @@ public class UserForm extends ActionBarActivity {
         newUser.password = ((EditText)findViewById(R.id.password)).getText().toString();
         String confirm = ((EditText)findViewById(R.id.confirm)).getText().toString();
 
-        if (!newUser.password.equals(confirm)) {
+        /*
+        http://www.regexlib.net/
+         */
+
+        // Matches 800-555-5555 | 333-444-5555 | 212-666-1234
+        // Non-Matches 000-000-0000 | 123-456-7890 | 2126661234
+        String regexForPhone = "^[2-9]\\d{2}-\\d{3}-\\d{4}$";
+
+        // Matches T.F. Johnson | John O'Neil | Mary-Kate Johnson
+        // Non-Matches sam_johnson | Joe--Bob Jones | dfjsd0rd
+        String regexForName = "^[a-zA-Z]+(([\\'\\,\\.\\- ][a-zA-Z ])?[a-zA-Z]*)*$";
+
+        // Matches john-smith@example.com | john.smith@example.com | john_smith@x-ample.com
+        // Non-Matches .john-smith@example.com | @example.com | johnsmith@example.
+        String regexForEmail = "^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@" +
+                "[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$";
+
+        // I'll break things up and/or make methods for these later
+        if (!newUser.name.matches(regexForName) || newUser.name.length() < 3) {
+            showAlert("Invalid name. Please try again");
+            ((EditText)findViewById(R.id.name)).setText("");
+            ((EditText)findViewById(R.id.name)).requestFocus();
+        }
+        else if (!newUser.phone.matches(regexForPhone)) {
+            showAlert("Phone should be in the form of ###-###-####");
+            ((EditText)findViewById(R.id.phone)).setText("");
+            ((EditText)findViewById(R.id.phone)).requestFocus();
+        }
+        else if (!newUser.email.matches(regexForEmail)) {
+            showAlert("Invalid email. Please try again");
+            ((EditText)findViewById(R.id.email)).setText("");
+            ((EditText)findViewById(R.id.email)).requestFocus();
+        }
+        else if (!newUser.password.equals(confirm)) {
             showAlert("Password and confirmation does not match");
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
@@ -131,6 +165,7 @@ public class UserForm extends ActionBarActivity {
      */
     private void showAlert(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 50); // position
         toast.show();
     }
 }
