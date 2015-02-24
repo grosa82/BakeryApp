@@ -115,6 +115,12 @@ public class UserForm extends ActionBarActivity {
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
         }
+        else if (newUser.password.length() < 8) {
+            showAlert("Password should be at least 8 characters long");
+            ((EditText)findViewById(R.id.confirm)).setText("");
+            ((EditText)findViewById(R.id.password)).setText("");
+            ((EditText)findViewById(R.id.password)).requestFocus();
+        }
         else
             new Services().execute(newUser);
     }
