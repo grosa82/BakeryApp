@@ -134,7 +134,6 @@ public class UserForm extends ActionBarActivity {
         String regexForEmail = "^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@" +
                 "[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$";
 
-        // I'll break things up and/or make methods for these later
         if (!newUser.name.matches(regexForName) || newUser.name.length() < 3) {
             showAlert("Invalid name. Please try again");
             ((EditText)findViewById(R.id.name)).setText("");
