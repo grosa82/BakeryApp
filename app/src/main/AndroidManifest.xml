@@ -41,6 +41,11 @@
             android:name=".UserForm"
             android:label="@string/title_activity_user_form" >
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
     </application>
 
 </manifest>
