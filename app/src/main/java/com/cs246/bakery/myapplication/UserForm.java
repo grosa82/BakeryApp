@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
@@ -33,6 +34,8 @@ public class UserForm extends ActionBarActivity {
     class Services extends AsyncTask<User, String, Boolean> {
         @Override
         protected Boolean doInBackground(User... users) {
+            //invokeWS(new RequestParams());
+
             SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE, OPERATION_NAME);
             /*PropertyInfo p = new PropertyInfo();
             p.setName("user");
