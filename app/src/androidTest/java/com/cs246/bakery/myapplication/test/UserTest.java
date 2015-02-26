@@ -1,6 +1,6 @@
 package com.cs246.bakery.myapplication.test;
 
-import com.cs246.bakery.myapplication.User;
+import com.cs246.bakery.myapplication.model.User;
 
 import junit.framework.TestCase;
 

@@ -1,4 +1,4 @@
-package com.cs246.bakery.myapplication;
+package com.cs246.bakery.myapplication.model;
 
 //import org.ksoap2.serialization.KvmSerializable;
 //import org.ksoap2.serialization.PropertyInfo;
@@ -14,6 +14,14 @@ public class User {
      * Unique key
      */
     public int id;
+    /**
+     * User full name
+     */
+    public String name;
+    /**
+     * User phone number
+     */
+    public String phone;
     /**
      * Password
      */
@@ -62,15 +70,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    /**
-     * User full name
-     */
-    public String name;
-    /**
-     * User phone number
-     */
-    public String phone;
 
     public boolean authenticateUser(String username, String password) {
         // Connect to the database to search for user
