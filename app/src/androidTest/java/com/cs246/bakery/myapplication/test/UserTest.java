@@ -43,7 +43,7 @@ public class UserTest extends TestCase {
     }
 
     /**
-     * @author Kim Bit
+     * @author Bit Kim
      */
     public void testGetEmail(){
         User user = new User();
@@ -52,7 +52,7 @@ public class UserTest extends TestCase {
     }
 
     /**
-     * @author Kim Bit
+     * @author Bit Kim
      */
     public void testGetPhone(){
         User user = new User();
