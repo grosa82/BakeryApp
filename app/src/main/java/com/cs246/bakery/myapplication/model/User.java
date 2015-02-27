@@ -80,4 +80,9 @@ public class User {
         // call web service to add user
         return true;
     }
+
+    public boolean removeUser(String name, String email, String password, String phone) {
+        // call web service to remove user
+        return true;
+    }
 }
