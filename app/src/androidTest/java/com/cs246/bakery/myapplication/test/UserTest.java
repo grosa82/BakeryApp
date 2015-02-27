@@ -11,6 +11,6 @@ public class UserTest extends TestCase {
     public void testAddUser(){
         User user = new User();
         boolean success = user.addUser("Test", "Email", "Phone", "");
-        assertEquals(false, success);
+        assertEquals(true, success);
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.User;
 
 import org.ksoap2.SoapEnvelope;
@@ -24,7 +25,7 @@ public class UserForm extends ActionBarActivity {
     public  final String OPERATION_NAME = "addUser";
     public  final String WSDL_TARGET_NAMESPACE = "http://tempuri.org/";
     public  final String SOAP_ADDRESS = "http://ubrainy.com/Services.asmx";
-
+    public Helper helper = new Helper();
     class Services extends AsyncTask<User, String, Boolean> {
         @Override
         protected Boolean doInBackground(User... users) {
@@ -64,9 +65,9 @@ public class UserForm extends ActionBarActivity {
         @Override
         protected void onPostExecute(Boolean response) {
             if (response)
-                showAlert("Account created");
+                helper.showAlert("Account created", UserForm.this.getApplicationContext());
             else
-                showAlert("Error creating account");
+                helper.showAlert("Error creating account", UserForm.this.getApplicationContext());
         }
     }
 
@@ -132,32 +133,32 @@ public class UserForm extends ActionBarActivity {
                 "[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$";
 
         if (!newUser.name.matches(regexForName) || newUser.name.length() < 3) {
-            showAlert("Invalid name. Please try again");
+            helper.showAlert("Invalid name. Please try again", UserForm.this.getApplicationContext());
             ((EditText)findViewById(R.id.name)).setText("");
             ((EditText)findViewById(R.id.name)).requestFocus();
             return false;
         }
         else if (!newUser.phone.matches(regexForPhone)) {
-            showAlert("Phone should be in the form of ###-###-####");
+            helper.showAlert("Phone should be in the form of ###-###-####", UserForm.this.getApplicationContext());
             ((EditText)findViewById(R.id.phone)).setText("");
             ((EditText)findViewById(R.id.phone)).requestFocus();
             return false;
         }
         else if (!newUser.email.matches(regexForEmail)) {
-            showAlert("Invalid email. Please try again");
+            helper.showAlert("Invalid email. Please try again", UserForm.this.getApplicationContext());
             ((EditText)findViewById(R.id.email)).setText("");
             ((EditText)findViewById(R.id.email)).requestFocus();
             return false;
         }
         else if (!newUser.password.equals(confirm)) {
-            showAlert("Password and confirmation does not match");
+            helper.showAlert("Password and confirmation does not match", UserForm.this.getApplicationContext());
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
             return false;
         }
         else if (newUser.password.length() < 8) {
-            showAlert("Password should be at least 8 characters long");
+            helper.showAlert("Password should be at least 8 characters long", UserForm.this.getApplicationContext());
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
@@ -166,13 +167,5 @@ public class UserForm extends ActionBarActivity {
 
         return true;
     }
-    /**
-     * Display a temporary message on screen
-     * @param message message to display
-     */
-    private void showAlert(String message) {
-        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 50); // position
-        toast.show();
-    }
+
 }
