@@ -90,6 +90,7 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="ksoap2-android-assembly-2.4-jar-with-dependencies" level="project" />
     <orderEntry type="library" exported="" name="1_ksoap2-android-assembly-2.4-jar-with-dependencies" level="project" />
+    <orderEntry type="library" exported="" name="2_ksoap2-android-assembly-2.4-jar-with-dependencies" level="project" />
     <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
   </component>
 </module>
