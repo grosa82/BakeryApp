@@ -85,4 +85,5 @@ public class User {
         // call web service to remove user
         return true;
     }
+
 }

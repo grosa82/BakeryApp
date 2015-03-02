@@ -46,6 +46,30 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
+        <activity
+            android:name=".account_summary"
+            android:label="@string/title_activity_account_summary" >
+        </activity>
+        <activity
+            android:name=".chooseOrder"
+            android:label="@string/title_activity_choose_order" >
+        </activity>
+        <activity
+            android:name=".login"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".user_login"
+            android:label="@string/title_activity_user_login" >
+        </activity>
+        <activity
+            android:name=".loginStage"
+            android:label="@string/title_activity_login_stage" >
+        </activity>
+        <activity
+            android:name=".signOn"
+            android:label="@string/title_activity_sign_on" >
+        </activity>
     </application>
 
 </manifest>

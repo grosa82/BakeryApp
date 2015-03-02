@@ -7,18 +7,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends ActionBarActivity {
+
+public class signOn extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_on);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_sign_on, menu);
         return true;
     }
 
@@ -37,13 +39,16 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signIn(View view) {
-        Intent homepage = new Intent(MainActivity.this, UserForm.class);
-        startActivity(homepage);
+    public void signOn(View view) {
+        if(validateUser()) {
+            Intent homepage = new Intent(signOn.this, account_summary.class);
+            startActivity(homepage);
+        }
     }
 
-    public void login(View view) {
-        Intent homepage = new Intent(MainActivity.this, signOn.class);
-        startActivity(homepage);
+    // stub function create later
+    public boolean validateUser(){
+        // put validation here!
+        return true;
     }
 }

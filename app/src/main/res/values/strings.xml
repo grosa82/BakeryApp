@@ -5,5 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_user_form">Create an Account</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_account_summary">account_summary</string>
+    <string name="title_activity_choose_order">chooseOrder</string>
+    <string name="title_activity_user_login">user_login</string>
+    <string name="title_activity_login_stage">loginStage</string>
+    <string name="title_activity_sign_on">signOn</string>
 
 </resources>
