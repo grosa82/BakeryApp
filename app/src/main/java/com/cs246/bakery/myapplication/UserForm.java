@@ -13,53 +13,15 @@ import android.widget.Toast;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.User;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
 public class UserForm extends ActionBarActivity {
 
-    public final String SOAP_ACTION = "http://tempuri.org/addUser";
-    public  final String OPERATION_NAME = "addUser";
-    public  final String WSDL_TARGET_NAMESPACE = "http://tempuri.org/";
-    public  final String SOAP_ADDRESS = "http://ubrainy.com/Services.asmx";
     public Helper helper = new Helper();
+
     class Services extends AsyncTask<User, String, Boolean> {
         @Override
         protected Boolean doInBackground(User... users) {
-            //invokeWS(new RequestParams());
-
-            SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE, OPERATION_NAME);
-            /*PropertyInfo p = new PropertyInfo();
-            p.setName("user");
-            p.setValue(users[0]);
-            p.setType(User.class);
-            request.addProperty(p);*/
-            request.addProperty("name", users[0].name);
-            request.addProperty("email", users[0].email);
-            request.addProperty("phone", users[0].phone);
-            request.addProperty("password", users[0].password);
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                    SoapEnvelope.VER11);
-            envelope.dotNet = true;
-            envelope.setOutputSoapObject(request);
-            HttpTransportSE androidHttpTransport = new HttpTransportSE(SOAP_ADDRESS);
-            try{
-                androidHttpTransport.call(SOAP_ACTION, envelope);
-                SoapPrimitive response = (SoapPrimitive)envelope.getResponse();
-                //List<User> list = new ArrayList<>();
-                /*for (int i =0; i < response.getPropertyCount();i++) {
-                    User newUser = new User();
-                    newUser.name = ((SoapObject)response.getProperty(0)).getProperty("name").toString();
-                    list.add(newUser);
-                }*/
-                return Boolean.valueOf(response.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
+            helper.getData("http://cakeapp.ubrainy.com/api/category?json=true");
+            return true;
         }
 
         @Override
@@ -164,8 +126,6 @@ public class UserForm extends ActionBarActivity {
             ((EditText)findViewById(R.id.password)).requestFocus();
             return false;
         }
-
         return true;
     }
-
 }

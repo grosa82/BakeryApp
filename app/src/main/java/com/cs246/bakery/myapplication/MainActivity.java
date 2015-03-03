@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cs246.bakery.myapplication.model.Helper;
+
 public class MainActivity extends ActionBarActivity {
 
     @Override
