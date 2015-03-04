@@ -3,31 +3,36 @@ package com.cs246.bakery.myapplication;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.RequestPackage;
+import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.User;
 
 public class UserForm extends ActionBarActivity {
 
     public Helper helper = new Helper();
 
-    class Services extends AsyncTask<User, String, Boolean> {
+    class Services extends AsyncTask<User, String, Response> {
         @Override
-        protected Boolean doInBackground(User... users) {
-            helper.getData("http://cakeapp.ubrainy.com/api/category?json=true");
-            return true;
+        protected Response doInBackground(User... users) {
+            RequestPackage requestPackage = new RequestPackage();
+            requestPackage.setMethod("POST");
+            requestPackage.setUri("http://cakeapp.ubrainy.com/api/user/create?json=true");
+            requestPackage.setParam("name",users[0].name);
+            requestPackage.setParam("phone",users[0].phone);
+            requestPackage.setParam("email",users[0].email);
+            requestPackage.setParam("password",users[0].password);
+            return helper.parseResponse((helper.getData(requestPackage)));
         }
 
         @Override
-        protected void onPostExecute(Boolean response) {
-            if (response)
-                helper.showAlert("Account created", UserForm.this.getApplicationContext());
+        protected void onPostExecute(Response response) {
+            if (response.success)
+                helper.showAlert(response.message, UserForm.this.getApplicationContext());
             else
                 helper.showAlert("Error creating account", UserForm.this.getApplicationContext());
         }
