@@ -64,6 +64,22 @@
             android:name=".signOn"
             android:label="@string/title_activity_sign_on" >
         </activity>
+        <activity
+            android:name=".orderCatagory"
+            android:label="@string/title_activity_order_catagory" >
+        </activity>
+        <activity
+            android:name=".orderTemplates"
+            android:label="@string/title_activity_order_templates" >
+        </activity>
+        <activity
+            android:name=".uploadPicture"
+            android:label="@string/title_activity_upload_picture" >
+        </activity>
+        <activity
+            android:name=".customizeCake"
+            android:label="@string/title_activity_customize_cake" >
+        </activity>
     </application>
 
 </manifest>

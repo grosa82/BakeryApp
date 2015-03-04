@@ -10,5 +10,9 @@
     <string name="title_activity_user_login">user_login</string>
     <string name="title_activity_login_stage">loginStage</string>
     <string name="title_activity_sign_on">signOn</string>
+    <string name="title_activity_order_catagory">orderCatagory</string>
+    <string name="title_activity_order_templates">orderTemplates</string>
+    <string name="title_activity_upload_picture">uploadPicture</string>
+    <string name="title_activity_customize_cake">customizeCake</string>
 
 </resources>

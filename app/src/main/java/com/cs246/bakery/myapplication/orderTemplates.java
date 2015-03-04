@@ -1,26 +1,24 @@
 package com.cs246.bakery.myapplication;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class signOn extends ActionBarActivity {
+public class orderTemplates extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_on);
+        setContentView(R.layout.activity_order_templates);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_on, menu);
+        getMenuInflater().inflate(R.menu.menu_order_templates, menu);
         return true;
     }
 
@@ -37,18 +35,5 @@ public class signOn extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void signOn(View view) {
-        if(validateUser()) {
-            Intent homepage = new Intent(signOn.this, account_summary.class);
-            startActivity(homepage);
-        }
-    }
-
-    // stub function create later
-    public boolean validateUser(){
-        // put validation here to check if exist in DB
-        return true;
     }
 }
