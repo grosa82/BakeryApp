@@ -8,19 +8,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class signOn extends ActionBarActivity {
+public class orderCatagory extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_on);
+        setContentView(R.layout.activity_order_catagory);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_on, menu);
+        getMenuInflater().inflate(R.menu.menu_order_catagory, menu);
         return true;
     }
 
@@ -39,16 +39,18 @@ public class signOn extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signOn(View view) {
-        if(validateUser()) {
-            Intent homepage = new Intent(signOn.this, account_summary.class);
-            startActivity(homepage);
-        }
+    public void pickTemplate(View view) {
+        Intent homepage = new Intent(orderCatagory.this, orderTemplates.class);
+        startActivity(homepage);
     }
 
-    // stub function create later
-    public boolean validateUser(){
-        // put validation here to check if exist in DB
-        return true;
+    public void uploadPic(View view) {
+        Intent homepage = new Intent(orderCatagory.this, uploadPicture.class);
+        startActivity(homepage);
+    }
+
+    public void customCake(View view) {
+        Intent homepage = new Intent(orderCatagory.this, customizeCake.class);
+        startActivity(homepage);
     }
 }
