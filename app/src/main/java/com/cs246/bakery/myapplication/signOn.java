@@ -7,6 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cs246.bakery.myapplication.model.User;
+
+import org.json.JSONArray;
+
 
 public class signOn extends ActionBarActivity {
 
@@ -48,7 +52,9 @@ public class signOn extends ActionBarActivity {
 
     // stub function create later
     public boolean validateUser(){
-        // put validation here to check if exist in DB
+
         return true;
     }
+
+
 }
