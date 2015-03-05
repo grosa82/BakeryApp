@@ -33,16 +33,21 @@ public class Helper {
     }
 
     public Response parseResponse(String text) {
-        Response response = null;
-        try {
-            JSONObject respObj = new JSONObject(text);
-            response = new Response();
-            response.success = respObj.getBoolean("success");
-            response.message = respObj.getString("message");
-            response.exception = respObj.getString("exception");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
+        Response response = new Response();
+        if (text.isEmpty()) {
+            response.success = false;
+            response.message = "Returned Null";
+        } else {
+            try {
+                JSONObject respObj = new JSONObject(text);
+
+                response.success = respObj.getBoolean("success");
+                response.message = respObj.getString("message");
+                response.exception = respObj.getString("exception");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
         }
         return response;
     }
