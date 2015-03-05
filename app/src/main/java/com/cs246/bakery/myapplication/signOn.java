@@ -52,19 +52,8 @@ public class signOn extends ActionBarActivity {
 
     // stub function create later
     public boolean validateUser(){
-        // put validation here to check if exist in DB
-        JSONArray jsonArray = new JSONArray();
-        User user = new User();
 
         return true;
-    }
-
-    public void getUsername(View view) {
-
-    }
-
-    public void getPassword(View view) {
-
     }
 
 
