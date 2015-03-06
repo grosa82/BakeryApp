@@ -45,6 +45,11 @@ public class Helper {
         editor.commit();
     }
 
+    public void deletePreferences(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, 0);
+        preferences.edit().clear().commit();
+    }
+
     /**
      * Get information from SharedPreferences
      * @param key

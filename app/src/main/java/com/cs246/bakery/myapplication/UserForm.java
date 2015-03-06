@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -31,10 +32,12 @@ public class UserForm extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Response response) {
-            if (response.success)
+            if (response.success) {
                 helper.showAlert(response.message, UserForm.this.getApplicationContext());
+                startActivity(new Intent(UserForm.this, signOn.class));
+            }
             else
-                helper.showAlert("Error creating account", UserForm.this.getApplicationContext());
+                helper.showAlert(response.message, UserForm.this.getApplicationContext());
         }
     }
 

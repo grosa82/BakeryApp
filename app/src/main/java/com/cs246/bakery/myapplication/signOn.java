@@ -19,6 +19,12 @@ public class signOn extends ActionBarActivity {
 
     Helper helper = new Helper();
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((EditText)findViewById(R.id.email)).requestFocus();
+    }
+
     public class AuthenticateTask extends AsyncTask<Void, String, Boolean> {
 
         @Override

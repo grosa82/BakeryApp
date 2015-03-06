@@ -14,6 +14,8 @@ import com.cs246.bakery.myapplication.model.Helper;
 
 public class MainActivity extends ActionBarActivity {
 
+    Helper helper = new Helper();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        // getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -34,6 +36,13 @@ public class MainActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.textView)).setTypeface(tf, Typeface.NORMAL);
         ((TextView) findViewById(R.id.createAccount)).setTypeface(tf, Typeface.NORMAL);
         ((TextView) findViewById(R.id.signIn)).setTypeface(tf, Typeface.NORMAL);
+
+        // If user is authenticated, redirects to the summary page
+        String id = helper.getPreferences("id", MainActivity.this.getApplicationContext());
+        String token = helper.getPreferences("token", MainActivity.this.getApplicationContext());
+
+        if (!id.isEmpty() && !token.isEmpty())
+            startActivity(new Intent(MainActivity.this, account_summary.class));
     }
 
 
