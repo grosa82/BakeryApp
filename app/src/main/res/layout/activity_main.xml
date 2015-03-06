@@ -52,7 +52,8 @@
         android:shadowDx="6"
         android:shadowDy="6"
         android:shadowRadius="8"
-        android:onClick="login"/>
+        android:onClick="login"
+        android:clickable="true"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -69,5 +70,6 @@
         android:shadowDx="6"
         android:shadowDy="6"
         android:shadowRadius="8"
-        android:onClick="signIn"/>
+        android:onClick="signIn"
+        android:clickable="true"/>
 </RelativeLayout>
