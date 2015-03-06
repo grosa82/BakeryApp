@@ -37,8 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_toRightOf="@+id/button2"
-        android:text="Settings"
+        android:text="Sign Out"
         android:layout_alignParentBottom="true"
-        android:id="@+id/button1" />
+        android:id="@+id/button1"
+        android:onClick="signOut"/>
 
 </RelativeLayout>

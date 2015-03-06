@@ -72,8 +72,10 @@ public class account_summary extends ListActivity {
 
         @Override
         public void onPostExecute(List<Order> orders) {
-            OrderAdapter adapter = new OrderAdapter(account_summary.this.getApplicationContext(), R.layout.layout_orders, orders);
-            setListAdapter(adapter);
+            if (orders != null) {
+                OrderAdapter adapter = new OrderAdapter(account_summary.this.getApplicationContext(), R.layout.layout_orders, orders);
+                setListAdapter(adapter);
+            }
         }
     }
 
@@ -102,6 +104,11 @@ public class account_summary extends ListActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void signOut(View view) {
+        helper.deletePreferences(account_summary.this.getApplicationContext());
+        startActivity(new Intent(account_summary.this, MainActivity.class));
     }
 
     public void chooseType(View view) {
