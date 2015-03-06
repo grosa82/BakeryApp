@@ -30,7 +30,7 @@ public class signOn extends ActionBarActivity {
             requestPackage.setParam("password", ((EditText)findViewById(R.id.password)).getText().toString());
 
             String jsonString = helper.getData(requestPackage);
-            if (jsonString == null)
+            if (jsonString == null || jsonString.equals("null\n"))
                 return false;
             else {
                 User user = helper.parseUser(jsonString);
