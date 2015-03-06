@@ -1,6 +1,7 @@
 package com.cs246.bakery.myapplication.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -14,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by ricardo on 2/26/2015.
+ * Helper class
  */
 public class Helper {
     /**
@@ -27,11 +28,38 @@ public class Helper {
         toast.show();
     }
 
-    public Boolean checkResponse(String response)
-    {
-        return response.replace("\n","").equals("true");
+    /**
+     * Constant with the name of the shared preferences
+     */
+    public static final String PREFS_NAME = "MyPreferences";
+
+    /**
+     * Save information on SharedPreferences
+     * @param key
+     * @param value
+     */
+    public void savePreferences(String key, String value, Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 
+    /**
+     * Get information from SharedPreferences
+     * @param key
+     * @return
+     */
+    public String getPreferences(String key, Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        return settings.getString(key, "").toString();
+    }
+
+    /**
+     * Parse json string response to an object Response
+     * @param text json string
+     * @return
+     */
     public Response parseResponse(String text) {
         Response response = new Response();
         if (text.isEmpty()) {
@@ -40,7 +68,6 @@ public class Helper {
         } else {
             try {
                 JSONObject respObj = new JSONObject(text);
-
                 response.success = respObj.getBoolean("success");
                 response.message = respObj.getString("message");
                 response.exception = respObj.getString("exception");
@@ -52,15 +79,47 @@ public class Helper {
         return response;
     }
 
+    /**
+     * Parse json string to user object
+     * @param text json text
+     * @return user object
+     */
+    public User parseUser(String text) {
+        User user = new User();
+        if (text.isEmpty()) {
+            user = null;
+        } else {
+            try {
+                JSONObject respObj = new JSONObject(text);
+                user.id = respObj.getInt("id");
+                user.name = respObj.getString("name");
+                user.email = respObj.getString("email");
+                user.phone = respObj.getString("phone");
+                user.token = respObj.getString("token");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        return user;
+    }
+
+    /**
+     * Make a request to the web service layer
+     * @param requestPackage
+     * @return string returned from server
+     */
     public String getData(RequestPackage requestPackage) {
         BufferedReader reader = null;
-        String uri = requestPackage.getUri();
+        String uri = "http://cakeapp.ubrainy.com/api/" + requestPackage.getUri();
         if (requestPackage.getMethod().equals("GET")) {
-            uri += "?" + requestPackage.getEncodedParams();
+            uri += "?" + requestPackage.getEncodedParams() + "&json=true";
         }
 
         try {
             URL url = new URL(uri);
+            if (requestPackage.getMethod().equals("POST"))
+                url = new URL(uri + "?json=true");
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod(requestPackage.getMethod());
 

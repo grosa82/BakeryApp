@@ -1,14 +1,60 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+
+import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.RequestPackage;
+import com.cs246.bakery.myapplication.model.Response;
+import com.cs246.bakery.myapplication.model.User;
 
 
 public class signOn extends ActionBarActivity {
+
+    Helper helper = new Helper();
+
+    public class AuthenticateTask extends AsyncTask<Void, String, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... nullValue ) {
+            RequestPackage requestPackage = new RequestPackage();
+            requestPackage.setMethod("POST");
+            requestPackage.setUri("user/Authenticate");
+            requestPackage.setParam("email", ((EditText)findViewById(R.id.email)).getText().toString());
+            requestPackage.setParam("password", ((EditText)findViewById(R.id.password)).getText().toString());
+
+            String jsonString = helper.getData(requestPackage);
+            if (jsonString == null)
+                return false;
+            else {
+                User user = helper.parseUser(jsonString);
+                helper.savePreferences("id", Integer.toString(user.id), signOn.this.getApplicationContext());
+                helper.savePreferences("name", user.name, signOn.this.getApplicationContext());
+                helper.savePreferences("phone", user.phone, signOn.this.getApplicationContext());
+                helper.savePreferences("email", user.email, signOn.this.getApplicationContext());
+                helper.savePreferences("token", user.token, signOn.this.getApplicationContext());
+                return true;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean response) {
+
+            if (response) {
+                Intent homepage = new Intent(signOn.this, account_summary.class);
+                startActivity(homepage);
+            }
+            else
+                helper.showAlert("Wrong email or password. Please try again", signOn.this.getApplicationContext());
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +86,6 @@ public class signOn extends ActionBarActivity {
     }
 
     public void signOn(View view) {
-        if(validateUser()) {
-            Intent homepage = new Intent(signOn.this, account_summary.class);
-            startActivity(homepage);
-        }
-    }
-
-    // stub function create later
-    public boolean validateUser(){
-        // put validation here to check if exist in DB
-        return true;
+        new AuthenticateTask().execute();
     }
 }
