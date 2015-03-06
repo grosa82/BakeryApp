@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 /**
  * Helper class
@@ -107,6 +108,42 @@ public class Helper {
             }
         }
         return user;
+    }
+
+    /**
+     * Parse a json string to an order object
+     * @param text
+     * @return Order
+     */
+    public Order parseOrder(String text) {
+        Order order = new Order();
+        if (text.isEmpty()) {
+            order = null;
+        } else {
+            try {
+                JSONObject respObj = new JSONObject(text);
+                order.id = respObj.getInt("id");
+                order.nickName = respObj.getString("nickname");
+                order.orderDate = parseDate(respObj.getString("orderDate"));
+                order.submitted = respObj.getBoolean("submitted");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        return order;
+    }
+
+    /**
+     * Parse a json date to a Date object
+     * @param text
+     * @return Date
+     */
+    private Date parseDate(String text) {
+        /* i.e. 2015-02-28T00:29:34 */
+        String[] dateTxt = text.split("T");
+        String year = dateTxt[0].substring(0, 3);
+        return new Date();
     }
 
     /**

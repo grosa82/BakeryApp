@@ -1,14 +1,24 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.Order;
+import com.cs246.bakery.myapplication.model.RequestPackage;
+import com.cs246.bakery.myapplication.model.User;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class account_summary extends ActionBarActivity {
@@ -23,6 +33,44 @@ public class account_summary extends ActionBarActivity {
             TextView textView = ((TextView) findViewById(R.id.title));
             if (textView != null)
                 textView.setText("Welcome, " + name);
+        }
+
+        new LoadOrders().execute();
+    }
+
+    class LoadOrders extends AsyncTask<Void, Void, List<Order>> {
+
+        @Override
+        protected List<Order> doInBackground(Void... params) {
+            RequestPackage requestPackage = new RequestPackage();
+            requestPackage.setMethod("GET");
+            requestPackage.setUri("order/get");
+            requestPackage.setParam("id", helper.getPreferences("id", account_summary.this.getApplicationContext()));
+            requestPackage.setParam("token", helper.getPreferences("token", account_summary.this.getApplicationContext()));
+
+            List<Order> orders = new ArrayList<>();
+
+            String jsonString = helper.getData(requestPackage);
+            if (jsonString == null || jsonString.equals("null\n"))
+                return null;
+            else {
+                try {
+                    JSONArray orderJson = new JSONArray(jsonString);
+                    for (int i = 0; i < orderJson.length(); i++) {
+                        Order order = helper.parseOrder(orderJson.get(i).toString());
+                        orders.add(order);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                return orders;
+            }
+        }
+
+        @Override
+        public void onPostExecute(List<Order> orders) {
+            
         }
     }
 
