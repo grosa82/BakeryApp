@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cs246.bakery.myapplication.adapters.OrderAdapter;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Order;
 import com.cs246.bakery.myapplication.model.RequestPackage;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class account_summary extends ActionBarActivity {
+public class account_summary extends ListActivity {
 
     Helper helper = new Helper();
 
@@ -70,7 +72,8 @@ public class account_summary extends ActionBarActivity {
 
         @Override
         public void onPostExecute(List<Order> orders) {
-            
+            OrderAdapter adapter = new OrderAdapter(account_summary.this.getApplicationContext(), R.layout.layout_orders, orders);
+            setListAdapter(adapter);
         }
     }
 
