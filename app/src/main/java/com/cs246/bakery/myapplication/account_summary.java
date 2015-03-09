@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.adapters.OrderAdapter;
@@ -73,8 +74,15 @@ public class account_summary extends ListActivity {
         @Override
         public void onPostExecute(List<Order> orders) {
             if (orders != null) {
+                ((ListView)getListView()).setVisibility(View.VISIBLE);
+                ((TextView)findViewById(R.id.message)).setVisibility(View.INVISIBLE);
+
                 OrderAdapter adapter = new OrderAdapter(account_summary.this.getApplicationContext(), R.layout.layout_orders, orders);
                 setListAdapter(adapter);
+            }
+            else {
+                ((ListView)getListView()).setVisibility(View.INVISIBLE);
+                ((TextView)findViewById(R.id.message)).setVisibility(View.VISIBLE);
             }
         }
     }

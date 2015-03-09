@@ -2,6 +2,7 @@ package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,6 +44,8 @@ public class MainActivity extends ActionBarActivity {
 
         if (!id.isEmpty() && !token.isEmpty())
             startActivity(new Intent(MainActivity.this, account_summary.class));
+
+        String android_id = Settings.Secure.getString(MainActivity.this.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
 

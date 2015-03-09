@@ -23,6 +23,14 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/message"
+        android:visibility="invisible"
+        android:text="No orders found"
+        android:layout_below="@+id/title"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
