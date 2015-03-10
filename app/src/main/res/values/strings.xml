@@ -14,5 +14,12 @@
     <string name="title_activity_order_templates">orderTemplates</string>
     <string name="title_activity_upload_picture">uploadPicture</string>
     <string name="title_activity_customize_cake">customizeCake</string>
-
+    <string-array name="cakeSize_array">
+        <item>8" Round</item>
+        <item>9" Round</item>
+        <item>10" Round</item>
+        <item>1/4 Sheet Cake (13x9)</item>
+        <item>1/2 Sheet Cake</item>
+        <item>Full Sheet Cake</item>
+    </string-array>
 </resources>
