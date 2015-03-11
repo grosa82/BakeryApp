@@ -22,7 +22,7 @@ public class UserForm extends ActionBarActivity {
         protected Response doInBackground(User... users) {
             RequestPackage requestPackage = new RequestPackage();
             requestPackage.setMethod("POST");
-            requestPackage.setUri("user/create");
+            requestPackage.setUri("CreateUser");
             requestPackage.setParam("name",users[0].name);
             requestPackage.setParam("phone",users[0].phone);
             requestPackage.setParam("email",users[0].email);

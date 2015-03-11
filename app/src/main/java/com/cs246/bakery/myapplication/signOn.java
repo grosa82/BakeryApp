@@ -31,7 +31,7 @@ public class signOn extends ActionBarActivity {
         protected Boolean doInBackground(Void... nullValue ) {
             RequestPackage requestPackage = new RequestPackage();
             requestPackage.setMethod("POST");
-            requestPackage.setUri("user/Authenticate");
+            requestPackage.setUri("Authenticate");
             requestPackage.setParam("email", ((EditText)findViewById(R.id.email)).getText().toString());
             requestPackage.setParam("password", ((EditText)findViewById(R.id.password)).getText().toString());
 

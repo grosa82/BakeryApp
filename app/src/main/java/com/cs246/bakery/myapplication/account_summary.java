@@ -47,7 +47,7 @@ public class account_summary extends ListActivity {
         protected List<Order> doInBackground(Void... params) {
             RequestPackage requestPackage = new RequestPackage();
             requestPackage.setMethod("GET");
-            requestPackage.setUri("order/get");
+            requestPackage.setUri("GetOrders");
             requestPackage.setParam("id", helper.getPreferences("id", account_summary.this.getApplicationContext()));
             requestPackage.setParam("token", helper.getPreferences("token", account_summary.this.getApplicationContext()));
 
