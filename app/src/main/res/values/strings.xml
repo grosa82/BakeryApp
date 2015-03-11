@@ -30,4 +30,18 @@
         <item>Carrot Cake</item>
         <item>Marble Cake</item>
     </string-array>
+    <string-array name="cakeFilling_array">
+        <item>Raspberry</item>
+        <item>Strawberry</item>
+        <item>Custard</item>
+        <item>White Buttercream Frosting</item>
+        <item>Chocolate Buttercream Frosting</item>
+    </string-array>
+    <string-array name="cakeIcing_array">
+        <item>White Buttercream Frosting</item>
+        <item>Chocolate Buttercream Frosting</item>
+        <item>Ganache</item>
+        <item>Whipped Cream</item>
+        <item>Chocolate Buttercream Frosting</item>
+    </string-array>
 </resources>

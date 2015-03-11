@@ -18,8 +18,9 @@
             android:layout_width="60dip"
             android:layout_height="60dip"
             android:src="@drawable/cakeicon"
-            android:layout_marginLeft="10dip"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
     <TextView
         android:id="@+id/arrow"
@@ -29,7 +30,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:text=">"
-        android:textColor="#040404"
+        android:textColor="#ffe266b1"
         android:textSize="25dip"
         android:textStyle="bold"
         android:typeface="sans"/>
@@ -37,23 +38,27 @@
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:layout_marginLeft="20dp"
-        android:layout_centerVertical="true"
         android:text="NickName"
         android:textColor="#040404"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:typeface="sans" />
+        android:typeface="sans"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp" />
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nickname"
-        android:layout_alignLeft="@+id/nickname"
         android:paddingTop="7dip"
-        android:layout_centerHorizontal="true"
         android:text="00/00/0000"
         android:textColor="#343434"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:layout_below="@+id/nickname"
+        android:layout_alignLeft="@+id/nickname"
+        android:layout_alignStart="@+id/nickname"
+        android:layout_marginTop="-10dp" />
 </RelativeLayout>

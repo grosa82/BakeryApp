@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Bre's Specialty\nBake Shop"
         android:id="@+id/textView"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"

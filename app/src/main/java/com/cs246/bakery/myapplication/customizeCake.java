@@ -1,15 +1,21 @@
 package com.cs246.bakery.myapplication;
 
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class customizeCake extends ActionBarActivity {
-
+    public void onStart() {
+        super.onStart();
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
+        ((TextView) findViewById(R.id.textView2)).setTypeface(tf, Typeface.NORMAL);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +37,24 @@ public class customizeCake extends ActionBarActivity {
         adapter2.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         // Apply the adapter to the spinner
         spinner2.setAdapter(adapter2);
+
+        Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
+                R.array.cakeFilling_array, android.R.layout.simple_gallery_item);
+        // Specify the layout to use when the list of choices appears
+        adapter3.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        // Apply the adapter to the spinner
+        spinner3.setAdapter(adapter3);
+
+        Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(this,
+                R.array.cakeIcing_array, android.R.layout.simple_gallery_item);
+        // Specify the layout to use when the list of choices appears
+        adapter4.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        // Apply the adapter to the spinner
+        spinner4.setAdapter(adapter4);
     }
 
 
