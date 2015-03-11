@@ -42,7 +42,7 @@
         android:layout_centerVertical="true"
         android:text="NickName"
         android:textColor="#040404"
-        android:textSize="25dip"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:typeface="sans" />
     <TextView
@@ -55,5 +55,5 @@
         android:layout_centerHorizontal="true"
         android:text="00/00/0000"
         android:textColor="#343434"
-        android:textSize="15dip" />
+        android:textSize="15sp" />
 </RelativeLayout>
