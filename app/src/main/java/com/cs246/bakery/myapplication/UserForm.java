@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.cs246.bakery.myapplication.model.User;
 public class UserForm extends ActionBarActivity {
 
     public Helper helper = new Helper();
+    private static final String TAG_USER = "UserForm";
 
     class Services extends AsyncTask<User, String, Response> {
         @Override
@@ -78,9 +80,14 @@ public class UserForm extends ActionBarActivity {
         newUser.password = ((EditText)findViewById(R.id.password)).getText().toString();
         String confirm = ((EditText)findViewById(R.id.confirm)).getText().toString();
 
+        Log.i(TAG_USER, "Creating User with name " + newUser.name);
+        Log.i(TAG_USER, "Creating User with email " + newUser.email);
+
         // proceed only when the form is valid
         if (isFormValid(newUser, confirm)) {
             new Services().execute(newUser);
+        } else {
+           Log.e(TAG_USER, "User input invalid");
         }
     }
 
