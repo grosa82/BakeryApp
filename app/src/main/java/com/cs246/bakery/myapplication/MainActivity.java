@@ -21,7 +21,8 @@ public class MainActivity extends ActionBarActivity {
 
     Helper helper = new Helper();
 
-    /* code for checking for Google play services
+    /*
+    // code for checking for Google play services
      public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
@@ -44,13 +45,13 @@ public class MainActivity extends ActionBarActivity {
     Context context;
 
     String regid;
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getActionBar().hide();
         setContentView(R.layout.activity_main);
-
+/*
          context = getApplicationContext();
 
         // check for updates with Google play services for GCM
@@ -65,9 +66,9 @@ public class MainActivity extends ActionBarActivity {
             }
         } else {
             Log.i(TAG, "No valid Google Play Services APK found.");
-        }
+        }*/
     }
-
+/*
     @Override
     protected void onResume() {
         super.onResume();
@@ -89,8 +90,7 @@ public class MainActivity extends ActionBarActivity {
         }
         return true;
     }
-    */
-
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
