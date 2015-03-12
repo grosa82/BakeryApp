@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Bit on 3/2/2015.
  */
 public class Cake {
-    Cake() {
+    public Cake() {
         characteristics = new ArrayList<Characteristic>();
     }
 

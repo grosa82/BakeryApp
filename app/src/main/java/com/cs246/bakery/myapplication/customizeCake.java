@@ -3,18 +3,49 @@ package com.cs246.bakery.myapplication;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-public class customizeCake extends ActionBarActivity {
+public class customizeCake extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
     public void onStart() {
         super.onStart();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
         ((TextView) findViewById(R.id.textView2)).setTypeface(tf, Typeface.NORMAL);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_layout,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText("Customize Your Cake!");
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
