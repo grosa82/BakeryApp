@@ -30,7 +30,7 @@ public class UserForm extends ActionBarActivity {
     GoogleCloudMessaging gcm;
     Context context;
     String regID;
-    public final String TAG = "UserForm";
+    public final String TAG_USER = "UserForm";
 
     class Services extends AsyncTask<User, String, Response> {
         @Override
@@ -96,7 +96,7 @@ public class UserForm extends ActionBarActivity {
         newUser.password = ((EditText)findViewById(R.id.password)).getText().toString();
         String confirm = ((EditText)findViewById(R.id.confirm)).getText().toString();
         newUser.regID = registerGCM();
-        Log.e(TAG, newUser.regID);
+        Log.e(TAG_USER, newUser.regID);
         Log.i(TAG_USER, "Creating User with email " + newUser.email);
 
         // proceed only when the form is valid
@@ -125,13 +125,13 @@ public class UserForm extends ActionBarActivity {
         final SharedPreferences prefs = getSharedPreferences(UserForm.class.getSimpleName(), Context.MODE_PRIVATE);
         String registrationId = prefs.getString(REG_ID, "");
         if (registrationId.isEmpty()) {
-            Log.i(TAG, "Registration not found.");
+            Log.i(TAG_USER, "Registration not found.");
             return "";
         }
         int registeredVersion = prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) {
-            Log.i(TAG, "Äpp version changed");
+            Log.i(TAG_USER, "Äpp version changed");
             return "";
         }
         return registrationId;
