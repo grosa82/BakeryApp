@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_login:
-                startActivity(new Intent(MainActivity.this, signOn.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 return true;
             case R.id.action_create:
                 startActivity(new Intent(MainActivity.this, UserForm.class));
@@ -71,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void login(View view) {
-        Intent homepage = new Intent(MainActivity.this, signOn.class);
+        Intent homepage = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(homepage);
     }
 }

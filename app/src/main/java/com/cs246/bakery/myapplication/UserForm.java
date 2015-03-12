@@ -50,7 +50,7 @@ public class UserForm extends ActionBarActivity {
         protected void onPostExecute(Response response) {
             if (response.success) {
                 helper.showAlert(response.message, UserForm.this.getApplicationContext());
-                startActivity(new Intent(UserForm.this, signOn.class));
+                startActivity(new Intent(UserForm.this, LoginActivity.class));
             }
             else
                 helper.showAlert(response.message, UserForm.this.getApplicationContext());

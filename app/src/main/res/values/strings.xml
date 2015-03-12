@@ -30,4 +30,5 @@
         <item>Carrot Cake</item>
         <item>Marble Cake</item>
     </string-array>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
