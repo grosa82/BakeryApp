@@ -61,7 +61,6 @@ public class UserForm extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_form);
-
         context = getApplicationContext();
     }
 
@@ -127,7 +126,7 @@ public class UserForm extends ActionBarActivity {
         int registeredVersion = prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) {
-            Log.i(TAG, "Äpp version changed");
+            Log.i(TAG, "App version changed");
             return "";
         }
         return registrationId;
