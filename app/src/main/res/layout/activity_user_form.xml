@@ -14,8 +14,8 @@
         android:hint="Name"
         android:layout_marginTop="30dp"
         android:id="@+id/name"
-        android:textColor="#ffe266b1"
-        android:textColorHint="#ffe266b1"
+        android:textColor="#ff3d4140"
+        android:textColorHint="#ff3d4140"
         android:typeface="serif"
         android:paddingLeft="10dp" />
 
@@ -26,8 +26,8 @@
         android:layout_marginTop="20dp"
         android:id="@+id/phone"
         android:layout_below="@+id/name"
-        android:textColor="#fffee9f6"
-        android:textColorHint="#ffe266b1"
+        android:textColor="#ff3d4140"
+        android:textColorHint="#ff3d4140"
         android:typeface="serif"
         android:paddingLeft="10dp" />
 
@@ -38,8 +38,8 @@
         android:layout_marginTop="20dp"
         android:id="@+id/email"
         android:layout_below="@+id/phone"
-        android:textColor="#fffee9f6"
-        android:textColorHint="#ffe266b1"
+        android:textColor="#ff3d4140"
+        android:textColorHint="#ff3d4140"
         android:typeface="serif"
         android:paddingLeft="10dp" />
 
@@ -51,8 +51,8 @@
         android:id="@+id/password"
         android:layout_below="@+id/email"
         android:inputType="textPassword"
-        android:textColor="#fffee9f6"
-        android:textColorHint="#ffe266b1"
+        android:textColor="#ff3d4140"
+        android:textColorHint="#ff3d4140"
         android:typeface="serif"
         android:paddingLeft="10dp" />
 
@@ -64,8 +64,8 @@
         android:id="@+id/confirm"
         android:layout_below="@+id/password"
         android:inputType="textPassword"
-        android:textColor="#ffe266b1"
-        android:textColorHint="#ffe266b1"
+        android:textColor="#ff3d4140"
+        android:textColorHint="#ff3d4140"
         android:typeface="serif"
         android:paddingLeft="10dp" />
 
@@ -77,8 +77,8 @@
         android:onClick="addUser"
         android:background="#ffe266b1"
         android:textColor="#ffffffff"
-        android:textStyle="normal|bold"
-        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:typeface="sans">
 
     </Button>

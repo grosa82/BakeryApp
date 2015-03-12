@@ -10,18 +10,22 @@
     <TextView android:text="User Summary"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/title" />
+        android:layout_height="match_parent"
+        android:id="@+id/title"
+        android:textSize="40sp"
+        android:textIsSelectable="false"
+        android:textStyle="bold"
+        android:textColor="#ffff7cbe"
+        />
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:layout_marginTop="50dp"
         android:id="@android:id/list"
         android:layout_below="@+id/textView"
-        android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,22 +36,29 @@
         android:layout_below="@+id/title"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_width="153dp"
+        android:layout_height="40dp"
         android:text="Create Order"
-        android:layout_alignParentBottom="true"
         android:id="@+id/button2"
-        android:onClick="chooseType"/>
+        android:onClick="chooseType"
+        android:background="#ffe266b1"
+        android:textColor="#ffffffff"
+        android:layout_alignTop="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@+id/button2"
+        android:layout_width="153dp"
+        android:layout_height="40dp"
         android:text="Sign Out"
-        android:layout_alignParentBottom="true"
         android:id="@+id/button1"
-        android:onClick="signOut"/>
+        android:onClick="signOut"
+        android:background="#ffe266b1"
+        android:textColor="#ffffffff"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="23dp" />
 
 </RelativeLayout>

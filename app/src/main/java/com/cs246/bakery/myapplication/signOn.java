@@ -1,6 +1,7 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.RequestPackage;
@@ -19,6 +21,11 @@ public class signOn extends ActionBarActivity {
 
     Helper helper = new Helper();
 
+    public void onStart() {
+        super.onStart();
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
+        ((TextView) findViewById(R.id.welcome)).setTypeface(tf, Typeface.NORMAL);
+    }
     @Override
     public void onResume() {
         super.onResume();

@@ -1,15 +1,22 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 
 public class orderCatagory extends ActionBarActivity {
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
+        ((TextView) findViewById(R.id.text)).setTypeface(tf, Typeface.NORMAL);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

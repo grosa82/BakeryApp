@@ -7,40 +7,72 @@
     tools:context="com.cs246.bakery.myapplication.orderCatagory"
     android:background="@drawable/background">
 
-    <TextView android:text="Choose A Catagory"
-        android:layout_centerHorizontal="true"
+    <TextView android:text="Choose an option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/text"/>
+        android:id="@+id/text"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffff7cbe"
+        android:layout_marginTop="150dp" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/text"
+        android:layout_height="40dp"
         android:text="Use Template"
         android:id="@+id/template"
-        android:onClick="pickTemplate"/>
+        android:onClick="pickTemplate"
+        android:background="#E266B1"
+        android:textColor="#ffffffff"
+        android:layout_above="@+id/upload"
+        android:textSize="14sp"
+        android:layout_alignRight="@+id/text"
+        android:layout_alignEnd="@+id/text"
+        android:layout_alignLeft="@+id/text"
+        android:layout_alignStart="@+id/text" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/template"
+        android:layout_height="40dp"
         android:text="Upload Picture"
         android:id="@+id/upload"
-        android:onClick="uploadPic"/>
+        android:onClick="uploadPic"
+        android:background="#E266B1"
+        android:textColor="#ffffffff"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:layout_alignLeft="@+id/template"
+        android:layout_alignStart="@+id/template"
+        android:layout_alignRight="@+id/template"
+        android:layout_alignEnd="@+id/template" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/upload"
+        android:layout_height="40dp"
         android:text="Customize Order"
         android:id="@+id/custom"
-        android:onClick="customCake"/>
+        android:onClick="customCake"
+        android:background="#E266B1"
+        android:textColor="#ffffffff"
+        android:layout_below="@+id/upload"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:layout_alignRight="@+id/upload"
+        android:layout_alignEnd="@+id/upload"
+        android:layout_alignLeft="@+id/upload"
+        android:layout_alignStart="@+id/upload" />
+
+    <ImageSwitcher
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageSwitcher"
+        android:layout_below="@+id/template"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="381dp"
+        android:layout_marginStart="381dp" />
 
 </RelativeLayout>

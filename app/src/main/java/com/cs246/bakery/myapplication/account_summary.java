@@ -2,6 +2,7 @@ package com.cs246.bakery.myapplication;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -27,6 +28,12 @@ import java.util.List;
 public class account_summary extends ListActivity {
 
     Helper helper = new Helper();
+    @Override
+    public void onStart() {
+        super.onStart();
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
+        ((TextView) findViewById(R.id.title)).setTypeface(tf, Typeface.NORMAL);
+    }
 
     @Override
     protected void onResume() {
@@ -35,7 +42,7 @@ public class account_summary extends ListActivity {
         if (!name.isEmpty()) {
             TextView textView = ((TextView) findViewById(R.id.title));
             if (textView != null)
-                textView.setText("Welcome, " + name);
+                textView.setText("Welcome, " + name + "!");
         }
 
         new LoadOrders().execute();

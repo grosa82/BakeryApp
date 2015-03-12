@@ -97,9 +97,13 @@ public class UserForm extends ActionBarActivity {
         String confirm = ((EditText)findViewById(R.id.confirm)).getText().toString();
         newUser.regID = registerGCM();
         Log.e(TAG, newUser.regID);
+        Log.i(TAG_USER, "Creating User with email " + newUser.email);
+
         // proceed only when the form is valid
         if (isFormValid(newUser, confirm)) {
             new Services().execute(newUser);
+        } else {
+           Log.e(TAG_USER, "User input invalid");
         }
     }
 
