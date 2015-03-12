@@ -2,6 +2,7 @@ package com.cs246.bakery.myapplication.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -152,6 +153,9 @@ public class Helper {
      * @return string returned from server
      */
     public String getData(RequestPackage requestPackage) {
+
+        Log.i(this.getClass().getName(), requestPackage.getUri());
+
         BufferedReader reader = null;
         String uri = "http://cakeapp.ubrainy.com/api/webapi/" + requestPackage.getUri();
         if (requestPackage.getMethod().equals("GET")) {

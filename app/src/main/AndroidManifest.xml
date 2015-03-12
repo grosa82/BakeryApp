@@ -26,11 +26,13 @@
             android:name=".GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
+                <!-- Receives the actual messages. -->
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.example.gcm" />
+                <category android:name="com.google.android.gcm.demo.app" />
             </intent-filter>
         </receiver>
         <service android:name=".GcmIntentService" />
+
 
 
         <activity
