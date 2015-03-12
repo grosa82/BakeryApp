@@ -43,6 +43,10 @@ public class User {
      * Token
      */
     public String token;
+    /**
+     * Registration ID
+     */
+    public String regID;
 
     public boolean authenticateUser(String username, String password) throws JSONException {
         JSONObject json = new JSONObject();
