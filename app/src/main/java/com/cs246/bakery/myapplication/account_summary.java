@@ -124,4 +124,14 @@ public class account_summary extends ListActivity {
         startActivity(homepage);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String id = helper.getPreferences("id", account_summary.this.getApplicationContext());
+        String token = helper.getPreferences("token", account_summary.this.getApplicationContext());
+
+        if (id.isEmpty())
+            startActivity(new Intent(account_summary.this, MainActivity.class));
+    }
 }
