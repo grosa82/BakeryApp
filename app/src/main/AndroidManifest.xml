@@ -118,6 +118,11 @@
             android:screenOrientation="portrait"
             android:label="@string/title_activity_customize_cake" >
         </activity>
+        <activity
+            android:name=".OrderedCake"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_ordered_cake" >
+        </activity>
     </application>
 
 </manifest>

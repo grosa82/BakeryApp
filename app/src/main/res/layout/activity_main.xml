@@ -39,28 +39,28 @@
         android:layout_alignParentEnd="true" />
 
     <Button android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/logo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="55dp"
         android:text="Log In"
         android:onClick="login"
         android:background="#ffe266b1"
         android:textColor="#ffffffff"
         android:textStyle="normal|bold"
-        android:textSize="18dp"
+        android:textSize="15dp"
         android:typeface="sans"
         android:id="@+id/signIn"></Button>
 
     <Button android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/signIn"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="Create Account"
         android:onClick="register"
         android:background="#ffe266b1"
         android:textColor="#ffffffff"
         android:textStyle="normal|bold"
-        android:textSize="18dp"
+        android:textSize="15dp"
         android:typeface="sans"></Button>
 
 </RelativeLayout>
