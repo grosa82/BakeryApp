@@ -69,8 +69,8 @@ public class GcmIntentService extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        //.setSmallIcon(R.drawable.cakeicon)
-                        .setTicker("!")
+                        .setSmallIcon(R.drawable.cakeicon)
+                        //.setTicker("!")
                         .setContentTitle("Cake Info")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))

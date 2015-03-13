@@ -36,8 +36,6 @@ public class MainActivity extends ActionBarActivity {
         super.onStart();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
         ((TextView) findViewById(R.id.textView)).setTypeface(tf, Typeface.NORMAL);
-        ((TextView) findViewById(R.id.createAccount)).setTypeface(tf, Typeface.NORMAL);
-        ((TextView) findViewById(R.id.signIn)).setTypeface(tf, Typeface.NORMAL);
 
         // If user is authenticated, redirects to the summary page
         String id = helper.getPreferences("id", MainActivity.this.getApplicationContext());
@@ -65,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void signIn(View view) {
+    public void register(View view) {
         Intent homepage = new Intent(MainActivity.this, UserForm.class);
         startActivity(homepage);
     }

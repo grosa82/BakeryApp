@@ -20,10 +20,10 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:textColor="#FFFFFF"
-        android:shadowColor="#7A7A7A"
-        android:shadowDx="6"
-        android:shadowDy="6"
-        android:shadowRadius="8" />
+        android:shadowColor="#ffe266b1"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="10" />
 
     <ImageView
         android:layout_width="fill_parent"
@@ -38,41 +38,29 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-
-    <TextView
-        android:layout_width="fill_parent"
+    <Button android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:id="@+id/signIn"
-        android:textSize="40dp"
-        android:gravity="center"
-        android:layout_marginTop="59dp"
-        android:textColor="#FFFFFF"
-        android:shadowColor="#7A7A7A"
-        android:shadowDx="6"
-        android:shadowDy="6"
-        android:shadowRadius="8"
-        android:onClick="login"
-        android:clickable="true"
         android:layout_below="@+id/logo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="30dp"
+        android:text="Log In"
+        android:onClick="login"
+        android:background="#ffe266b1"
+        android:textColor="#ffffffff"
+        android:textStyle="normal|bold"
+        android:textSize="18dp"
+        android:typeface="sans"
+        android:id="@+id/signIn"></Button>
 
-    <TextView
-        android:layout_width="fill_parent"
+    <Button android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:id="@+id/createAccount"
-        android:textSize="40dp"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:shadowColor="#7A7A7A"
-        android:shadowDx="6"
-        android:shadowDy="6"
-        android:shadowRadius="8"
-        android:onClick="signIn"
-        android:clickable="true"
         android:layout_below="@+id/signIn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="30dp"
+        android:text="Create Account"
+        android:onClick="register"
+        android:background="#ffe266b1"
+        android:textColor="#ffffffff"
+        android:textStyle="normal|bold"
+        android:textSize="18dp"
+        android:typeface="sans"></Button>
+
 </RelativeLayout>
