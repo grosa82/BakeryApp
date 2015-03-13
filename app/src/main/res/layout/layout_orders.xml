@@ -27,13 +27,14 @@
         android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:text=">"
         android:textColor="#ffe266b1"
         android:textSize="25dip"
         android:textStyle="bold"
-        android:typeface="sans"/>
+        android:typeface="sans"
+        android:layout_alignTop="@+id/nickname"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <TextView
         android:id="@+id/nickname"
         android:layout_width="wrap_content"

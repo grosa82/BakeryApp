@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,9 +10,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cs246.bakery.myapplication.adapters.OrderAdapter;
 import com.cs246.bakery.myapplication.model.Helper;
@@ -26,6 +29,9 @@ import java.util.List;
 
 
 public class account_summary extends ListActivity {
+    public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
+    public final static String DATE = "com.cs246.bakery.myapplication.MESSAGE2";
+
 
     Helper helper = new Helper();
     @Override
@@ -35,6 +41,7 @@ public class account_summary extends ListActivity {
         ((TextView) findViewById(R.id.title)).setTypeface(tf, Typeface.NORMAL);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -42,7 +49,7 @@ public class account_summary extends ListActivity {
         if (!name.isEmpty()) {
             TextView textView = ((TextView) findViewById(R.id.title));
             if (textView != null)
-                textView.setText("Welcome, " + name + "!");
+                textView.setText("Hi, " + name + "!");
         }
 
         new LoadOrders().execute();
@@ -86,6 +93,24 @@ public class account_summary extends ListActivity {
 
                 OrderAdapter adapter = new OrderAdapter(account_summary.this.getApplicationContext(), R.layout.layout_orders, orders);
                 setListAdapter(adapter);
+
+                ListView listView1 = (ListView) findViewById(android.R.id.list);
+
+                // start a new activity on each item click
+                listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position,
+                                            long id) {
+                        Intent intent = new Intent(account_summary.this, OrderedCake.class);
+                        TextView nickname = (TextView)view.findViewById(R.id.nickname);
+                        TextView date = (TextView)view.findViewById(R.id.date);
+                        String message = nickname.getText().toString();
+                        String message2 = date.getText().toString();
+                        intent.putExtra(CAKE_NICKNAME, message);
+                        intent.putExtra(DATE, message2);
+                        startActivity(intent);
+                    }
+                });
             }
             else {
                 ((ListView)getListView()).setVisibility(View.INVISIBLE);
