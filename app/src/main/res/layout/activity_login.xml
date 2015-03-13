@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    tools:context="com.cs246.bakery.myapplication.LoginActivity"
+    android:background="@drawable/background" >
+
+    <TextView android:text="Welcome"
+        android:layout_width="wrap_content"
+        android:id="@+id/welcome"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome"
+        android:hint="Email"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="40dp"
+        android:id="@+id/email"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email"
+        android:hint="Password"
+        android:id="@+id/password"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:id="@+id/login"
+        android:layout_marginTop="80dp"
+        android:text="Login"
+        android:onClick="signOn"/>
+
+</RelativeLayout>

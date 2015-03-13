@@ -30,7 +30,7 @@ public class UserForm extends ActionBarActivity {
     GoogleCloudMessaging gcm;
     Context context;
     String regID;
-    public final String TAG_USER = "UserForm";
+    public final String TAG = "UserForm";
 
     class Services extends AsyncTask<User, String, Response> {
         @Override
@@ -50,7 +50,7 @@ public class UserForm extends ActionBarActivity {
         protected void onPostExecute(Response response) {
             if (response.success) {
                 helper.showAlert(response.message, UserForm.this.getApplicationContext());
-                startActivity(new Intent(UserForm.this, signOn.class));
+                startActivity(new Intent(UserForm.this, LoginActivity.class));
             }
             else
                 helper.showAlert(response.message, UserForm.this.getApplicationContext());
@@ -61,7 +61,6 @@ public class UserForm extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_form);
-
         context = getApplicationContext();
     }
 
@@ -96,14 +95,10 @@ public class UserForm extends ActionBarActivity {
         newUser.password = ((EditText)findViewById(R.id.password)).getText().toString();
         String confirm = ((EditText)findViewById(R.id.confirm)).getText().toString();
         newUser.regID = registerGCM();
-        Log.e(TAG_USER, newUser.regID);
-        Log.i(TAG_USER, "Creating User with email " + newUser.email);
-
+        Log.e(TAG, newUser.regID);
         // proceed only when the form is valid
         if (isFormValid(newUser, confirm)) {
             new Services().execute(newUser);
-        } else {
-           Log.e(TAG_USER, "User input invalid");
         }
     }
 
@@ -125,13 +120,13 @@ public class UserForm extends ActionBarActivity {
         final SharedPreferences prefs = getSharedPreferences(UserForm.class.getSimpleName(), Context.MODE_PRIVATE);
         String registrationId = prefs.getString(REG_ID, "");
         if (registrationId.isEmpty()) {
-            Log.i(TAG_USER, "Registration not found.");
+            Log.i(TAG, "Registration not found.");
             return "";
         }
         int registeredVersion = prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) {
-            Log.i(TAG_USER, "Äpp version changed");
+            Log.i(TAG, "App version changed");
             return "";
         }
         return registrationId;
