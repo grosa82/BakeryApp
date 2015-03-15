@@ -157,7 +157,7 @@ public class Helper {
         Log.i(this.getClass().getName(), requestPackage.getUri());
 
         BufferedReader reader = null;
-        String uri = "http://cakeapp.ubrainy.com/api/webapi/" + requestPackage.getUri();
+        String uri = "http://cakeapp.toughland.com/api/webapi/" + requestPackage.getUri();
         if (requestPackage.getMethod().equals("GET")) {
             uri += "?" + requestPackage.getEncodedParams() + "&json=true";
         }
