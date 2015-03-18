@@ -14,8 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
 import com.cs246.bakery.myapplication.model.Helper;
-import com.cs246.bakery.myapplication.model.RequestPackage;
 import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.User;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -35,15 +35,8 @@ public class UserForm extends ActionBarActivity {
     class Services extends AsyncTask<User, String, Response> {
         @Override
         protected Response doInBackground(User... users) {
-            RequestPackage requestPackage = new RequestPackage();
-            requestPackage.setMethod("POST");
-            requestPackage.setUri("CreateUser");
-            requestPackage.setParam("name",users[0].name);
-            requestPackage.setParam("phone",users[0].phone);
-            requestPackage.setParam("email",users[0].email);
-            requestPackage.setParam("password",users[0].password);
-            requestPackage.setParam("regID", users[0].regID);
-            return helper.parseResponse((helper.getData(requestPackage)));
+            User user = new User(UserForm.this.getApplicationContext());
+            return user.createAccount(users[0]);
         }
 
         @Override
@@ -63,7 +56,6 @@ public class UserForm extends ActionBarActivity {
         setContentView(R.layout.activity_user_form);
         context = getApplicationContext();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

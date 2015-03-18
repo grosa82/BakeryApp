@@ -1,5 +1,7 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.content.Context;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -16,82 +18,89 @@ import java.util.Hashtable;
  * User class
  */
 public class User {
+
+    private Helper helper = new Helper();
+    private Context context;
+
     /**
-     * Unique key
+     * Default constructor
      */
+    public User() {}
+
+    /**
+     * User constructor for activities calls
+     * @param context Activity context
+     */
+    public User(Context context) {
+        this.context = context;
+    }
+
+    /** Unique key */
     public int id;
-    /**
-     * User full name
-     */
+    /** User full name */
     public String name;
-    /**
-     * User phone number
-     */
+    /** User phone number */
     public String phone;
-    /**
-     * Password
-     */
+    /** Password */
     public String password;
-    /**
-     * Email address
-     */
+    /** Email address */
     public String email;
-    /**
-     * Token
-     */
+    /** Token */
     public String token;
-    /**
-     * Registration ID
-     */
+    /** Registration ID */
     public String regID;
 
     /**
      * Authenticates user
-     * @param username Email
+     * @param email Email
      * @param password Password
-     * @return True if the authentication works
-     * @throws JSONException
+     * @return Null if user not found, otherwise returns the User object
      */
-    public boolean authenticateUser(String username, String password) throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put("username", "password");
+    public User authenticate(String email, String password) {
+        RequestPackage requestPackage = new RequestPackage();
+        requestPackage.setMethod("POST");
+        requestPackage.setUri("Authenticate");
+        requestPackage.setParam("email", email);
+        requestPackage.setParam("password", password);
 
-        HttpClient httpClient = new DefaultHttpClient();
-
-        try {
-            HttpPost request = new HttpPost("http://cakeapp.ubrainy.com/Help/Api/POST-api-User-Authenticate_email_password");
-            StringEntity params = new StringEntity(json.toString());
-            request.addHeader("content-type", "application/x-www-form-urlencoded");
-            request.setEntity(params);
-            HttpResponse response = httpClient.execute(request);
-        } catch (Exception ex) {
-            httpClient.getConnectionManager().shutdown();
+        String jsonString = helper.getData(requestPackage);
+        if (jsonString == null || jsonString.equals("null\n"))
+            return null;
+        else {
+            User user = helper.parseUser(jsonString);
+            helper.savePreferences("id", Integer.toString(user.id), context);
+            helper.savePreferences("name", user.name, context);
+            helper.savePreferences("phone", user.phone, context);
+            helper.savePreferences("email", user.email, context);
+            helper.savePreferences("token", user.token, context);
+            return user;
         }
-
-        return true;
     }
 
     /**
-     * Create new account
-     * @param name Full name
-     * @param email
-     * @param password
-     * @param phone Format 777-999-8888
-     * @return True if the account was created
+     * Creates a new account
+     * @param user User object
+     * @return Response object
      */
-    public boolean addUser(String name, String email, String password, String phone) {
-        // call web service to add user
-        return true;
+    public Response createAccount(User user) {
+        RequestPackage requestPackage = new RequestPackage();
+        requestPackage.setMethod("POST");
+        requestPackage.setUri("CreateUser");
+        requestPackage.setParam("name",user.name);
+        requestPackage.setParam("phone",user.phone);
+        requestPackage.setParam("email",user.email);
+        requestPackage.setParam("password",user.password);
+        requestPackage.setParam("regID", user.regID);
+        return helper.parseResponse((helper.getData(requestPackage)));
     }
 
     /**
-     * Remove a user account
-     * @param id User id
-     * @return True if the user was removed
+     * Checks if the user is authenticated
+     * @return True / False
      */
-    public boolean removeUser(Integer id) {
-        // call web service to remove user
-        return true;
+    public boolean isAuthenticated() {
+        String id = helper.getPreferences("id", context);
+        String token = helper.getPreferences("token", context);
+        return (!id.isEmpty() && !token.isEmpty());
     }
-
 }

@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
-import com.cs246.bakery.myapplication.model.RequestPackage;
-import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.User;
 
 
@@ -32,34 +30,20 @@ public class LoginActivity extends ActionBarActivity {
         ((EditText)findViewById(R.id.email)).requestFocus();
     }
 
-    public class AuthenticateTask extends AsyncTask<Void, String, Boolean> {
+    public class AuthenticateTask extends AsyncTask<Void, String, User> {
 
         @Override
-        protected Boolean doInBackground(Void... nullValue ) {
-            RequestPackage requestPackage = new RequestPackage();
-            requestPackage.setMethod("POST");
-            requestPackage.setUri("Authenticate");
-            requestPackage.setParam("email", ((EditText)findViewById(R.id.email)).getText().toString());
-            requestPackage.setParam("password", ((EditText)findViewById(R.id.password)).getText().toString());
+        protected User doInBackground(Void... nullValue ) {
+            String email = ((EditText)findViewById(R.id.email)).getText().toString();
+            String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-            String jsonString = helper.getData(requestPackage);
-            if (jsonString == null || jsonString.equals("null\n"))
-                return false;
-            else {
-                User user = helper.parseUser(jsonString);
-                helper.savePreferences("id", Integer.toString(user.id), LoginActivity.this.getApplicationContext());
-                helper.savePreferences("name", user.name, LoginActivity.this.getApplicationContext());
-                helper.savePreferences("phone", user.phone, LoginActivity.this.getApplicationContext());
-                helper.savePreferences("email", user.email, LoginActivity.this.getApplicationContext());
-                helper.savePreferences("token", user.token, LoginActivity.this.getApplicationContext());
-                return true;
-            }
+            User user = new User(LoginActivity.this.getApplicationContext());
+            return user.authenticate(email, password);
         }
 
         @Override
-        protected void onPostExecute(Boolean response) {
-
-            if (response) {
+        protected void onPostExecute(User response) {
+            if (response != null) {
                 Intent homepage = new Intent(LoginActivity.this, account_summary.class);
                 startActivity(homepage);
             }

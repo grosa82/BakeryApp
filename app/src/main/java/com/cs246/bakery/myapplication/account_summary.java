@@ -1,37 +1,26 @@
 package com.cs246.bakery.myapplication;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cs246.bakery.myapplication.adapters.OrderAdapter;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Order;
-import com.cs246.bakery.myapplication.model.RequestPackage;
-import com.cs246.bakery.myapplication.model.User;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class account_summary extends ListActivity {
     public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
     public final static String DATE = "com.cs246.bakery.myapplication.MESSAGE2";
-
 
     Helper helper = new Helper();
     @Override
@@ -59,30 +48,8 @@ public class account_summary extends ListActivity {
 
         @Override
         protected List<Order> doInBackground(Void... params) {
-            RequestPackage requestPackage = new RequestPackage();
-            requestPackage.setMethod("GET");
-            requestPackage.setUri("GetOrders");
-            requestPackage.setParam("id", helper.getPreferences("id", account_summary.this.getApplicationContext()));
-            requestPackage.setParam("token", helper.getPreferences("token", account_summary.this.getApplicationContext()));
-
-            List<Order> orders = new ArrayList<>();
-
-            String jsonString = helper.getData(requestPackage);
-            if (jsonString == null || jsonString.equals("null\n"))
-                return null;
-            else {
-                try {
-                    JSONArray orderJson = new JSONArray(jsonString);
-                    for (int i = 0; i < orderJson.length(); i++) {
-                        Order order = helper.parseOrder(orderJson.get(i).toString());
-                        orders.add(order);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-                return orders;
-            }
+            Order order = new Order();
+            return order.getOrders(account_summary.this.getApplicationContext());
         }
 
         @Override

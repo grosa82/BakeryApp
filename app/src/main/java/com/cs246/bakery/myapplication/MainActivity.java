@@ -8,15 +8,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.User;
 
 public class MainActivity extends ActionBarActivity {
 
-    Helper helper = new Helper();
+    private Helper helper = new Helper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +37,8 @@ public class MainActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.textView)).setTypeface(tf, Typeface.NORMAL);
 
         // If user is authenticated, redirects to the summary page
-        String id = helper.getPreferences("id", MainActivity.this.getApplicationContext());
-        String token = helper.getPreferences("token", MainActivity.this.getApplicationContext());
-
-        if (!id.isEmpty() && !token.isEmpty())
+        User user = new User(MainActivity.this.getApplicationContext());
+        if (user.isAuthenticated())
             startActivity(new Intent(MainActivity.this, account_summary.class));
 
         String android_id = Settings.Secure.getString(MainActivity.this.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
