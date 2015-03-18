@@ -20,7 +20,8 @@
         android:hint="Email"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="40dp"
-        android:id="@+id/email"/>
+        android:id="@+id/email"
+        android:background="#FFFFFF"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -36,6 +37,8 @@
         android:id="@+id/login"
         android:layout_marginTop="80dp"
         android:text="Login"
-        android:onClick="signOn"/>
+        android:onClick="signOn"
+        android:background="#6cc8c2"
+        android:textColor="#FFFFFF"/>
 
 </RelativeLayout>
