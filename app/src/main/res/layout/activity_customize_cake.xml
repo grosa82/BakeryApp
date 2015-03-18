@@ -19,7 +19,10 @@
         android:shadowColor="@color/title_shadow"
         android:textStyle="bold"
         android:textSize="35sp"
-        android:textIsSelectable="false" />
+        android:textIsSelectable="false"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="10"/>
 
     <Spinner
         android:layout_width="200dp"

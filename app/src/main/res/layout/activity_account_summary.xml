@@ -16,7 +16,10 @@
         android:textIsSelectable="false"
         android:textStyle="bold"
         android:textColor="@color/title_color"
-        android:shadowColor="@color/title_shadow" />
+        android:shadowColor="@color/title_shadow"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="10"/>
 
     <ListView
         android:layout_width="wrap_content"
