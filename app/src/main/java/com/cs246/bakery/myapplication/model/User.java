@@ -1,8 +1,5 @@
 package com.cs246.bakery.myapplication.model;
 
-//import org.ksoap2.serialization.KvmSerializable;
-//import org.ksoap2.serialization.PropertyInfo;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -48,6 +45,13 @@ public class User {
      */
     public String regID;
 
+    /**
+     * Authenticates user
+     * @param username Email
+     * @param password Password
+     * @return True if the authentication works
+     * @throws JSONException
+     */
     public boolean authenticateUser(String username, String password) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("username", "password");
@@ -67,12 +71,25 @@ public class User {
         return true;
     }
 
+    /**
+     * Create new account
+     * @param name Full name
+     * @param email
+     * @param password
+     * @param phone Format 777-999-8888
+     * @return True if the account was created
+     */
     public boolean addUser(String name, String email, String password, String phone) {
         // call web service to add user
         return true;
     }
 
-    public boolean removeUser(String name, String email, String password, String phone) {
+    /**
+     * Remove a user account
+     * @param id User id
+     * @return True if the user was removed
+     */
+    public boolean removeUser(Integer id) {
         // call web service to remove user
         return true;
     }
