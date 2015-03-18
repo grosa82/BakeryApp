@@ -16,8 +16,12 @@ public class Flavor implements Characteristic {
 
     }
 
+    /** Unique ID for each flavor */
     public int id;
+    /** Name of the flavor */
     public String name;
+    /** description of the flavor */
     public String description;
+    /** Active or not */
     public boolean active;
 }

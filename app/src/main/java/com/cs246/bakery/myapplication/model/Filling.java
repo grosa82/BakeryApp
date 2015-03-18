@@ -16,8 +16,12 @@ public class Filling implements Characteristic {
 
     }
 
+    /** Unique ID for each filling */
     public int id;
+    /** Name of the filling */
     public String name;
+    /** description of filling */
     public String description;
+    /** Active or not active */
     public boolean active;
 }

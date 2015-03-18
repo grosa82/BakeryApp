@@ -15,9 +15,12 @@ public class Event implements Characteristic {
     public void removeCharacteristic() {
 
     }
-
+    /** Unique ID for each event */
     public int id;
+    /** name of the even */
     public String name;
+    /** description of the event */
     public String description;
+    /** if the event is still active or not */
     public boolean active;
 }

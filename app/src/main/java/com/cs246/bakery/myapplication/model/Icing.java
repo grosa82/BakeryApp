@@ -16,8 +16,12 @@ public class Icing implements Characteristic {
 
     }
 
+    /** Unique ID for the icing */
     public int id;
+    /** name of the icing */
     public String name;
+    /** description of icing */
     public String description;
+    /** Active or not */
     public boolean active;
 }

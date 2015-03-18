@@ -13,24 +13,44 @@ public class Cake {
         characteristics = new ArrayList<Characteristic>();
     }
 
+    /**
+     * Adds a cake
+     * @param cake
+     */
     void addCake(Cake cake) {
 
     }
 
+    /**
+     * removes a cake
+     * @param cake
+     */
     void removeCake(Cake cake) {
 
     }
 
+    /**
+     * Loads a cake
+     * @param id
+     */
     void loadCake(int id) {
 
     }
 
+    /** Unique ID for each cake */
     public int id;
+    /** The array list for the characteristics */
     public List<Characteristic> characteristics;
+    /** The range of age of the intended customer */
     public String ageRange;
+    /** Writing that will be placed on the cake MAX = 50; */
     public String writing;
-    public String commitments;
+    /** Comments for the baker */
+    public String comments;
+    /** size of the cake in inches */
     public Size size;
+    /** Colors on top of the cake */
     public String colors;
+    /** Price for the cake */
     public float price;
 }

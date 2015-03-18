@@ -20,6 +20,7 @@ import java.util.Date;
  * Helper class
  */
 public class Helper {
+
     /**
      * Display a temporary message on screen
      * @param message message to display
