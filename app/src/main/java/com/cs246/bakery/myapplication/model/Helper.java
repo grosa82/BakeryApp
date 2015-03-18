@@ -31,9 +31,7 @@ public class Helper {
         toast.show();
     }
 
-    /**
-     * Constant with the name of the shared preferences
-     */
+    /** Constant with the name of the shared preferences */
     public static final String PREFS_NAME = "MyPreferences";
 
     /**
@@ -48,6 +46,10 @@ public class Helper {
         editor.commit();
     }
 
+    /**
+     * Delete shared preferences
+     * @param context
+     */
     public void deletePreferences(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, 0);
         preferences.edit().clear().commit();
@@ -56,7 +58,7 @@ public class Helper {
     /**
      * Get information from SharedPreferences
      * @param key
-     * @return
+     * @return value
      */
     public String getPreferences(String key, Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
@@ -66,7 +68,7 @@ public class Helper {
     /**
      * Parse json string response to an object Response
      * @param text json string
-     * @return
+     * @return Response object
      */
     public Response parseResponse(String text) {
         Response response = new Response();

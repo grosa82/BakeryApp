@@ -11,14 +11,25 @@ public class PredefinedCake {
         characteristics = new ArrayList<Characteristic>();
     }
 
+    /**
+     * Adds a new cake
+     * @param cake
+     */
     void addPredefinedCake(Cake cake) {
 
     }
 
+    /**
+     * Removes a cake
+     * @param cake
+     */
     void removePredefinedCake(Cake cake) {
 
     }
 
+    /**
+     * Uses a predefined cake to create a new custom cake
+     */
     void usePredefinedCake() {
 
     }

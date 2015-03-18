@@ -41,6 +41,10 @@ public class RequestPackage {
         this.params.put(key, value);
     }
 
+    /**
+     * Parses the params to a query string format
+     * @return String encoded
+     */
     public String getEncodedParams() {
         StringBuilder sb = new StringBuilder();
         for (String key : params.keySet()) {
