@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="button_color">#6cc8c2</color>
+    <color name="button_shadow">#ffffff</color>
+    <color name="button_text">#ffffff</color>
+    <color name="title_color">#ffffff</color>
+    <color name="title_shadow">#3d9590</color>
+    <color name="editText_color">#ffffff</color>
+    <color name="toast_color">#6cc8c2</color>
+</resources>

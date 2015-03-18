@@ -15,8 +15,8 @@
         android:textSize="32sp"
         android:textIsSelectable="false"
         android:textStyle="bold"
-        android:textColor="#ffff7cbe"
-        />
+        android:textColor="@color/title_color"
+        android:shadowColor="@color/title_shadow" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -45,8 +45,8 @@
         android:text="Create Order"
         android:id="@+id/button2"
         android:onClick="chooseType"
-        android:background="#ffe266b1"
-        android:textColor="#ffffffff"
+        android:background="@color/button_color"
+        android:textColor="@color/button_text"
         android:layout_alignTop="@+id/button1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -57,8 +57,8 @@
         android:text="Sign Out"
         android:id="@+id/button1"
         android:onClick="signOut"
-        android:background="#ffe266b1"
-        android:textColor="#ffffffff"
+        android:background="@color/button_color"
+        android:textColor="@color/button_text"
         android:layout_alignWithParentIfMissing="false"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

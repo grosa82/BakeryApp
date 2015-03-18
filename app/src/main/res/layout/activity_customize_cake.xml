@@ -15,7 +15,8 @@
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:textColor="#ffff7cbe"
+        android:textColor="@color/title_color"
+        android:shadowColor="@color/title_shadow"
         android:textStyle="bold"
         android:textSize="35sp"
         android:textIsSelectable="false" />

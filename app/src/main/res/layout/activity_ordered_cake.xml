@@ -16,7 +16,8 @@
         android:textSize="36sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffff7cbe" />
+        android:textColor="@color/title_color"
+        android:shadowColor="@color/title_shadow"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -134,8 +135,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/scrollView"
         android:layout_alignStart="@+id/scrollView"
-        android:background="#ffe266b1"
-        android:textColor="#fffcfffb" />
+        android:background="@color/button_color"
+        android:textColor="@color/button_text" />
 
     <Button
         android:layout_width="wrap_content"
@@ -145,8 +146,8 @@
         android:layout_alignTop="@+id/button"
         android:layout_toRightOf="@+id/textView15"
         android:layout_toEndOf="@+id/textView15"
-        android:background="#ffe266b1"
-        android:textColor="#fffcfffb" />
+        android:background="@color/button_color"
+        android:textColor="@color/button_text" />
 
     <TextView
         android:layout_width="wrap_content"
