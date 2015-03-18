@@ -1,18 +1,15 @@
 package com.cs246.bakery.myapplication.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.text.TextUtils;
+import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.util.Hashtable;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import java.io.IOException;
 
 /**
  * User class
@@ -21,6 +18,10 @@ public class User {
 
     private Helper helper = new Helper();
     private Context context;
+    public static final String REG_ID = "regId";
+    private static final String APP_VERSION = "appVersion";
+    private GoogleCloudMessaging gcm;
+    private final String TAG = "UserClass";
 
     /**
      * Default constructor
@@ -102,5 +103,80 @@ public class User {
         String id = helper.getPreferences("id", context);
         String token = helper.getPreferences("token", context);
         return (!id.isEmpty() && !token.isEmpty());
+    }
+
+    /**
+     * Register the device Id
+     */
+    public void registerDeviceId() {
+        gcm = GoogleCloudMessaging.getInstance(context);
+        regID = getRegistrationId();
+
+        if (TextUtils.isEmpty(regID)) {
+            registerInBackground();
+            Log.d(TAG, "registerGCM - successfully registered with GCM server - regID: " + regID);
+        } else {
+            Log.d(TAG, "RegID already available. RegId: " + regID);
+        }
+    }
+
+    private String getRegistrationId() {
+        final SharedPreferences prefs = context.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
+        String registrationId = prefs.getString(REG_ID, "");
+        if (registrationId.isEmpty()) {
+            Log.i(TAG, "Registration not found.");
+            return "";
+        }
+        int registeredVersion = prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
+        int currentVersion = getAppVersion(context);
+        if (registeredVersion != currentVersion) {
+            Log.i(TAG, "App version changed");
+            return "";
+        }
+        return registrationId;
+    }
+
+    private static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("UserForm", "Unexpected Error");
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void registerInBackground() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(context);
+                    }
+                    regID = gcm.register("844815750607");
+                    msg = "Device registered: " + regID;
+                    storeRegistrationId(regID);
+                } catch (IOException ex) {
+                    msg = "Error: " + ex.getMessage();
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                Log.d(TAG, "Registered." + msg);
+            }
+        }.execute(null, null, null);
+    }
+
+    private void storeRegistrationId(String regId) {
+        final SharedPreferences prefs = context.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
+        int appVersion = getAppVersion(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(REG_ID, regId);
+        editor.putInt(APP_VERSION, appVersion);
+        editor.commit();
     }
 }

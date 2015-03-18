@@ -38,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
 
         // If user is authenticated, redirects to the summary page
         User user = new User(MainActivity.this.getApplicationContext());
+        user.registerDeviceId();
         if (user.isAuthenticated())
             startActivity(new Intent(MainActivity.this, account_summary.class));
 
