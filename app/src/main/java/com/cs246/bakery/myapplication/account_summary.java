@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.adapters.OrderAdapter;
 import com.cs246.bakery.myapplication.model.Helper;
-import com.cs246.bakery.myapplication.model.Order;
+import com.cs246.bakery.myapplication.model.Cake;
 import java.util.List;
 
 
@@ -44,16 +44,16 @@ public class account_summary extends ListActivity {
         new LoadOrders().execute();
     }
 
-    class LoadOrders extends AsyncTask<Void, Void, List<Order>> {
+    class LoadOrders extends AsyncTask<Void, Void, List<Cake>> {
 
         @Override
-        protected List<Order> doInBackground(Void... params) {
-            Order order = new Order();
+        protected List<Cake> doInBackground(Void... params) {
+            Cake order = new Cake();
             return order.getOrders(account_summary.this.getApplicationContext());
         }
 
         @Override
-        public void onPostExecute(List<Order> orders) {
+        public void onPostExecute(List<Cake> orders) {
             if (orders != null) {
                 ((ListView)getListView()).setVisibility(View.VISIBLE);
                 ((TextView)findViewById(R.id.message)).setVisibility(View.INVISIBLE);
