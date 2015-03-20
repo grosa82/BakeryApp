@@ -16,8 +16,7 @@ import com.cs246.bakery.myapplication.model.User;
 
 
 public class LoginActivity extends ActionBarActivity {
-
-    Helper helper = new Helper();
+    private Helper helper = new Helper(this);
 
     public void onStart() {
         super.onStart();
@@ -37,7 +36,7 @@ public class LoginActivity extends ActionBarActivity {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-            User user = new User(LoginActivity.this.getApplicationContext());
+            User user = new User(LoginActivity.this);
             return user.authenticate(email, password);
         }
 
@@ -48,7 +47,7 @@ public class LoginActivity extends ActionBarActivity {
                 startActivity(homepage);
             }
             else
-                helper.showAlert("Wrong email or password. Please try again", LoginActivity.this.getApplicationContext());
+                helper.showAlert("Wrong email or password. Please try again");
         }
     }
 

@@ -9,8 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cs246.bakery.myapplication.model.Helper;
+
 
 public class orderCatagory extends ActionBarActivity {
+    private Helper helper = new Helper(this);
+
     @Override
     public void onStart() {
         super.onStart();

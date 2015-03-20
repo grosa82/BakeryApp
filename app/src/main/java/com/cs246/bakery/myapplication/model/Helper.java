@@ -1,12 +1,19 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cs246.bakery.myapplication.R;
 
 import org.json.JSONObject;
 
@@ -25,6 +32,15 @@ import java.util.Date;
  * Helper class
  */
 public class Helper {
+
+    /** Constant with the name of the shared preferences */
+    private static final String PREFS_NAME = "MyPreferences";
+    /** Context */
+    private Context context;
+
+    public Helper(Activity activity) {
+        context = activity;
+    }
 
     public Bitmap getImageBitmap(String url) {
         Bitmap bm = null;
@@ -47,21 +63,27 @@ public class Helper {
      * Display a temporary message on screen
      * @param message message to display
      */
-    public void showAlert(String message, Context context) {
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 50); // position
+    public void showAlert(String message) {
+        LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = layoutInflater.inflate(R.layout.toast_layout,
+           (ViewGroup)((Activity)context).findViewById(R.id.toast_layout_root));
+
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText(message);
+
+        Toast toast = new Toast(context);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
         toast.show();
     }
-
-    /** Constant with the name of the shared preferences */
-    public static final String PREFS_NAME = "MyPreferences";
 
     /**
      * Save information on SharedPreferences
      * @param key
      * @param value
      */
-    public void savePreferences(String key, String value, Context context) {
+    public void savePreferences(String key, String value) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, value);
@@ -70,9 +92,8 @@ public class Helper {
 
     /**
      * Delete shared preferences
-     * @param context
      */
-    public void deletePreferences(Context context) {
+    public void deletePreferences() {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, 0);
         preferences.edit().clear().commit();
     }
@@ -82,7 +103,7 @@ public class Helper {
      * @param key
      * @return value
      */
-    public String getPreferences(String key, Context context) {
+    public String getPreferences(String key) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         return settings.getString(key, "").toString();
     }
@@ -111,30 +132,7 @@ public class Helper {
         return response;
     }
 
-    /**
-     * Parse json string to user object
-     * @param text json text
-     * @return user object
-     */
-    public User parseUser(String text) {
-        User user = new User();
-        if (text.isEmpty()) {
-            user = null;
-        } else {
-            try {
-                JSONObject respObj = new JSONObject(text);
-                user.id = respObj.getInt("id");
-                user.name = respObj.getString("name");
-                user.email = respObj.getString("email");
-                user.phone = respObj.getString("phone");
-                user.token = respObj.getString("token");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                return null;
-            }
-        }
-        return user;
-    }
+
 
     /**
      * Parse a json date to a Date object

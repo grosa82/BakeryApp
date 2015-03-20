@@ -1,5 +1,7 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.app.Activity;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,9 +12,10 @@ import java.util.List;
  * Created by ricardo on 3/20/2015.
  */
 public class Rules {
-    private Helper helper = new Helper();
+    private Helper helper;
 
-    public Rules(int cake_type_id) {
+    public Rules(int cake_type_id, Activity activity) {
+        helper = new Helper(activity);
         loadCategories(cake_type_id);
     }
 

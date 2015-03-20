@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -27,8 +28,8 @@ import java.util.List;
 
 
 public class customizeCake extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
-
-    Rules rules;
+    private Helper helper = new Helper(this);
+    private Rules rules;
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
@@ -45,19 +46,7 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
         ((TextView) findViewById(R.id.textView2)).setTypeface(tf, Typeface.NORMAL);
 
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_layout,
-                (ViewGroup) findViewById(R.id.toast_layout_root));
-
-        TextView text = (TextView) layout.findViewById(R.id.text);
-        text.setText("Customize Your Cake!");
-
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
-
+        helper.showAlert("Customize Your Cake");
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +131,7 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
             @Override
             protected Void doInBackground(Void... params) {
                 // creating the Rule obj is loading the categories behind the scenes
-                rules = new Rules(databaseId);
+                rules = new Rules(databaseId, customizeCake.this);
                 return null;
             }
 

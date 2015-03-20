@@ -10,9 +10,6 @@ import java.util.List;
  * Created by ricardo on 3/19/2015.
  */
 public class CakeType {
-
-    private Helper helper = new Helper();
-
     public int id;
     public String name;
     public String description;
@@ -50,7 +47,7 @@ public class CakeType {
 
         List<CakeType> cakeTypes = new ArrayList<>();
 
-        String jsonString = helper.getData(requestPackage);
+        String jsonString = new Helper(null).getData(requestPackage);
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {

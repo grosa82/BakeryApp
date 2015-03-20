@@ -14,8 +14,7 @@ import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.User;
 
 public class MainActivity extends ActionBarActivity {
-
-    private Helper helper = new Helper();
+    private Helper helper = new Helper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.textView)).setTypeface(tf, Typeface.NORMAL);
 
         // If user is authenticated, redirects to the summary page
-        User user = new User(MainActivity.this.getApplicationContext());
+        User user = new User(MainActivity.this);
         user.registerDeviceId();
         if (user.isAuthenticated())
             startActivity(new Intent(MainActivity.this, account_summary.class));

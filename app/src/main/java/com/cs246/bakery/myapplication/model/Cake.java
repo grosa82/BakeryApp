@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.app.Activity;
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -13,8 +14,7 @@ import java.util.List;
  * Created by Bit on 3/2/2015.
  */
 public class Cake {
-
-    private Helper helper = new Helper();
+    private Helper helper;
 
     /** Unique ID for each cake */
     public int id;
@@ -43,21 +43,21 @@ public class Cake {
     /** Cake name */
     public String name;
 
-    public Cake() {
+    public Cake(Activity activity) {
         categories = new ArrayList<Category>();
+        helper = new Helper(activity);
     }
 
     /**
      * Gets the user's orders
-     * @param context Activity context
      * @return List of orders
      */
-    public List<Cake> getOrders(Context context) {
+    public List<Cake> getOrders() {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetOrders");
-        requestPackage.setParam("id", helper.getPreferences("id", context));
-        requestPackage.setParam("token", helper.getPreferences("token", context));
+        requestPackage.setParam("id", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
 
         List<Cake> orders = new ArrayList<>();
 
@@ -85,29 +85,28 @@ public class Cake {
      * @return Cake
      */
     public Cake parseOrder(String text) {
-        Cake cake = new Cake();
         if (text.isEmpty()) {
-            cake = null;
+            return null;
         } else {
             try {
                 JSONObject respObj = new JSONObject(text);
-                cake.id = respObj.getInt("id");
-                cake.ageRange = respObj.getString("ageRange");
-                cake.colors = respObj.getString("colors");
-                cake.writing = respObj.getString("writing");
-                cake.comments = respObj.getString("comments");
-                cake.price = respObj.getDouble("price");
-                cake.status = new Status().parseJson(respObj.getString("status"));
-                cake.type = new CakeType().parseJson(respObj.getString("type"));
-                cake.cakeEvent = respObj.getString("cakeEvent");
-                cake.orderDate = helper.parseDate(respObj.getString("orderDate"));
-                cake.submitted = respObj.getBoolean("submitted");
-                cake.name = respObj.getString("name");
+                id = respObj.getInt("id");
+                ageRange = respObj.getString("ageRange");
+                colors = respObj.getString("colors");
+                writing = respObj.getString("writing");
+                comments = respObj.getString("comments");
+                price = respObj.getDouble("price");
+                status = new Status().parseJson(respObj.getString("status"));
+                type = new CakeType().parseJson(respObj.getString("type"));
+                cakeEvent = respObj.getString("cakeEvent");
+                orderDate = helper.parseDate(respObj.getString("orderDate"));
+                submitted = respObj.getBoolean("submitted");
+                name = respObj.getString("name");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return null;
             }
         }
-        return cake;
+        return this;
     }
 }

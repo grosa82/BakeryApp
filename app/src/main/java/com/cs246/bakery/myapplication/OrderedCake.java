@@ -8,9 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.cs246.bakery.myapplication.model.Helper;
+
 
 public class OrderedCake extends ActionBarActivity {
-
+    private Helper helper = new Helper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

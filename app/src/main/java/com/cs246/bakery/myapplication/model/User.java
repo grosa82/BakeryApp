@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -9,6 +10,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 /**
@@ -16,8 +20,8 @@ import java.io.IOException;
  */
 public class User {
 
-    private Helper helper = new Helper();
-    private Context context;
+    private Helper helper;
+    private Activity activity;
     public static final String REG_ID = "regId";
     private static final String APP_VERSION = "appVersion";
     private GoogleCloudMessaging gcm;
@@ -30,10 +34,11 @@ public class User {
 
     /**
      * User constructor for activities calls
-     * @param context Activity context
+     * @param activity Activity context
      */
-    public User(Context context) {
-        this.context = context;
+    public User(Activity activity) {
+        this.activity = activity;
+        helper = new Helper(this.activity);
     }
 
     /** Unique key */
@@ -52,6 +57,31 @@ public class User {
     public String regID;
 
     /**
+     * Parse json string to user object
+     * @param text json text
+     * @return user object
+     */
+    public User parseJson(String text) {
+        User user = new User();
+        if (text.isEmpty()) {
+            user = null;
+        } else {
+            try {
+                JSONObject respObj = new JSONObject(text);
+                user.id = respObj.getInt("id");
+                user.name = respObj.getString("name");
+                user.email = respObj.getString("email");
+                user.phone = respObj.getString("phone");
+                user.token = respObj.getString("token");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        return user;
+    }
+
+    /**
      * Authenticates user
      * @param email Email
      * @param password Password
@@ -68,12 +98,12 @@ public class User {
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {
-            User user = helper.parseUser(jsonString);
-            helper.savePreferences("id", Integer.toString(user.id), context);
-            helper.savePreferences("name", user.name, context);
-            helper.savePreferences("phone", user.phone, context);
-            helper.savePreferences("email", user.email, context);
-            helper.savePreferences("token", user.token, context);
+            User user = parseJson(jsonString);
+            helper.savePreferences("id", Integer.toString(user.id));
+            helper.savePreferences("name", user.name);
+            helper.savePreferences("phone", user.phone);
+            helper.savePreferences("email", user.email);
+            helper.savePreferences("token", user.token);
             return user;
         }
     }
@@ -100,8 +130,8 @@ public class User {
      * @return True / False
      */
     public boolean isAuthenticated() {
-        String id = helper.getPreferences("id", context);
-        String token = helper.getPreferences("token", context);
+        String id = helper.getPreferences("id");
+        String token = helper.getPreferences("token");
         return (!id.isEmpty() && !token.isEmpty());
     }
 
@@ -109,7 +139,7 @@ public class User {
      * Register the device Id
      */
     public void registerDeviceId() {
-        gcm = GoogleCloudMessaging.getInstance(context);
+        gcm = GoogleCloudMessaging.getInstance(activity);
         regID = getRegistrationId();
 
         if (TextUtils.isEmpty(regID)) {
@@ -121,14 +151,14 @@ public class User {
     }
 
     private String getRegistrationId() {
-        final SharedPreferences prefs = context.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
+        final SharedPreferences prefs = activity.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
         String registrationId = prefs.getString(REG_ID, "");
         if (registrationId.isEmpty()) {
             Log.i(TAG, "Registration not found.");
             return "";
         }
         int registeredVersion = prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
-        int currentVersion = getAppVersion(context);
+        int currentVersion = getAppVersion(activity);
         if (registeredVersion != currentVersion) {
             Log.i(TAG, "App version changed");
             return "";
@@ -153,7 +183,7 @@ public class User {
                 String msg = "";
                 try {
                     if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(context);
+                        gcm = GoogleCloudMessaging.getInstance(activity);
                     }
                     regID = gcm.register("844815750607");
                     msg = "Device registered: " + regID;
@@ -172,8 +202,8 @@ public class User {
     }
 
     private void storeRegistrationId(String regId) {
-        final SharedPreferences prefs = context.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = getAppVersion(context);
+        final SharedPreferences prefs = activity.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
+        int appVersion = getAppVersion(activity);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(REG_ID, regId);
         editor.putInt(APP_VERSION, appVersion);

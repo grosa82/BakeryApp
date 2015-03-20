@@ -19,10 +19,10 @@ import java.util.List;
 
 
 public class account_summary extends ListActivity {
+    private Helper helper = new Helper(this);
     public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
     public final static String DATE = "com.cs246.bakery.myapplication.MESSAGE2";
 
-    Helper helper = new Helper();
     @Override
     public void onStart() {
         super.onStart();
@@ -34,7 +34,7 @@ public class account_summary extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String name = helper.getPreferences("name", account_summary.this.getApplicationContext());
+        String name = helper.getPreferences("name");
         if (!name.isEmpty()) {
             TextView textView = ((TextView) findViewById(R.id.title));
             if (textView != null)
@@ -48,8 +48,8 @@ public class account_summary extends ListActivity {
 
         @Override
         protected List<Cake> doInBackground(Void... params) {
-            Cake order = new Cake();
-            return order.getOrders(account_summary.this.getApplicationContext());
+            Cake order = new Cake(account_summary.this);
+            return order.getOrders();
         }
 
         @Override
@@ -105,7 +105,7 @@ public class account_summary extends ListActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_signOut:
-                helper.deletePreferences(account_summary.this.getApplicationContext());
+                helper.deletePreferences();
                 startActivity(new Intent(account_summary.this, MainActivity.class));
                 return true;
             default:
@@ -114,7 +114,7 @@ public class account_summary extends ListActivity {
     }
 
     public void signOut(View view) {
-        helper.deletePreferences(account_summary.this.getApplicationContext());
+        helper.deletePreferences();
         startActivity(new Intent(account_summary.this, MainActivity.class));
     }
 

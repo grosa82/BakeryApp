@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.cs246.bakery.myapplication.model.Helper;
+
 
 public class uploadPicture extends ActionBarActivity {
+    private Helper helper = new Helper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
