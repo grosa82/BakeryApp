@@ -2,6 +2,7 @@ package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
@@ -17,11 +19,14 @@ import com.cs246.bakery.myapplication.model.User;
 
 public class LoginActivity extends ActionBarActivity {
     private Helper helper = new Helper(this);
+    private ProgressBar progressBar;
 
     public void onStart() {
         super.onStart();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
         ((TextView) findViewById(R.id.welcome)).setTypeface(tf, Typeface.NORMAL);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.bringToFront();
     }
     @Override
     public void onResume() {
@@ -30,6 +35,11 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public class AuthenticateTask extends AsyncTask<Void, String, User> {
+
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected User doInBackground(Void... nullValue ) {
@@ -42,6 +52,7 @@ public class LoginActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(User response) {
+            progressBar.setVisibility(View.GONE);
             if (response != null) {
                 Intent homepage = new Intent(LoginActivity.this, account_summary.class);
                 startActivity(homepage);
