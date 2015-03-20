@@ -23,8 +23,6 @@ public class LoginActivity extends ActionBarActivity {
 
     public void onStart() {
         super.onStart();
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
-        ((TextView) findViewById(R.id.welcome)).setTypeface(tf, Typeface.NORMAL);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.bringToFront();
     }

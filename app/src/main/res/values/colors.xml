@@ -5,6 +5,7 @@
     <color name="button_text">#ffffff</color>
     <color name="title_color">#ffffff</color>
     <color name="title_shadow">#3d9590</color>
+    <color name="regular_shadow">#3d9590</color>
     <color name="editText_color">#ffffff</color>
     <color name="toast_color">#6cc8c2</color>
 </resources>

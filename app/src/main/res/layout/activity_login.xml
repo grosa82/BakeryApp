@@ -7,16 +7,10 @@
     tools:context="com.cs246.bakery.myapplication.LoginActivity"
     android:background="@drawable/background" >
 
-    <TextView android:text="Welcome"
-        android:layout_width="wrap_content"
-        android:id="@+id/welcome"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/welcome"
         android:hint="Email"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="20dp"
@@ -42,13 +36,11 @@
             android:layout_below="@+id/password"/>
 
     <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:layout_gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/login"
-        android:visibility="gone"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/progressbar"/>
 </RelativeLayout>
