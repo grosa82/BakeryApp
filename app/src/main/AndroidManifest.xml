@@ -6,16 +6,10 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 
     <permission
@@ -71,31 +65,6 @@
             android:name=".account_summary"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_account_summary" >
-        </activity>
-        <activity
-            android:name=".chooseOrder"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_choose_order" >
-        </activity>
-        <activity
-            android:name=".login"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_login" >
-        </activity>
-        <activity
-            android:name=".user_login"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_user_login" >
-        </activity>
-        <activity
-            android:name=".loginStage"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_login_stage" >
-        </activity>
-        <activity
-            android:name=".signOn"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_sign_on" >
         </activity>
         <activity
             android:name=".orderCatagory"
