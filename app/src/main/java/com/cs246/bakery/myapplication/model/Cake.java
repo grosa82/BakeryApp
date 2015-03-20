@@ -40,6 +40,8 @@ public class Cake {
     public Date orderDate;
     /** Submitted */
     public Boolean submitted;
+    /** Cake name */
+    public String name;
 
     public Cake() {
         characteristics = new ArrayList<Characteristic>();
@@ -100,6 +102,7 @@ public class Cake {
                 cake.cakeEvent = respObj.getString("cakeEvent");
                 cake.orderDate = helper.parseDate(respObj.getString("orderDate"));
                 cake.submitted = helper.parseBool(respObj.getString("submitted"));
+                cake.name = respObj.getString("name");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return null;

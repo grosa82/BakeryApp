@@ -20,7 +20,8 @@
             android:src="@drawable/cakeicon"
             android:gravity="center"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            />
     </RelativeLayout>
     <TextView
         android:id="@+id/arrow"
