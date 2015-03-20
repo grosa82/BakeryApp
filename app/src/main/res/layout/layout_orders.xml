@@ -63,4 +63,16 @@
         android:layout_alignLeft="@+id/nickname"
         android:layout_alignStart="@+id/nickname"
         android:layout_marginTop="-10dp" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="7dip"
+        android:text="Status"
+        android:textColor="#343434"
+        android:textSize="15sp"
+        android:layout_alignBottom="@+id/arrow"
+        android:layout_toLeftOf="@+id/arrow"
+        android:layout_toStartOf="@+id/arrow" />
 </RelativeLayout>

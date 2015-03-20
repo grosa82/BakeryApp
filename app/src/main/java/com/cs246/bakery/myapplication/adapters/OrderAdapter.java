@@ -2,7 +2,6 @@ package com.cs246.bakery.myapplication.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.R;
 import com.cs246.bakery.myapplication.model.Cake;
-import com.cs246.bakery.myapplication.model.Helper;
 
 import java.util.List;
 
@@ -38,10 +36,12 @@ public class OrderAdapter extends ArrayAdapter<Cake> {
         Cake order = orderList.get(position);
         TextView nickname = (TextView)view.findViewById(R.id.nickname);
         TextView date = (TextView)view.findViewById(R.id.date);
+        TextView status = (TextView)view.findViewById(R.id.status);
         ImageView image = (ImageView) view.findViewById(R.id.list_image);
 
         nickname.setText(order.name);
         date.setText(order.orderDate.toString());
+        status.setText(order.status.name);
         // image.setImageBitmap(new Helper().getImageBitmap(order.type.image));
         image.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
