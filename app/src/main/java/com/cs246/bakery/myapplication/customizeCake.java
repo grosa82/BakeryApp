@@ -1,8 +1,10 @@
 package com.cs246.bakery.myapplication;
 
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cs246.bakery.myapplication.model.CakeType;
+import com.cs246.bakery.myapplication.model.Helper;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.IOException;
+import java.util.List;
 
 
 public class customizeCake extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
@@ -51,14 +60,22 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customize_cake);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.cakeSize_array, android.R.layout.simple_gallery_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+
+        new AsyncTask<Void, Void, List<CakeType>>() {
+            @Override
+            protected List<CakeType> doInBackground(Void... params) {
+                return new CakeType().getCakeTypes();
+            }
+
+            @Override
+            protected void onPostExecute(List<CakeType> cakeTypes) {
+                // Create an ArrayAdapter using the cake type array
+                ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(customizeCake.this, android.R.layout.simple_gallery_item, cakeTypes);
+                adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+                // Apply the adapter to the spinner
+                ((Spinner) findViewById(R.id.cakeType)).setAdapter(adapter);
+            }
+        }.execute(null, null, null);
 
         Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -109,5 +126,15 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void save(View view) {
+        Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+        new Helper().showAlert(databaseId.toString(), this.getApplicationContext());
+    }
+
+    public void onCakeTypeChange(View view) {
+        Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+        new Helper().showAlert(databaseId.toString(), this.getApplicationContext());
     }
 }
