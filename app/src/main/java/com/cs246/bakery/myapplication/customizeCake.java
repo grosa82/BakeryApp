@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.cs246.bakery.myapplication.model.CakeType;
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.Rules;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ import java.util.List;
 
 
 public class customizeCake extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+
+    Rules rules;
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
@@ -129,12 +132,20 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
     }
 
     public void save(View view) {
-        Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
-        new Helper().showAlert(databaseId.toString(), this.getApplicationContext());
-    }
+        // gets the cake type id
+        final Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+        // gets the rules for this cake type id
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                rules = new Rules(databaseId);
+                return null;
+            }
 
-    public void onCakeTypeChange(View view) {
-        Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
-        new Helper().showAlert(databaseId.toString(), this.getApplicationContext());
+            @Override
+            protected void onPostExecute(Void param) {
+                // do something with the rules
+            }
+        }.execute(null, null, null);
     }
 }

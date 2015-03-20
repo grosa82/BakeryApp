@@ -19,7 +19,7 @@ public class Cake {
     /** Unique ID for each cake */
     public int id;
     /** The array list for the characteristics */
-    public List<Characteristic> characteristics;
+    public List<Category> categories;
     /** The range of age of the intended customer */
     public String ageRange;
     /** Writing that will be placed on the cake MAX = 50; */
@@ -44,7 +44,7 @@ public class Cake {
     public String name;
 
     public Cake() {
-        characteristics = new ArrayList<Characteristic>();
+        categories = new ArrayList<Category>();
     }
 
     /**
@@ -101,7 +101,7 @@ public class Cake {
                 cake.type = new CakeType().parseJson(respObj.getString("type"));
                 cake.cakeEvent = respObj.getString("cakeEvent");
                 cake.orderDate = helper.parseDate(respObj.getString("orderDate"));
-                cake.submitted = helper.parseBool(respObj.getString("submitted"));
+                cake.submitted = respObj.getBoolean("submitted");
                 cake.name = respObj.getString("name");
             } catch (Exception ex) {
                 ex.printStackTrace();
