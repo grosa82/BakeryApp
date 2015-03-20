@@ -131,13 +131,17 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
         return super.onOptionsItemSelected(item);
     }
 
-    public void save(View view) {
-        // gets the cake type id
+    /**
+     * Loads rules based on the cake type selected
+     */
+    private void loadRules() {
+        // gets the selected cake type
         final Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
         // gets the rules for this cake type id
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
+                // creating the Rule obj is loading the categories behind the scenes
                 rules = new Rules(databaseId);
                 return null;
             }
@@ -147,5 +151,9 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
                 // do something with the rules
             }
         }.execute(null, null, null);
+    }
+
+    public void save(View view) {
+        loadRules();
     }
 }
