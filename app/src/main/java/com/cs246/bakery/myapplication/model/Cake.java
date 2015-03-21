@@ -135,7 +135,7 @@ public class Cake {
                 comments = respObj.getString("comments");
                 price = respObj.getDouble("price");
                 status = new Status().parseJson(respObj.getString("status"));
-                type = new CakeType().parseJson(respObj.getString("type"));
+                type = new CakeType((Activity)helper.getContext()).parseJson(respObj.getString("type"));
                 cakeEvent = respObj.getString("cakeEvent");
                 orderDate = helper.parseDate(respObj.getString("orderDate"));
                 submitted = respObj.getBoolean("submitted");

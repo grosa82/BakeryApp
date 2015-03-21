@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 
 import org.json.JSONArray;
@@ -12,13 +13,18 @@ import java.util.List;
  * Created by ricardo on 3/19/2015.
  */
 public class CakeType {
-    private Helper helper = new Helper(null);
+    private Helper helper;
 
     public int id;
     public String name;
     public String description;
     public String image;
     public Bitmap bitmap;
+
+    public CakeType(Activity activity) {
+        helper = new Helper(activity);
+    }
+
     /**
      * Parses json string to CakeType obj
      * @param json
@@ -27,7 +33,7 @@ public class CakeType {
     public CakeType parseJson(String json) {
         CakeType cakeType = null;
         try {
-            cakeType = new CakeType();
+            cakeType = new CakeType((Activity)helper.getContext());
             JSONObject respObj = new JSONObject(json);
             cakeType.id = respObj.getInt("id");
             cakeType.name = respObj.getString("name");

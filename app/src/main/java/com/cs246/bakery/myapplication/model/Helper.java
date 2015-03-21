@@ -39,6 +39,10 @@ public class Helper {
 
     private String returnedString;
 
+    public Context getContext() {
+        return context;
+    }
+
     /**
      * Display a message on screen
      * @param message message to display

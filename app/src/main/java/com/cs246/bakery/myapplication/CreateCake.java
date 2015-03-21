@@ -48,7 +48,7 @@ public class CreateCake extends ActionBarActivity implements AdapterView.OnItemS
         new AsyncTask<Void, Void, List<CakeType>>() {
             @Override
             protected List<CakeType> doInBackground(Void... params) {
-                return new CakeType().getCakeTypes();
+                return new CakeType(CreateCake.this).getCakeTypes();
             }
 
             @Override
