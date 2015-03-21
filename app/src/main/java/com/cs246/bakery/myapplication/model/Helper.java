@@ -42,23 +42,6 @@ public class Helper {
         context = activity;
     }
 
-    public Bitmap getImageBitmap(String url) {
-        Bitmap bm = null;
-        try {
-            URL aURL = new URL(url);
-            URLConnection conn = aURL.openConnection();
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bm;
-    }
-
     /**
      * Display a temporary message on screen
      * @param message message to display

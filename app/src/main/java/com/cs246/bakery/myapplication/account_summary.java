@@ -2,6 +2,8 @@ package com.cs246.bakery.myapplication;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +17,9 @@ import android.widget.TextView;
 import com.cs246.bakery.myapplication.adapters.OrderAdapter;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Cake;
+
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 
@@ -22,6 +27,7 @@ public class account_summary extends ListActivity {
     private Helper helper = new Helper(this);
     public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
     public final static String DATE = "com.cs246.bakery.myapplication.MESSAGE2";
+    List<Cake> orders;
 
     @Override
     public void onStart() {
@@ -49,7 +55,19 @@ public class account_summary extends ListActivity {
         @Override
         protected List<Cake> doInBackground(Void... params) {
             Cake order = new Cake(account_summary.this);
-            return order.getOrders();
+            orders = order.getOrders();
+
+            for (Cake cake : orders) {
+                try {
+                    InputStream in = (InputStream) new URL(cake.type.image).getContent();
+                    Bitmap bitmap = BitmapFactory.decodeStream(in);
+                    cake.type.bitmap = bitmap;
+                    in.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            return orders;
         }
 
         @Override

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.cs246.bakery.myapplication.R;
 import com.cs246.bakery.myapplication.model.Cake;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.DateFormat;
 import java.util.List;
 
@@ -38,13 +40,15 @@ public class OrderAdapter extends ArrayAdapter<Cake> {
         TextView nickname = (TextView)view.findViewById(R.id.nickname);
         TextView date = (TextView)view.findViewById(R.id.date);
         TextView status = (TextView)view.findViewById(R.id.status);
+        TextView type = (TextView)view.findViewById(R.id.type);
         ImageView image = (ImageView) view.findViewById(R.id.list_image);
 
         nickname.setText(order.name);
         DateFormat df = DateFormat.getDateTimeInstance();
         date.setText(df.format(order.orderDate));
         status.setText(order.status.name);
-        // image.setImageBitmap(new Helper().getImageBitmap(order.type.image));
+        type.setText(order.type.name);
+        image.setImageBitmap(order.type.bitmap);
         image.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         return view;

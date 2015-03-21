@@ -1,5 +1,7 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.graphics.Bitmap;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,7 +16,7 @@ public class CakeType {
     public String name;
     public String description;
     public String image;
-
+    public Bitmap bitmap;
     /**
      * Parses json string to CakeType obj
      * @param json
