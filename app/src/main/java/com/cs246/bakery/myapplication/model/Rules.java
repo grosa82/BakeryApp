@@ -28,10 +28,10 @@ public class Rules {
     private void getRules(Integer cake_type_id) {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
-        requestPackage.setUri("GetRulesByCakeType");
-        requestPackage.setParam("id", cake_type_id.toString());
-        requestPackage.setParam("idUser", helper.getPreferences("id"));
-        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setUri("GetRules");
+        requestPackage.setParam("cakeTypeId", cake_type_id.toString());
+        requestPackage.setParam("userId", helper.getPreferences("id"));
+        requestPackage.setParam("userToken", helper.getPreferences("token"));
 
         categories = new ArrayList<>();
 

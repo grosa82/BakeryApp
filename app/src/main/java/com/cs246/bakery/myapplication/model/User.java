@@ -116,7 +116,7 @@ public class User {
     public Response updateAccount(User user) {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
-        requestPackage.setUri("CreateUser");
+        requestPackage.setUri("UpdateAccount");
         requestPackage.setParam("id", helper.getPreferences("id"));
         requestPackage.setParam("token", helper.getPreferences("token"));
         requestPackage.setParam("name",user.name);
@@ -135,7 +135,7 @@ public class User {
     public Response createAccount(User user) {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
-        requestPackage.setUri("CreateUser");
+        requestPackage.setUri("CreateAccount");
         requestPackage.setParam("name",user.name);
         requestPackage.setParam("phone",user.phone);
         requestPackage.setParam("email",user.email);

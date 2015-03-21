@@ -66,8 +66,8 @@ public class Cake {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetCakes");
-        requestPackage.setParam("id", helper.getPreferences("id"));
-        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setParam("userId", helper.getPreferences("id"));
+        requestPackage.setParam("userToken", helper.getPreferences("token"));
 
         List<Cake> orders = new ArrayList<>();
 
@@ -97,8 +97,8 @@ public class Cake {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetCake");
-        requestPackage.setParam("id", helper.getPreferences("id"));
-        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setParam("userId", helper.getPreferences("id"));
+        requestPackage.setParam("userToken", helper.getPreferences("token"));
         requestPackage.setParam("cakeId", cakeId);
 
         Cake cake = null;
@@ -160,11 +160,11 @@ public class Cake {
      * @param orderName Name to distinguish one order to another
      * @return Response object
      */
-    public Response createNewCake(String ageRange, String colors, String writing, String comments, String idCakeType,
-                                String[] items, String cakeEvent, String orderName) {
+    public Response createCake(String ageRange, String colors, String writing, String comments, String idCakeType,
+                               String[] items, String cakeEvent, String orderName) {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
-        requestPackage.setUri("AddCake");
+        requestPackage.setUri("CreateCake");
         requestPackage.setParam("ageRange", ageRange);
         requestPackage.setParam("colors", colors);
         requestPackage.setParam("writing", writing);
@@ -173,8 +173,8 @@ public class Cake {
         requestPackage.setParam("items", TextUtils.join(",", items));
         requestPackage.setParam("cakeEvent", cakeEvent);
         requestPackage.setParam("orderName", orderName);
-        requestPackage.setParam("idUser", helper.getPreferences("id"));
-        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setParam("userId", helper.getPreferences("id"));
+        requestPackage.setParam("userToken", helper.getPreferences("token"));
         return helper.callWebService(requestPackage).toResponse();
     }
 
@@ -206,8 +206,8 @@ public class Cake {
         requestPackage.setParam("items", TextUtils.join(",", items));
         requestPackage.setParam("cakeEvent", cakeEvent);
         requestPackage.setParam("orderName", orderName);
-        requestPackage.setParam("idUser", helper.getPreferences("id"));
-        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setParam("userId", helper.getPreferences("id"));
+        requestPackage.setParam("userToken", helper.getPreferences("token"));
         return helper.callWebService(requestPackage).toResponse();
     }
 

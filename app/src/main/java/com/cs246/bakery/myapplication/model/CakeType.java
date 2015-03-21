@@ -48,8 +48,8 @@ public class CakeType {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetCakeTypes");
-        requestPackage.setParam("idUser", helper.getPreferences("id"));
-        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setParam("userId", helper.getPreferences("id"));
+        requestPackage.setParam("userToken", helper.getPreferences("token"));
         List<CakeType> cakeTypes = new ArrayList<>();
 
         String jsonString = new Helper(null).callWebService(requestPackage).toString();
