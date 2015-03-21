@@ -53,7 +53,7 @@
         <activity
             android:name=".CreateAccount"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_user_form" >
+            android:label="@string/title_activity_create_account" >
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -64,7 +64,7 @@
         <activity
             android:name=".MyCakes"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_account_summary" >
+            android:label="@string/title_activity_my_cakes" >
         </activity>
         <activity
             android:name=".orderCatagory"
@@ -85,7 +85,7 @@
         <activity
             android:name=".CreateCake"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_customize_cake" >
+            android:label="@string/title_activity_create_cake" >
         </activity>
         <activity
             android:name=".OrderedCake"

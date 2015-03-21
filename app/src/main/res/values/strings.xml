@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Bakery App</string>
+    <string name="app_name">Bre\'s Specialty Bake Shop</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_user_form">Create an Account</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_account_summary">account_summary</string>
-    <string name="title_activity_choose_order">chooseOrder</string>
-    <string name="title_activity_user_login">user_login</string>
+    <string name="title_activity_create_account">Create Account</string>
+    <string name="title_activity_create_cake">New Cake</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_sign_on">signOn</string>
+    <string name="title_activity_main"></string>
+    <string name="title_activity_my_cakes">My Cakes</string>
     <string name="title_activity_order_catagory">orderCatagory</string>
     <string name="title_activity_order_templates">orderTemplates</string>
     <string name="title_activity_upload_picture">uploadPicture</string>
-    <string name="title_activity_customize_cake">customizeCake</string>
     <string-array name="cakeSize_array">
         <item>8\" Round</item>
         <item>9\" Round</item>
