@@ -18,6 +18,10 @@ public class CompanyInfo {
     public String website;
     public String address;
 
+    /**
+     * Gets the company info
+     * @return CompanyInfo object
+     */
     public CompanyInfo getCompanyInfo() {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");

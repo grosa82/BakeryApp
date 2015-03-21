@@ -38,7 +38,7 @@ public class Rules {
                 for (int i = 0; i < rulesJson.length(); i++) {
                     JSONObject obj = rulesJson.getJSONObject(i);
                     Category category = new Category();
-                    category.maxQuant = obj.getInt("maxQuant");
+                    category.maxQuantity = obj.getInt("maxQuant");
                     // parses the categories
                     JSONObject categoryJson = obj.getJSONObject("category");
                     category.id = categoryJson.getInt("id");

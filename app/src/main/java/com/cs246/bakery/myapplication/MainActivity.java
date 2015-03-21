@@ -1,8 +1,6 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -13,14 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cs246.bakery.myapplication.model.Cake;
 import com.cs246.bakery.myapplication.model.CompanyInfo;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.User;
-
-import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
     private Helper helper = new Helper(this);
@@ -65,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
         User user = new User(MainActivity.this);
         user.registerDeviceId();
         if (user.isAuthenticated())
-            startActivity(new Intent(MainActivity.this, account_summary.class));
+            startActivity(new Intent(MainActivity.this, MyCakes.class));
 
         String android_id = Settings.Secure.getString(MainActivity.this.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
@@ -79,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 return true;
             case R.id.action_create:
-                startActivity(new Intent(MainActivity.this, UserForm.class));
+                startActivity(new Intent(MainActivity.this, CreateAccount.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -87,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void register(View view) {
-        Intent homepage = new Intent(MainActivity.this, UserForm.class);
+        Intent homepage = new Intent(MainActivity.this, CreateAccount.class);
         startActivity(homepage);
     }
 

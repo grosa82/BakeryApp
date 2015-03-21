@@ -3,8 +3,6 @@ package com.cs246.bakery.myapplication.model;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,15 +15,12 @@ import com.cs246.bakery.myapplication.R;
 
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Date;
 
 /**
@@ -48,7 +43,7 @@ public class Helper {
      */
     public void showAlert(String message) {
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = layoutInflater.inflate(R.layout.toast_layout,
+        View layout = layoutInflater.inflate(R.layout.layout_toast,
            (ViewGroup)((Activity)context).findViewById(R.id.toast_layout_root));
 
         TextView text = (TextView) layout.findViewById(R.id.text);
@@ -107,6 +102,7 @@ public class Helper {
                 response.success = respObj.getBoolean("success");
                 response.message = respObj.getString("message");
                 response.exception = respObj.getString("exception");
+                response.createdId = respObj.getInt("id");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return null;

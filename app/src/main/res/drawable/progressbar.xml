@@ -8,5 +8,5 @@
     <bitmap
         android:antialias="true"
         android:filter="true"
-        android:src="@drawable/cakeicon" />
+        android:src="@drawable/loading" />
 </rotate>

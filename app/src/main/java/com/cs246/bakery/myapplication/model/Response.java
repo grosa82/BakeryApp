@@ -10,4 +10,6 @@ public class Response {
     public String message;
     /** Exception returned by the server */
     public String exception;
+    /** When adding new information to the database, it will return the id created on this property */
+    public int createdId;
 }

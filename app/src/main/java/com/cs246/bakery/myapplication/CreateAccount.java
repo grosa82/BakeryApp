@@ -15,7 +15,7 @@ import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.User;
 
-public class UserForm extends ActionBarActivity {
+public class CreateAccount extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private final String TAG = "UserForm";
     private Context context;
@@ -23,7 +23,7 @@ public class UserForm extends ActionBarActivity {
     class Services extends AsyncTask<User, String, Response> {
         @Override
         protected Response doInBackground(User... users) {
-            User user = new User(UserForm.this);
+            User user = new User(CreateAccount.this);
             return user.createAccount(users[0]);
         }
 
@@ -31,7 +31,7 @@ public class UserForm extends ActionBarActivity {
         protected void onPostExecute(Response response) {
             if (response.success) {
                 helper.showAlert(response.message);
-                startActivity(new Intent(UserForm.this, LoginActivity.class));
+                startActivity(new Intent(CreateAccount.this, LoginActivity.class));
             }
             else
                 helper.showAlert(response.message);
@@ -41,7 +41,7 @@ public class UserForm extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_form);
+        setContentView(R.layout.activity_create_account);
         context = getApplicationContext();
     }
 
@@ -68,7 +68,7 @@ public class UserForm extends ActionBarActivity {
     }
 
     public void addUser(View view) {
-        User newUser = new User(UserForm.this);
+        User newUser = new User(CreateAccount.this);
         newUser.name = ((EditText)findViewById(R.id.name)).getText().toString();
         newUser.email = ((EditText)findViewById(R.id.email)).getText().toString();
         newUser.phone = ((EditText)findViewById(R.id.phone)).getText().toString();

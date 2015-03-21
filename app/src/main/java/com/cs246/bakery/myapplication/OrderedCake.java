@@ -33,8 +33,8 @@ public class OrderedCake extends ActionBarActivity {
     public void onStart() {
         super.onStart();
         Intent intent = getIntent();
-        String message = intent.getStringExtra(account_summary.CAKE_NICKNAME);
-        String message2 = intent.getStringExtra(account_summary.DATE);
+        String message = intent.getStringExtra(MyCakes.CAKE_NICKNAME);
+        String message2 = intent.getStringExtra(MyCakes.DATE);
 
         TextView textView = (TextView) findViewById(R.id.textView16);
         textView.setText(message2);

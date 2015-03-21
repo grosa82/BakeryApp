@@ -1,8 +1,6 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.User;
@@ -44,6 +41,12 @@ public class LoginActivity extends ActionBarActivity {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
+            try {
+                Thread.sleep(9000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             User user = new User(LoginActivity.this);
             return user.authenticate(email, password);
         }
@@ -52,7 +55,7 @@ public class LoginActivity extends ActionBarActivity {
         protected void onPostExecute(User response) {
             progressBar.setVisibility(View.GONE);
             if (response != null) {
-                Intent homepage = new Intent(LoginActivity.this, account_summary.class);
+                Intent homepage = new Intent(LoginActivity.this, MyCakes.class);
                 startActivity(homepage);
             }
             else

@@ -61,7 +61,7 @@ public class orderCatagory extends ActionBarActivity {
     }
 
     public void customCake(View view) {
-        Intent homepage = new Intent(orderCatagory.this, customizeCake.class);
+        Intent homepage = new Intent(orderCatagory.this, CreateCake.class);
         startActivity(homepage);
     }
 }

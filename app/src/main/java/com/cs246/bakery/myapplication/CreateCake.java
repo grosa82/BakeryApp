@@ -1,33 +1,25 @@
 package com.cs246.bakery.myapplication;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cs246.bakery.myapplication.model.CakeType;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Rules;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import java.io.IOException;
 import java.util.List;
 
 
-public class customizeCake extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class CreateCake extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     private Helper helper = new Helper(this);
     private Rules rules;
 
@@ -51,7 +43,7 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customize_cake);
+        setContentView(R.layout.activity_create_cake);
 
         new AsyncTask<Void, Void, List<CakeType>>() {
             @Override
@@ -62,7 +54,7 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
             @Override
             protected void onPostExecute(List<CakeType> cakeTypes) {
                 // Create an ArrayAdapter using the cake type array
-                ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(customizeCake.this, android.R.layout.simple_gallery_item, cakeTypes);
+                ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 // Apply the adapter to the spinner
                 ((Spinner) findViewById(R.id.cakeType)).setAdapter(adapter);
@@ -131,7 +123,7 @@ public class customizeCake extends ActionBarActivity implements AdapterView.OnIt
             @Override
             protected Void doInBackground(Void... params) {
                 // creating the Rule obj is loading the categories behind the scenes
-                rules = new Rules(databaseId, customizeCake.this);
+                rules = new Rules(databaseId, CreateCake.this);
                 return null;
             }
 

@@ -1,7 +1,7 @@
 package com.cs246.bakery.myapplication.model;
 
 import android.app.Activity;
-import android.content.Context;
+import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,19 +43,29 @@ public class Cake {
     /** Cake name */
     public String name;
 
+    /**
+     * Cake action enumerator
+     */
+    public enum cakeAction {
+        submit,
+        cancel,
+        approvePrice,
+        edit
+    }
+
     public Cake(Activity activity) {
         categories = new ArrayList<Category>();
         helper = new Helper(activity);
     }
 
     /**
-     * Gets the user's orders
-     * @return List of orders
+     * Gets the user's cakes
+     * @return List of cakes
      */
-    public List<Cake> getOrders() {
+    public List<Cake> getCakes() {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
-        requestPackage.setUri("GetOrders");
+        requestPackage.setUri("GetCakes");
         requestPackage.setParam("id", helper.getPreferences("id"));
         requestPackage.setParam("token", helper.getPreferences("token"));
 
@@ -68,7 +78,7 @@ public class Cake {
             try {
                 JSONArray orderJson = new JSONArray(jsonString);
                 for (int i = 0; i < orderJson.length(); i++) {
-                    Cake order = parseOrder(orderJson.get(i).toString());
+                    Cake order = parseCake(orderJson.get(i).toString());
                     orders.add(order);
                 }
             } catch (Exception e) {
@@ -80,11 +90,39 @@ public class Cake {
     }
 
     /**
-     * Parse a json string to an order object
+     * Gets a user cake
+     * @return Cake
+     */
+    public Cake getCake(String cakeId) {
+        RequestPackage requestPackage = new RequestPackage();
+        requestPackage.setMethod("GET");
+        requestPackage.setUri("GetCake");
+        requestPackage.setParam("id", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setParam("cakeId", cakeId);
+
+        Cake cake = null;
+
+        String jsonString = helper.getData(requestPackage);
+        if (jsonString == null || jsonString.equals("null\n"))
+            return null;
+        else {
+            try {
+                cake = parseCake(jsonString);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return cake;
+        }
+    }
+
+    /**
+     * Parse a json string to a cake object
      * @param text
      * @return Cake
      */
-    public Cake parseOrder(String text) {
+    private Cake parseCake(String text) {
         if (text.isEmpty()) {
             return null;
         } else {
@@ -108,5 +146,96 @@ public class Cake {
             }
         }
         return this;
+    }
+
+    /**
+     * Adds a new cake to the user account
+     * @param ageRange
+     * @param colors
+     * @param writing
+     * @param comments
+     * @param idCakeType
+     * @param items Items IDs that defines the characteristics of the cake
+     * @param cakeEvent
+     * @param orderName Name to distinguish one order to another
+     * @return Response object
+     */
+    public Response createNewCake(String ageRange, String colors, String writing, String comments, String idCakeType,
+                                String[] items, String cakeEvent, String orderName) {
+        RequestPackage requestPackage = new RequestPackage();
+        requestPackage.setMethod("POST");
+        requestPackage.setUri("AddCake");
+        requestPackage.setParam("ageRange", ageRange);
+        requestPackage.setParam("colors", colors);
+        requestPackage.setParam("writing", writing);
+        requestPackage.setParam("comments", comments);
+        requestPackage.setParam("idCakeType", idCakeType);
+        requestPackage.setParam("items", TextUtils.join(",", items));
+        requestPackage.setParam("cakeEvent", cakeEvent);
+        requestPackage.setParam("orderName", orderName);
+        requestPackage.setParam("idUser", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
+        return helper.parseResponse((helper.getData(requestPackage)));
+    }
+
+    /**
+     * Updates the cake info
+     * @param cakeId Cake id
+     * @param ageRange
+     * @param colors
+     * @param writing
+     * @param comments
+     * @param idCakeType
+     * @param items Items IDs that defines the characteristics of the cake
+     * @param cakeEvent
+     * @param orderName Name to distinguish one order to another
+     * @return Response object
+     */
+    public Response updateCake(String cakeId, String ageRange, String colors, String writing, String comments, String idCakeType,
+                               String[] items, String cakeEvent, String orderName) {
+
+        RequestPackage requestPackage = new RequestPackage();
+        requestPackage.setMethod("POST");
+        requestPackage.setUri("UpdateCake");
+        requestPackage.setParam("id", cakeId);
+        requestPackage.setParam("ageRange", ageRange);
+        requestPackage.setParam("colors", colors);
+        requestPackage.setParam("writing", writing);
+        requestPackage.setParam("comments", comments);
+        requestPackage.setParam("idCakeType", idCakeType);
+        requestPackage.setParam("items", TextUtils.join(",", items));
+        requestPackage.setParam("cakeEvent", cakeEvent);
+        requestPackage.setParam("orderName", orderName);
+        requestPackage.setParam("idUser", helper.getPreferences("id"));
+        return helper.parseResponse((helper.getData(requestPackage)));
+    }
+
+    /**
+     * Updates cake actions (submit, cancel, approve price, or enable edit)
+     * @param cakeId Cake id
+     * @param action
+     * @return Response object
+     */
+    public Response updateCake(String cakeId, cakeAction action) {
+        RequestPackage requestPackage = new RequestPackage();
+        requestPackage.setMethod("POST");
+        requestPackage.setUri("UpdateCake");
+        requestPackage.setParam("id", cakeId);
+        switch (action) {
+            case submit:
+                requestPackage.setParam("action", "submit");
+                break;
+            case cancel:
+                requestPackage.setParam("action", "cancel");
+                break;
+            case approvePrice:
+                requestPackage.setParam("action", "approve");
+                break;
+            case edit:
+                requestPackage.setParam("action", "edit");
+                break;
+        }
+        requestPackage.setParam("idUser", helper.getPreferences("id"));
+        return helper.parseResponse((helper.getData(requestPackage)));
     }
 }

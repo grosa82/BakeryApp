@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.List;
 
 
-public class account_summary extends ListActivity {
+public class MyCakes extends ListActivity {
     private Helper helper = new Helper(this);
     private ProgressBar progressBar;
     public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
@@ -63,8 +63,8 @@ public class account_summary extends ListActivity {
 
         @Override
         protected List<Cake> doInBackground(Void... params) {
-            Cake order = new Cake(account_summary.this);
-            orders = order.getOrders();
+            Cake order = new Cake(MyCakes.this);
+            orders = order.getCakes();
 
             for (Cake cake : orders) {
                 try {
@@ -86,7 +86,7 @@ public class account_summary extends ListActivity {
                 ((ListView)getListView()).setVisibility(View.VISIBLE);
                 ((TextView)findViewById(R.id.message)).setVisibility(View.INVISIBLE);
 
-                OrderAdapter adapter = new OrderAdapter(account_summary.this.getApplicationContext(), R.layout.layout_orders, orders);
+                OrderAdapter adapter = new OrderAdapter(MyCakes.this.getApplicationContext(), R.layout.layout_orders, orders);
                 setListAdapter(adapter);
 
                 ListView listView1 = (ListView) findViewById(android.R.id.list);
@@ -96,7 +96,7 @@ public class account_summary extends ListActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position,
                                             long id) {
-                        Intent intent = new Intent(account_summary.this, OrderedCake.class);
+                        Intent intent = new Intent(MyCakes.this, OrderedCake.class);
                         TextView nickname = (TextView)view.findViewById(R.id.nickname);
                         TextView date = (TextView)view.findViewById(R.id.date);
                         String message = nickname.getText().toString();
@@ -117,7 +117,7 @@ public class account_summary extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_summary);
+        setContentView(R.layout.activity_my_cakes);
     }
 
 
@@ -134,7 +134,7 @@ public class account_summary extends ListActivity {
         switch (item.getItemId()) {
             case R.id.action_signOut:
                 helper.deletePreferences();
-                startActivity(new Intent(account_summary.this, MainActivity.class));
+                startActivity(new Intent(MyCakes.this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -143,11 +143,11 @@ public class account_summary extends ListActivity {
 
     public void signOut(View view) {
         helper.deletePreferences();
-        startActivity(new Intent(account_summary.this, MainActivity.class));
+        startActivity(new Intent(MyCakes.this, MainActivity.class));
     }
 
     public void chooseType(View view) {
-        Intent homepage = new Intent(account_summary.this, orderCatagory.class);
+        Intent homepage = new Intent(MyCakes.this, orderCatagory.class);
         startActivity(homepage);
     }
 
