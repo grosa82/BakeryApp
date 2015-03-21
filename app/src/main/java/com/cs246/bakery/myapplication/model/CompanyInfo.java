@@ -1,10 +1,6 @@
 package com.cs246.bakery.myapplication.model;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ricardo on 3/20/2015.
@@ -27,7 +23,7 @@ public class CompanyInfo {
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetCompanyInfo");
 
-        String jsonString = helper.getData(requestPackage);
+        String jsonString = helper.callWebService(requestPackage);
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {

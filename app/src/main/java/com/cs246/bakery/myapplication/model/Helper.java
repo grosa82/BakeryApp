@@ -139,7 +139,7 @@ public class Helper {
      * @param requestPackage
      * @return string returned from server
      */
-    public String getData(RequestPackage requestPackage) {
+    public String callWebService(RequestPackage requestPackage) {
 
         Log.i(this.getClass().getName(), requestPackage.getUri());
 

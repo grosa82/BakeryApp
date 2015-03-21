@@ -71,7 +71,7 @@ public class Cake {
 
         List<Cake> orders = new ArrayList<>();
 
-        String jsonString = helper.getData(requestPackage);
+        String jsonString = helper.callWebService(requestPackage);
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {
@@ -103,7 +103,7 @@ public class Cake {
 
         Cake cake = null;
 
-        String jsonString = helper.getData(requestPackage);
+        String jsonString = helper.callWebService(requestPackage);
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {
@@ -175,7 +175,7 @@ public class Cake {
         requestPackage.setParam("orderName", orderName);
         requestPackage.setParam("idUser", helper.getPreferences("id"));
         requestPackage.setParam("token", helper.getPreferences("token"));
-        return helper.parseResponse((helper.getData(requestPackage)));
+        return helper.parseResponse((helper.callWebService(requestPackage)));
     }
 
     /**
@@ -207,7 +207,7 @@ public class Cake {
         requestPackage.setParam("cakeEvent", cakeEvent);
         requestPackage.setParam("orderName", orderName);
         requestPackage.setParam("idUser", helper.getPreferences("id"));
-        return helper.parseResponse((helper.getData(requestPackage)));
+        return helper.parseResponse((helper.callWebService(requestPackage)));
     }
 
     /**
@@ -236,6 +236,6 @@ public class Cake {
                 break;
         }
         requestPackage.setParam("idUser", helper.getPreferences("id"));
-        return helper.parseResponse((helper.getData(requestPackage)));
+        return helper.parseResponse((helper.callWebService(requestPackage)));
     }
 }

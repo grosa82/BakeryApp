@@ -29,7 +29,7 @@ public class Rules {
 
         categories = new ArrayList<>();
 
-        String jsonString = helper.getData(requestPackage);
+        String jsonString = helper.callWebService(requestPackage);
         if (jsonString == null || jsonString.equals("null\n"))
             categories = null;
         else {

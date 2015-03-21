@@ -49,7 +49,7 @@ public class CakeType {
 
         List<CakeType> cakeTypes = new ArrayList<>();
 
-        String jsonString = new Helper(null).getData(requestPackage);
+        String jsonString = new Helper(null).callWebService(requestPackage);
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {

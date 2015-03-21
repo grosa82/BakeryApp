@@ -94,7 +94,7 @@ public class User {
         requestPackage.setParam("email", email);
         requestPackage.setParam("password", password);
 
-        String jsonString = helper.getData(requestPackage);
+        String jsonString = helper.callWebService(requestPackage);
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {
@@ -122,7 +122,7 @@ public class User {
         requestPackage.setParam("email",user.email);
         requestPackage.setParam("password",user.password);
         requestPackage.setParam("regID", user.regID);
-        return helper.parseResponse((helper.getData(requestPackage)));
+        return helper.parseResponse((helper.callWebService(requestPackage)));
     }
 
     /**
