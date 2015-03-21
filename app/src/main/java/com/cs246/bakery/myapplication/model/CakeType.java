@@ -52,7 +52,7 @@ public class CakeType {
         requestPackage.setParam("token", helper.getPreferences("token"));
         List<CakeType> cakeTypes = new ArrayList<>();
 
-        String jsonString = new Helper(null).callWebService(requestPackage);
+        String jsonString = new Helper(null).callWebService(requestPackage).toString();
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {

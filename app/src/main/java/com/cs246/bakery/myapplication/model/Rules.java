@@ -35,7 +35,7 @@ public class Rules {
 
         categories = new ArrayList<>();
 
-        String jsonString = helper.callWebService(requestPackage);
+        String jsonString = helper.callWebService(requestPackage).toString();
         if (jsonString == null || jsonString.equals("null\n"))
             categories = null;
         else {

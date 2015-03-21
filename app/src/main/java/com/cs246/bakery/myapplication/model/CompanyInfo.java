@@ -23,7 +23,7 @@ public class CompanyInfo {
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetCompanyInfo");
 
-        String jsonString = helper.callWebService(requestPackage);
+        String jsonString = helper.callWebService(requestPackage).toString();
         if (jsonString == null || jsonString.equals("null\n"))
             return null;
         else {

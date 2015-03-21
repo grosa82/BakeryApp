@@ -37,6 +37,8 @@ public class Helper {
         context = activity;
     }
 
+    private String returnedString;
+
     /**
      * Display a message on screen
      * @param message message to display
@@ -91,7 +93,7 @@ public class Helper {
      * @param text json string
      * @return Response object
      */
-    public Response parseResponse(String text) {
+    private Response parseResponse(String text) {
         Response response = new Response();
         if (text.isEmpty()) {
             response.success = false;
@@ -139,7 +141,7 @@ public class Helper {
      * @param requestPackage
      * @return string returned from server
      */
-    public String callWebService(RequestPackage requestPackage) {
+    public Helper callWebService(RequestPackage requestPackage) {
 
         Log.i(this.getClass().getName(), requestPackage.getUri());
 
@@ -169,19 +171,39 @@ public class Helper {
             while ((line = reader.readLine()) != null) {
                 sb.append(line + '\n');
             }
-            return sb.toString();
+            returnedString = sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            returnedString = "";
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    returnedString = "";
                 }
             }
+            return this;
         }
+    }
+
+    /**
+     * Converts a string to a Response object
+     * @return Response
+     */
+    public Response toResponse() {
+        if (returnedString.isEmpty()) {
+            Response response = new Response();
+            response.message = "Blank";
+            response.success = false;
+            return response;
+        }
+        return parseResponse(returnedString);
+    }
+
+    @Override
+    public String toString() {
+        return returnedString;
     }
 }
