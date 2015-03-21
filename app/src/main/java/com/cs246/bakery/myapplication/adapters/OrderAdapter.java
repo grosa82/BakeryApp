@@ -12,8 +12,6 @@ import android.widget.TextView;
 import com.cs246.bakery.myapplication.R;
 import com.cs246.bakery.myapplication.model.Cake;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.text.DateFormat;
 import java.util.List;
 

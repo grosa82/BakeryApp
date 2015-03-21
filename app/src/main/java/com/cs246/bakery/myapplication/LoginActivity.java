@@ -59,7 +59,7 @@ public class LoginActivity extends ActionBarActivity {
                 startActivity(homepage);
             }
             else
-                helper.showAlert("Wrong email or password. Please try again");
+                helper.displayMessage("Wrong email or password. Please try again");
         }
     }
 

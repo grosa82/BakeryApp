@@ -38,7 +38,7 @@ public class CreateCake extends ActionBarActivity implements AdapterView.OnItemS
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
         ((TextView) findViewById(R.id.textView2)).setTypeface(tf, Typeface.NORMAL);
 
-        helper.showAlert("Customize Your Cake");
+        helper.displayMessage("Customize Your Cake");
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

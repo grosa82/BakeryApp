@@ -29,7 +29,7 @@ import java.util.Date;
 public class Helper {
 
     /** Constant with the name of the shared preferences */
-    private static final String PREFS_NAME = "MyPreferences";
+    private static final String PREFS_NAME = "CakeAppPreferences";
     /** Context */
     private Context context;
 
@@ -38,10 +38,10 @@ public class Helper {
     }
 
     /**
-     * Display a temporary message on screen
+     * Display a message on screen
      * @param message message to display
      */
-    public void showAlert(String message) {
+    public void displayMessage(String message) {
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = layoutInflater.inflate(R.layout.layout_toast,
            (ViewGroup)((Activity)context).findViewById(R.id.toast_layout_root));

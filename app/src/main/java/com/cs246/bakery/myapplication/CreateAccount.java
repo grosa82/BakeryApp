@@ -30,11 +30,11 @@ public class CreateAccount extends ActionBarActivity {
         @Override
         protected void onPostExecute(Response response) {
             if (response.success) {
-                helper.showAlert(response.message);
+                helper.displayMessage(response.message);
                 startActivity(new Intent(CreateAccount.this, LoginActivity.class));
             }
             else
-                helper.showAlert(response.message);
+                helper.displayMessage(response.message);
         }
     }
 
@@ -102,32 +102,32 @@ public class CreateAccount extends ActionBarActivity {
                 "[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$";
 
         if (!newUser.name.matches(regexForName) || newUser.name.length() < 3) {
-            helper.showAlert("Invalid name. Please try again");
+            helper.displayMessage("Invalid name. Please try again");
             ((EditText)findViewById(R.id.name)).setText("");
             ((EditText)findViewById(R.id.name)).requestFocus();
             return false;
         }
         else if (!newUser.phone.matches(regexForPhone)) {
-            helper.showAlert("Phone should be in the form of ###-###-####");
+            helper.displayMessage("Phone should be in the form of ###-###-####");
             ((EditText)findViewById(R.id.phone)).setText("");
             ((EditText)findViewById(R.id.phone)).requestFocus();
             return false;
         }
         else if (!newUser.email.matches(regexForEmail)) {
-            helper.showAlert("Invalid email. Please try again");
+            helper.displayMessage("Invalid email. Please try again");
             ((EditText)findViewById(R.id.email)).setText("");
             ((EditText)findViewById(R.id.email)).requestFocus();
             return false;
         }
         else if (!newUser.password.equals(confirm)) {
-            helper.showAlert("Password and confirmation does not match");
+            helper.displayMessage("Password and confirmation does not match");
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
             return false;
         }
         else if (newUser.password.length() < 8) {
-            helper.showAlert("Password should be at least 8 characters long");
+            helper.displayMessage("Password should be at least 8 characters long");
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
