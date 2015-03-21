@@ -43,12 +43,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
@@ -61,22 +55,6 @@ public class MainActivity extends ActionBarActivity {
             startActivity(new Intent(MainActivity.this, MyCakes.class));
 
         String android_id = Settings.Secure.getString(MainActivity.this.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_login:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                return true;
-            case R.id.action_create:
-                startActivity(new Intent(MainActivity.this, CreateAccount.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public void register(View view) {

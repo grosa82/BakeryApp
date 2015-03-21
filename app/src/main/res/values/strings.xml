@@ -8,7 +8,7 @@
     <string name="title_activity_account_summary">account_summary</string>
     <string name="title_activity_choose_order">chooseOrder</string>
     <string name="title_activity_user_login">user_login</string>
-    <string name="title_activity_login_stage">loginStage</string>
+    <string name="title_activity_login">Login</string>
     <string name="title_activity_sign_on">signOn</string>
     <string name="title_activity_order_catagory">orderCatagory</string>
     <string name="title_activity_order_templates">orderTemplates</string>

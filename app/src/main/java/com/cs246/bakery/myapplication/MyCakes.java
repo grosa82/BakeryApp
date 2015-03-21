@@ -124,21 +124,23 @@ public class MyCakes extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_account_summary, menu);
+        getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_signOut:
-                helper.deletePreferences();
-                startActivity(new Intent(MyCakes.this, MainActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_signOut) {
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void signOut(View view) {
