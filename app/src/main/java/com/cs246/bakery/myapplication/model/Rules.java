@@ -16,12 +16,12 @@ public class Rules {
 
     public Rules(int cake_type_id, Activity activity) {
         helper = new Helper(activity);
-        loadCategories(cake_type_id);
+        getRules(cake_type_id);
     }
 
     public List<Category> categories;
 
-    private void loadCategories(Integer cake_type_id) {
+    private void getRules(Integer cake_type_id) {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetRulesByCakeType");
