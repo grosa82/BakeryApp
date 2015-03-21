@@ -12,10 +12,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
-        android:id="@+id/email"
-        android:background="@color/editText_color"/>
+        android:id="@+id/email"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -24,7 +23,6 @@
         android:hint="Password"
         android:id="@+id/password"
         android:inputType="textPassword"
-        android:background="@color/editText_color"
         android:layout_marginBottom="20dp"/>
         <Button
             android:layout_width="fill_parent"
