@@ -66,14 +66,16 @@ public class MyCakes extends ListActivity {
             Cake order = new Cake(MyCakes.this);
             orders = order.getCakes();
 
-            for (Cake cake : orders) {
-                try {
-                    InputStream in = (InputStream) new URL(cake.type.image).getContent();
-                    Bitmap bitmap = BitmapFactory.decodeStream(in);
-                    cake.type.bitmap = bitmap;
-                    in.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+            if (orders != null) {
+                for (Cake cake : orders) {
+                    try {
+                        InputStream in = (InputStream) new URL(cake.type.image).getContent();
+                        Bitmap bitmap = BitmapFactory.decodeStream(in);
+                        cake.type.bitmap = bitmap;
+                        in.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
             return orders;
