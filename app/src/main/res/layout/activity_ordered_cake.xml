@@ -10,28 +10,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ordered Cake"
-        android:id="@+id/orderedCakeTitle"
-        android:textStyle="bold"
-        android:textSize="36sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/title_color"
-        android:shadowColor="@color/title_shadow"
-        android:shadowDx="10"
-        android:shadowDy="10"
-        android:shadowRadius="10"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Name:"
         android:id="@+id/textView11"
         android:layout_marginTop="15dp"
         android:textStyle="bold"
-        android:layout_below="@+id/orderedCakeTitle"
-        android:layout_toLeftOf="@+id/orderedCakeTitle"
-        android:layout_toStartOf="@+id/orderedCakeTitle"
         android:textIsSelectable="false"
         android:textSize="17sp" />
 
@@ -119,6 +101,8 @@
         android:paddingLeft="0dp"
         android:fadeScrollbars="false"
         android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false">
 
         <TextView
@@ -176,6 +160,8 @@
         android:layout_alignEnd="@+id/scrollView"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="false"
         android:paddingTop="5dp">
 
         <TextView

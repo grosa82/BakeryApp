@@ -7,9 +7,4 @@
     tools:context="com.cs246.bakery.myapplication.orderTemplates"
     android:background="@drawable/background">
 
-    <TextView android:text="Choose A Tempate"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 </RelativeLayout>

@@ -7,23 +7,8 @@
     tools:context="com.cs246.bakery.myapplication.orderCatagory"
     android:background="@drawable/background">
 
-    <TextView android:text="Choose an option"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/title_color"
-        android:shadowColor="@color/title_shadow"
-        android:layout_marginTop="150dp"
-        android:shadowDx="10"
-        android:shadowDy="10"
-        android:shadowRadius="10"/>
-
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:text="Use Template"
         android:id="@+id/template"

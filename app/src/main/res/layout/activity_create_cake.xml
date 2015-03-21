@@ -10,20 +10,6 @@
     android:transitionGroup="false"
     android:id="@+id/customCake">
 
-    <TextView android:text="Custom Cake"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textColor="@color/title_color"
-        android:shadowColor="@color/title_shadow"
-        android:textStyle="bold"
-        android:textSize="35sp"
-        android:textIsSelectable="false"
-        android:shadowDx="10"
-        android:shadowDy="10"
-        android:shadowRadius="10"/>
-
     <Spinner
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -44,7 +30,6 @@
         android:id="@+id/textView3"
         android:textStyle="bold"
         android:layout_marginTop="39dp"
-        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
