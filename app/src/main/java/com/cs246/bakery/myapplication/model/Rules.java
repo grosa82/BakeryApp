@@ -21,6 +21,10 @@ public class Rules {
 
     public List<Category> categories;
 
+    /**
+     * Gets the rules of a specific cake type
+     * @param cake_type_id
+     */
     private void getRules(Integer cake_type_id) {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
