@@ -7,24 +7,21 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".account_summary"
     android:background="@drawable/background">
 
-    <TextView android:text="User Summary"
+    <TextView android:text="User name"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:textSize="32sp"
+        android:textSize="25sp"
         android:textIsSelectable="false"
         android:textStyle="bold"
         android:textColor="@color/title_color"
-        android:shadowColor="@color/title_shadow"
-        android:shadowDx="10"
-        android:shadowDy="10"
-        android:shadowRadius="10"/>
+        android:background="@drawable/rounded_border" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="400dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="63dp"
         android:id="@android:id/list"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
@@ -69,8 +66,8 @@
         android:layout_marginBottom="23dp" />
 
     <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="256px"
+        android:layout_height="256px"
         android:id="@+id/progressBar"
         android:layout_gravity="center"
         android:layout_centerInParent="true"

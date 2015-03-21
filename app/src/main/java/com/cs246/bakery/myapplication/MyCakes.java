@@ -34,8 +34,6 @@ public class MyCakes extends ListActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
-        ((TextView) findViewById(R.id.title)).setTypeface(tf, Typeface.NORMAL);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.bringToFront();
     }

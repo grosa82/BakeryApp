@@ -41,12 +41,6 @@ public class LoginActivity extends ActionBarActivity {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-            try {
-                Thread.sleep(9000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             User user = new User(LoginActivity.this);
             return user.authenticate(email, password);
         }
