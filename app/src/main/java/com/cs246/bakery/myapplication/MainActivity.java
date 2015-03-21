@@ -1,7 +1,10 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,17 +13,40 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cs246.bakery.myapplication.model.Cake;
+import com.cs246.bakery.myapplication.model.CompanyInfo;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.User;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.util.List;
+
 public class MainActivity extends ActionBarActivity {
     private Helper helper = new Helper(this);
+
+    class LoadCompanyInfo extends AsyncTask<Void, Void, CompanyInfo> {
+
+        @Override
+        protected CompanyInfo doInBackground(Void... params) {
+            CompanyInfo companyInfo = new CompanyInfo();
+            return companyInfo.getCompanyInfo();
+        }
+
+        @Override
+        public void onPostExecute(CompanyInfo info) {
+            ((TextView)findViewById(R.id.companyName)).setText(info.name);
+            ((TextView)findViewById(R.id.phone)).setText(info.phone);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getActionBar().hide();
         setContentView(R.layout.activity_main);
+
+        new LoadCompanyInfo().execute();
     }
 
     @Override
@@ -33,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
     public void onStart() {
         super.onStart();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
-        ((TextView) findViewById(R.id.textView)).setTypeface(tf, Typeface.NORMAL);
+        ((TextView) findViewById(R.id.companyName)).setTypeface(tf, Typeface.NORMAL);
 
         // If user is authenticated, redirects to the summary page
         User user = new User(MainActivity.this);

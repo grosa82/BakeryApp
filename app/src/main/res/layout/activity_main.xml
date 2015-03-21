@@ -11,19 +11,31 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Bre's Specialty\nBake Shop"
-        android:id="@+id/textView"
+        android:text=""
+        android:id="@+id/companyName"
         android:textSize="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/title_color"
         android:shadowColor="@color/title_shadow"
         android:shadowDx="10"
         android:shadowDy="10"
         android:shadowRadius="10" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/phone"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/regular_shadow"
+        android:layout_below="@+id/companyName"/>
 
     <ImageView
         android:layout_width="fill_parent"
