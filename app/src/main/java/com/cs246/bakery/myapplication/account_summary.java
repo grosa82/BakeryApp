@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.adapters.OrderAdapter;
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class account_summary extends ListActivity {
     private Helper helper = new Helper(this);
+    private ProgressBar progressBar;
     public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
     public final static String DATE = "com.cs246.bakery.myapplication.MESSAGE2";
     List<Cake> orders;
@@ -34,6 +36,8 @@ public class account_summary extends ListActivity {
         super.onStart();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
         ((TextView) findViewById(R.id.title)).setTypeface(tf, Typeface.NORMAL);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.bringToFront();
     }
 
 
@@ -51,6 +55,11 @@ public class account_summary extends ListActivity {
     }
 
     class LoadOrders extends AsyncTask<Void, Void, List<Cake>> {
+
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected List<Cake> doInBackground(Void... params) {
@@ -72,6 +81,7 @@ public class account_summary extends ListActivity {
 
         @Override
         public void onPostExecute(List<Cake> orders) {
+            progressBar.setVisibility(View.GONE);
             if (orders != null) {
                 ((ListView)getListView()).setVisibility(View.VISIBLE);
                 ((TextView)findViewById(R.id.message)).setVisibility(View.INVISIBLE);
