@@ -207,6 +207,7 @@ public class Cake {
         requestPackage.setParam("cakeEvent", cakeEvent);
         requestPackage.setParam("orderName", orderName);
         requestPackage.setParam("idUser", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
         return helper.parseResponse((helper.callWebService(requestPackage)));
     }
 
@@ -236,6 +237,7 @@ public class Cake {
                 break;
         }
         requestPackage.setParam("idUser", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
         return helper.parseResponse((helper.callWebService(requestPackage)));
     }
 }

@@ -109,6 +109,25 @@ public class User {
     }
 
     /**
+     * Updates user account
+     * @param user User object
+     * @return Response object
+     */
+    public Response updateAccount(User user) {
+        RequestPackage requestPackage = new RequestPackage();
+        requestPackage.setMethod("POST");
+        requestPackage.setUri("CreateUser");
+        requestPackage.setParam("id", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
+        requestPackage.setParam("name",user.name);
+        requestPackage.setParam("phone",user.phone);
+        requestPackage.setParam("email",user.email);
+        requestPackage.setParam("password",user.password);
+        requestPackage.setParam("regID", user.regID);
+        return helper.parseResponse((helper.callWebService(requestPackage)));
+    }
+
+    /**
      * Creates a new account
      * @param user User object
      * @return Response object

@@ -26,6 +26,8 @@ public class Rules {
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetRulesByCakeType");
         requestPackage.setParam("id", cake_type_id.toString());
+        requestPackage.setParam("idUser", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
 
         categories = new ArrayList<>();
 

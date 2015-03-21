@@ -12,6 +12,8 @@ import java.util.List;
  * Created by ricardo on 3/19/2015.
  */
 public class CakeType {
+    private Helper helper = new Helper(null);
+
     public int id;
     public String name;
     public String description;
@@ -46,7 +48,8 @@ public class CakeType {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("GET");
         requestPackage.setUri("GetCakeTypes");
-
+        requestPackage.setParam("idUser", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
         List<CakeType> cakeTypes = new ArrayList<>();
 
         String jsonString = new Helper(null).callWebService(requestPackage);
