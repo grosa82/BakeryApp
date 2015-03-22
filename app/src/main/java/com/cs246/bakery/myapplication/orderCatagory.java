@@ -18,8 +18,6 @@ public class orderCatagory extends ActionBarActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
-        ((TextView) findViewById(R.id.text)).setTypeface(tf, Typeface.NORMAL);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class orderCatagory extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_signOut) {
+        if (id == R.id.action_settings) {
             return true;
         }
 

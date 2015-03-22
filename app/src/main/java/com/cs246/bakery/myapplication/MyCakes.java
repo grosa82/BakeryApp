@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +26,7 @@ import java.net.URL;
 import java.util.List;
 
 
-public class MyCakes extends ListActivity {
+public class MyCakes extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private ProgressBar progressBar;
     public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
@@ -83,13 +85,13 @@ public class MyCakes extends ListActivity {
         public void onPostExecute(List<Cake> orders) {
             progressBar.setVisibility(View.GONE);
             if (orders != null) {
-                ((ListView)getListView()).setVisibility(View.VISIBLE);
+                ((ListView)findViewById(R.id.listView)).setVisibility(View.VISIBLE);
                 ((TextView)findViewById(R.id.message)).setVisibility(View.INVISIBLE);
 
                 OrderAdapter adapter = new OrderAdapter(MyCakes.this.getApplicationContext(), R.layout.layout_orders, orders);
-                setListAdapter(adapter);
+                ((ListView)findViewById(R.id.listView)).setAdapter(adapter);
 
-                ListView listView1 = (ListView) findViewById(android.R.id.list);
+                ListView listView1 = (ListView) findViewById(R.id.listView);
 
                 // start a new activity on each item click
                 listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,7 +110,7 @@ public class MyCakes extends ListActivity {
                 });
             }
             else {
-                ((ListView)getListView()).setVisibility(View.INVISIBLE);
+                ((ListView)findViewById(R.id.listView)).setVisibility(View.INVISIBLE);
                 ((TextView)findViewById(R.id.message)).setVisibility(View.VISIBLE);
             }
         }
@@ -136,7 +138,7 @@ public class MyCakes extends ListActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_signOut) {
+        if (id == R.id.action_settings) {
             return true;
         }
 

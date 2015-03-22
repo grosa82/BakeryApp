@@ -35,9 +35,6 @@ public class CreateCake extends ActionBarActivity implements AdapterView.OnItemS
 
     public void onStart() {
         super.onStart();
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
-        ((TextView) findViewById(R.id.textView2)).setTypeface(tf, Typeface.NORMAL);
-
         helper.displayMessage("Customize Your Cake");
     }
     @Override
@@ -105,7 +102,7 @@ public class CreateCake extends ActionBarActivity implements AdapterView.OnItemS
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_signOut) {
+        if (id == R.id.action_settings) {
             return true;
         }
 

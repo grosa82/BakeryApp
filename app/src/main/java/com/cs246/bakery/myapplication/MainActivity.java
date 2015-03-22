@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -7,6 +8,7 @@ import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -15,8 +17,16 @@ import com.cs246.bakery.myapplication.model.CompanyInfo;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.User;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
     private Helper helper = new Helper(this);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mif = getMenuInflater();
+        mif.inflate(R.menu.menu_default, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     class LoadCompanyInfo extends AsyncTask<Void, Void, CompanyInfo> {
 

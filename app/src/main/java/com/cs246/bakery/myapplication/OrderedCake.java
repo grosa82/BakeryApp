@@ -18,9 +18,6 @@ public class OrderedCake extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ordered_cake);
-
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candy.ttf");
-        ((TextView) findViewById(R.id.orderedCakeTitle)).setTypeface(tf, Typeface.NORMAL);
     }
 
     @Override
