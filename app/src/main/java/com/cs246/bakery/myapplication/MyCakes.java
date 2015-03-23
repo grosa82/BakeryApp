@@ -158,8 +158,8 @@ public class MyCakes extends ActionBarActivity {
 
         if (id == R.id.action_signOut) {
             helper.signOut();
-            Intent homepage = new Intent(this, MainActivity.class);
-            startActivity(homepage);
+         //   Intent homepage = new Intent(this, MainActivity.class);
+          //  startActivity(homepage);
             return true;
         }
 
