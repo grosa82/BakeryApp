@@ -40,6 +40,12 @@ public class MainActivity extends Activity {
         public void onPostExecute(CompanyInfo info) {
             ((TextView)findViewById(R.id.companyName)).setText(info.name);
             ((TextView)findViewById(R.id.phone)).setText(info.phone);
+
+            helper.savePreferences("companyName", info.name);
+            helper.savePreferences("companyAddress", info.address);
+            helper.savePreferences("companyEmail", info.email);
+            helper.savePreferences("companyPhone", info.phone);
+            helper.savePreferences("companyWebsite", info.website);
         }
     }
 

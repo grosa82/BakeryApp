@@ -1,7 +1,9 @@
 package com.cs246.bakery.myapplication.model;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
@@ -61,6 +63,37 @@ public class Helper {
         toast.setView(layout);
         toast.show();
     }
+
+    public AlertDialog displayCompanyInfo() {
+        StringBuilder sb = new StringBuilder();
+        CompanyInfo info = new CompanyInfo();
+        sb.append("Phone: \n" + getPreferences("companyPhone") + "\n\n");
+        sb.append("Email: \n" + getPreferences("companyEmail") + "\n\n");
+        sb.append("Address: \n" + getPreferences("companyAddress") + "\n\n");
+        sb.append("Website: \n" + getPreferences("companyWebsite") + "\n\n");
+        return displayOkDialog(sb.toString());
+    }
+
+    public AlertDialog displayOkDialog(String message) {
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(message)
+                .setTitle(getPreferences("companyName"));
+
+        // Add the buttons
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        // 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        return dialog;
+    }
+
 
     /**
      * Save information on SharedPreferences
