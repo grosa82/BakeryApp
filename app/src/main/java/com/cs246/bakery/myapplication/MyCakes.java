@@ -142,13 +142,32 @@ public class MyCakes extends ActionBarActivity {
             return true;
         }
 
+        if (id == R.id.action_about_us) {
+            return true;
+        }
+
+        if (id == R.id.call_me) {
+            return true;
+        }
+
+        if (id == R.id.my_profile) {
+          //  Intent homepage = new Intent(MyCakes.this, profile_summary.class);
+          //  startActivity(homepage);
+            return true;
+        }
+
+        if (id == R.id.action_signOut) {
+            helper.signOut();
+            Intent homepage = new Intent(this, MainActivity.class);
+            startActivity(homepage);
+            return true;
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 
-    public void signOut(View view) {
-        helper.deletePreferences();
-        startActivity(new Intent(MyCakes.this, MainActivity.class));
-    }
+
 
     public void chooseType(View view) {
         Intent homepage = new Intent(MyCakes.this, orderCatagory.class);

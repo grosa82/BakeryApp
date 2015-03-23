@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs246.bakery.myapplication.MainActivity;
 import com.cs246.bakery.myapplication.R;
 
 import org.json.JSONObject;
@@ -242,5 +243,9 @@ public class Helper {
     @Override
     public String toString() {
         return returnedString;
+    }
+
+    public void signOut(){
+        deletePreferences();
     }
 }

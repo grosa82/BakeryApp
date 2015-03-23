@@ -20,6 +20,17 @@
                 app:showAsAction="ifRoom"
                 android:title="@string/action_about_us" />
 
+            <item android:id="@+id/call_me"
+                android:icon="@android:drawable/ic_menu_call"
+                app:showAsAction="ifRoom"
+                android:title="@string/action_call_me" />
+
+            <item android:id="@+id/my_profile"
+                android:icon="@drawable/profile"
+                app:showAsAction="ifRoom"
+                android:title="@string/action_my_profile" />
+
+
             <item android:id="@+id/action_signOut"
                 android:icon="@android:drawable/ic_menu_close_clear_cancel"
                 app:showAsAction="ifRoom"
