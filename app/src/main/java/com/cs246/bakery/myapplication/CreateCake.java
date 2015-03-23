@@ -113,12 +113,17 @@ public class CreateCake extends ActionBarActivity {
                 List<String> stringList = new ArrayList<String>();
                 List<String> stringList2 = new ArrayList<String>();
                 List<String> stringList3 = new ArrayList<String>();
+                List<String> stringList4 = new ArrayList<String>();
+                List<String> stringList5 = new ArrayList<String>();
+
                 // BROWNIE has 2 categories:
                 // category[0] = shapes
                 // category[1] = sizes
                 String cakeType = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).name;
                 System.out.println(cakeType);
                 if (cakeType.matches("Brownie")) {
+                    TextView textView3 = (TextView) findViewById(R.id.textView6);
+                    textView3.setVisibility(textView3.INVISIBLE);
                     TextView textView = (TextView) findViewById(R.id.textView4);
                     textView.setText(rules.categories.get(0).name + ":");
                     textView.setVisibility(textView.VISIBLE);
@@ -151,7 +156,56 @@ public class CreateCake extends ActionBarActivity {
                     }
                 }
                 else if (cakeType.matches("Layer Cake")) {
-                    System.out.println("im in");
+                    stringList.clear();
+                    stringList2.clear();
+                    stringList3.clear();
+                    Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+                    spinner.setAdapter(null);
+                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner3);
+                    spinner2.setAdapter(null);
+                    TextView textView = (TextView) findViewById(R.id.textView4);
+                    textView.setText(rules.categories.get(0).name + ":");
+
+                    TextView textView2 = (TextView) findViewById(R.id.textView5);
+                    textView2.setText(rules.categories.get(1).name + ":");
+
+                    TextView textView3 = (TextView) findViewById(R.id.textView6);
+                    textView3.setText(rules.categories.get(2).name + ":");
+                    textView3.setVisibility(textView3.VISIBLE);
+                    System.out.println(rules.categories.get(1).items.size());
+
+                    for (int j = 0; j < rules.categories.get(0).items.size(); j++) {
+
+                        stringList.add(rules.categories.get(0).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner2)).setAdapter(adapter);
+                        Spinner spinners = (Spinner) findViewById(R.id.spinner2);
+                    }
+
+                    for (int j = 0; j < rules.categories.get(1).items.size(); j++) {
+
+                        stringList2.add(rules.categories.get(1).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList2);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner3)).setAdapter(adapter);
+                        Spinner spinners = (Spinner) findViewById(R.id.spinner3);
+
+                    }
+
+                    for (int j = 0; j < rules.categories.get(2).items.size(); j++) {
+
+                        stringList3.add(rules.categories.get(2).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList3);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner4)).setAdapter(adapter);
+                        Spinner spinners = (Spinner) findViewById(R.id.spinner4);
+
+                    }
+
                 }
             }
         }.execute(null, null, null);
