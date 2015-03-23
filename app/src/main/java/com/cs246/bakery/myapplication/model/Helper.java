@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs246.bakery.myapplication.CreateAccount;
+import com.cs246.bakery.myapplication.MainActivity;
 import com.cs246.bakery.myapplication.R;
 
 import org.json.JSONObject;
@@ -73,6 +76,12 @@ public class Helper {
         sb.append("Website: \n" + getPreferences("companyWebsite") + "\n\n");
         return displayOkDialog(sb.toString());
     }
+
+    public void goToProfile() {
+        Intent homepage = new Intent(context, MainActivity.class);
+        context.startActivity(homepage);
+    }
+
 
     public AlertDialog displayOkCancelDialog(String message, DialogInterface.OnClickListener okClickListener) {
         // 1. Instantiate an AlertDialog.Builder with its constructor
