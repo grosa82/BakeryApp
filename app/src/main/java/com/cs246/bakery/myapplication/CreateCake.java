@@ -13,30 +13,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.CakeType;
+import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Rules;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class CreateCake extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class CreateCake extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private Rules rules;
-
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
-
+    @Override
     public void onStart() {
         super.onStart();
         helper.displayMessage("Customize Your Cake");
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,43 +40,33 @@ public class CreateCake extends ActionBarActivity implements AdapterView.OnItemS
             protected List<CakeType> doInBackground(Void... params) {
                 return new CakeType(CreateCake.this).getCakeTypes();
             }
-
             @Override
             protected void onPostExecute(List<CakeType> cakeTypes) {
                 // Create an ArrayAdapter using the cake type array
                 ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
                 // Apply the adapter to the spinner
                 ((Spinner) findViewById(R.id.cakeType)).setAdapter(adapter);
+                Spinner spinner = (Spinner) findViewById(R.id.cakeType);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+
+                        loadRules();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
         }.execute(null, null, null);
 
-        Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.cakeFlavor_array, android.R.layout.simple_gallery_item);
-        // Specify the layout to use when the list of choices appears
-        adapter2.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        // Apply the adapter to the spinner
-        spinner2.setAdapter(adapter2);
 
-        Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
-                R.array.cakeFilling_array, android.R.layout.simple_gallery_item);
-        // Specify the layout to use when the list of choices appears
-        adapter3.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        // Apply the adapter to the spinner
-        spinner3.setAdapter(adapter3);
-
-        Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(this,
-                R.array.cakeIcing_array, android.R.layout.simple_gallery_item);
-        // Specify the layout to use when the list of choices appears
-        adapter4.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        // Apply the adapter to the spinner
-        spinner4.setAdapter(adapter4);
     }
 
 
@@ -126,7 +109,104 @@ public class CreateCake extends ActionBarActivity implements AdapterView.OnItemS
 
             @Override
             protected void onPostExecute(Void param) {
-                // do something with the rules
+
+                List<String> stringList = new ArrayList<String>();
+                List<String> stringList2 = new ArrayList<String>();
+                List<String> stringList3 = new ArrayList<String>();
+                List<String> stringList4 = new ArrayList<String>();
+                List<String> stringList5 = new ArrayList<String>();
+
+                // BROWNIE has 2 categories:
+                // category[0] = shapes
+                // category[1] = sizes
+                String cakeType = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).name;
+                System.out.println(cakeType);
+                if (cakeType.matches("Brownie")) {
+                    TextView textView3 = (TextView) findViewById(R.id.textView6);
+                    textView3.setVisibility(textView3.INVISIBLE);
+                    TextView textView = (TextView) findViewById(R.id.textView4);
+                    textView.setText(rules.categories.get(0).name + ":");
+                    textView.setVisibility(textView.VISIBLE);
+                    TextView textView2 = (TextView) findViewById(R.id.textView5);
+                    textView2.setText(rules.categories.get(1).name + ":");
+                    textView2.setVisibility(textView.VISIBLE);
+
+                    for (int i = 0; i < rules.categories.size() - 1; i++) {
+                        for (int j = 0; j < rules.categories.get(i).items.size(); j++) {
+                            stringList.add(rules.categories.get(i).items.get(j).name);
+;
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner2)).setAdapter(adapter);
+                        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+                        spinner.setVisibility(spinner.VISIBLE);
+                    }
+                    for (int i = 1; i < rules.categories.size(); i++) {
+                        for (int j = 0; j < rules.categories.get(i).items.size(); j++) {
+                            stringList2.add(rules.categories.get(i).items.get(j).name);
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList2);
+                            adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                            ((Spinner) findViewById(R.id.spinner3)).setAdapter(adapter);
+                            Spinner spinner = (Spinner) findViewById(R.id.spinner3);
+                            spinner.setVisibility(spinner.VISIBLE);
+                        }
+                    }
+                }
+                else if (cakeType.matches("Layer Cake")) {
+                    stringList.clear();
+                    stringList2.clear();
+                    stringList3.clear();
+                    Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+                    spinner.setAdapter(null);
+                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner3);
+                    spinner2.setAdapter(null);
+                    TextView textView = (TextView) findViewById(R.id.textView4);
+                    textView.setText(rules.categories.get(0).name + ":");
+
+                    TextView textView2 = (TextView) findViewById(R.id.textView5);
+                    textView2.setText(rules.categories.get(1).name + ":");
+
+                    TextView textView3 = (TextView) findViewById(R.id.textView6);
+                    textView3.setText(rules.categories.get(2).name + ":");
+                    textView3.setVisibility(textView3.VISIBLE);
+                    System.out.println(rules.categories.get(1).items.size());
+
+                    for (int j = 0; j < rules.categories.get(0).items.size(); j++) {
+
+                        stringList.add(rules.categories.get(0).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner2)).setAdapter(adapter);
+                        Spinner spinners = (Spinner) findViewById(R.id.spinner2);
+                    }
+
+                    for (int j = 0; j < rules.categories.get(1).items.size(); j++) {
+
+                        stringList2.add(rules.categories.get(1).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList2);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner3)).setAdapter(adapter);
+                        Spinner spinners = (Spinner) findViewById(R.id.spinner3);
+
+                    }
+
+                    for (int j = 0; j < rules.categories.get(2).items.size(); j++) {
+
+                        stringList3.add(rules.categories.get(2).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList3);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner4)).setAdapter(adapter);
+                        Spinner spinners = (Spinner) findViewById(R.id.spinner4);
+
+                    }
+
+                }
             }
         }.execute(null, null, null);
     }
@@ -134,4 +214,5 @@ public class CreateCake extends ActionBarActivity implements AdapterView.OnItemS
     public void save(View view) {
         loadRules();
     }
+
 }
