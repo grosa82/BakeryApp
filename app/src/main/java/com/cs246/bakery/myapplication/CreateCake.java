@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -84,8 +85,28 @@ public class CreateCake extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about_us) {
+            helper.displayCompanyInfo().show();
+            return true;
+        }
+
+        if (id == R.id.call_me) {
+            helper.displayOkCancelDialog("We can call you to help you with your order", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    helper.callMe();
+                }
+            }).show();
+            return true;
+        }
+
+        if (id == R.id.my_profile) {
+            helper.goToProfile();
+            return true;
+        }
+
+        if (id == R.id.action_signOut) {
+            helper.signOut();
             return true;
         }
 

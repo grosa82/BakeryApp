@@ -2,6 +2,7 @@ package com.cs246.bakery.myapplication;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -137,16 +138,18 @@ public class MyCakes extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         if (id == R.id.action_about_us) {
+            helper.displayCompanyInfo().show();
             return true;
         }
 
         if (id == R.id.call_me) {
+            helper.displayOkCancelDialog("We can call you to help you with your order", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    helper.callMe();
+                }
+            }).show();
             return true;
         }
 
@@ -157,8 +160,6 @@ public class MyCakes extends ActionBarActivity {
 
         if (id == R.id.action_signOut) {
             helper.signOut();
-         //   Intent homepage = new Intent(this, MainActivity.class);
-          //  startActivity(homepage);
             return true;
         }
 

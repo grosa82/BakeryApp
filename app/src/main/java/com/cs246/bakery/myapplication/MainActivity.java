@@ -28,7 +28,6 @@ public class MainActivity extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     class LoadCompanyInfo extends AsyncTask<Void, Void, CompanyInfo> {
 
         @Override

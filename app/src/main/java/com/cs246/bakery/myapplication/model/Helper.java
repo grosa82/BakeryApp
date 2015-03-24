@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -79,11 +80,43 @@ public class Helper {
 
     // Actions
 
+    /**
+     * Flags the user indicating he wants to receive a call
+     */
+    public void callMe() {
+        Response result = null;
+        new AsyncTask<Void, Void, Response>() {
+            @Override
+            protected Response doInBackground(Void... params) {
+                RequestPackage requestPackage = new RequestPackage();
+                requestPackage.setMethod("POST");
+                requestPackage.setUri("CallMe");
+                requestPackage.setParam("userId", getPreferences("id"));
+                requestPackage.setParam("userToken", getPreferences("token"));
+                return callWebService(requestPackage).toResponse();
+            }
+
+            @Override
+            protected void onPostExecute(Response response) {
+                if (response.success)
+                    displayMessage("Someone will contact you soon");
+                else
+                    displayMessage("We're sorry but something is not right with our service. Please call us.");
+            }
+        }.execute(null, null, null);
+    }
+
+    /**
+     * Redirects the user to the profile screen
+     */
     public void goToProfile() {
         Intent intent = new Intent(context, MyProfile.class);
         context.startActivity(intent);
     }
 
+    /**
+     * Signs out
+     */
     public void signOut() {
         deletePreferences();
         Intent intent = new Intent(context, MainActivity.class);
