@@ -5,19 +5,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.cs246.bakery.myapplication.model.Helper;
 
 
-public class profile_summary extends ActionBarActivity {
+public class MyProfile extends ActionBarActivity {
 
     private Helper helper = new Helper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_summary);
+        setContentView(R.layout.activity_my_profile);
     }
 
 

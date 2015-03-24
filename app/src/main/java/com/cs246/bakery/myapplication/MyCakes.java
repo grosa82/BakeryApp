@@ -151,8 +151,7 @@ public class MyCakes extends ActionBarActivity {
         }
 
         if (id == R.id.my_profile) {
-          //  Intent homepage = new Intent(MyCakes.this, profile_summary.class);
-          //  startActivity(homepage);
+            helper.goToProfile();
             return true;
         }
 

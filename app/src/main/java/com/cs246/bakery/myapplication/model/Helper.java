@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cs246.bakery.myapplication.CreateAccount;
 import com.cs246.bakery.myapplication.MainActivity;
 import com.cs246.bakery.myapplication.R;
+import com.cs246.bakery.myapplication.MyProfile;
 
 import org.json.JSONObject;
 
@@ -77,11 +77,20 @@ public class Helper {
         return displayOkDialog(sb.toString());
     }
 
+    // Actions
+
     public void goToProfile() {
-        Intent homepage = new Intent(context, MainActivity.class);
-        context.startActivity(homepage);
+        Intent intent = new Intent(context, MyProfile.class);
+        context.startActivity(intent);
     }
 
+    public void signOut() {
+        deletePreferences();
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
+    // Dialogs
 
     public AlertDialog displayOkCancelDialog(String message, DialogInterface.OnClickListener okClickListener) {
         // 1. Instantiate an AlertDialog.Builder with its constructor
