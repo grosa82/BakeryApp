@@ -17,17 +17,17 @@
         android:theme="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem"
         android:touchscreenBlocksFocus="false"
         android:spinnerMode="dropdown"
-        android:layout_alignTop="@+id/textView3"
+        android:layout_alignTop="@+id/CCTV0"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/textView3"/>
+        android:layout_alignBottom="@+id/CCTV0"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Cake Type:"
-        android:id="@+id/textView3"
+        android:id="@+id/CCTV0"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:layout_alignParentLeft="true"
@@ -40,11 +40,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Flavor:"
-        android:id="@+id/textView4"
+        android:id="@+id/CCTV1"
         android:textStyle="bold"
         android:layout_below="@+id/cakeType"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
+        android:layout_alignLeft="@+id/CCTV0"
+        android:layout_alignStart="@+id/CCTV0"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
         android:layout_alignParentRight="false"
@@ -53,38 +53,17 @@
         android:paddingTop="-10dp"
         android:visibility="visible" />
 
-    <Spinner
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
-        android:layout_below="@+id/cakeType"
-        android:layout_alignLeft="@+id/cakeType"
-        android:layout_alignStart="@+id/cakeType"
-        android:layout_marginTop="20dp"
-        android:layout_alignBottom="@+id/textView4"
-        android:visibility="visible" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Filling:"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/spinner2"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
+        android:id="@+id/CCTV2"
+        android:layout_below="@+id/spinner1"
+        android:layout_alignLeft="@+id/CCTV1"
+        android:layout_alignStart="@+id/CCTV1"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
-        android:visibility="visible" />
-
-    <Spinner
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner3"
-        android:layout_alignTop="@+id/textView5"
-        android:layout_alignLeft="@+id/spinner2"
-        android:layout_alignStart="@+id/spinner2"
-        android:layout_alignBottom="@+id/textView5"
         android:visibility="visible" />
 
     <TextView
@@ -92,23 +71,91 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Icing:"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/spinner3"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
+        android:id="@+id/CCTV3"
+        android:layout_below="@+id/spinner2"
+        android:layout_alignLeft="@+id/CCTV2"
+        android:layout_alignStart="@+id/CCTV2"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/CCTV4"
+        android:layout_below="@+id/CCTV3"
+        android:layout_alignLeft="@+id/CCTV3"
+        android:layout_alignStart="@+id/CCTV3"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/CCTV5"
+        android:layout_below="@+id/CCTV4"
+        android:layout_alignLeft="@+id/CCTV4"
+        android:layout_alignStart="@+id/CCTV4"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner1"
+        android:layout_below="@+id/cakeType"
+        android:layout_alignLeft="@+id/cakeType"
+        android:layout_alignStart="@+id/cakeType"
+        android:layout_marginTop="20dp"
+        android:layout_alignBottom="@+id/CCTV1"
+        android:visibility="visible"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:layout_alignTop="@+id/CCTV2"
+        android:layout_alignLeft="@+id/spinner1"
+        android:layout_alignStart="@+id/spinner1"
+        android:layout_alignBottom="@+id/CCTV2"
+        android:visibility="visible"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner3"
+        android:layout_alignTop="@+id/CCTV3"
+        android:layout_alignLeft="@+id/spinner2"
+        android:layout_alignStart="@+id/spinner2"
+        android:layout_alignBottom="@+id/CCTV3"
+        android:visibility="visible"
+        android:spinnerMode="dropdown" />
 
     <Spinner
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinner4"
-        android:layout_alignTop="@+id/textView6"
+        android:layout_alignTop="@+id/CCTV4"
         android:layout_alignLeft="@+id/spinner3"
         android:layout_alignStart="@+id/spinner3"
-        android:layout_alignBottom="@+id/textView6"
-        android:visibility="visible" />
+        android:layout_alignBottom="@+id/CCTV4"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner5"
+        android:layout_alignTop="@+id/CCTV5"
+        android:layout_alignLeft="@+id/spinner4"
+        android:layout_alignStart="@+id/spinner4"
+        android:layout_alignBottom="@+id/CCTV5"
+        android:spinnerMode="dropdown" />
 
     <Button
         android:layout_width="fill_parent"
@@ -119,49 +166,7 @@
         android:background="@color/button_color"
         android:textColor="@color/button_text"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView"
-        android:layout_below="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:textSize="17dp" />
-
-    <Spinner
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_alignTop="@+id/textView"
-        android:layout_alignLeft="@+id/spinner4"
-        android:layout_alignStart="@+id/spinner4"
-        android:layout_alignBottom="@+id/textView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp" />
-
-    <Spinner
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner5"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignLeft="@+id/spinner"
-        android:layout_alignStart="@+id/spinner"
-        android:layout_alignBottom="@+id/textView2" />
+        android:layout_alignLeft="@+id/CCTV3"
+        android:layout_alignStart="@+id/CCTV3" />
 
 </RelativeLayout>

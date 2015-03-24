@@ -1,7 +1,6 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,13 +13,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.CakeType;
-import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Rules;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class CreateCake extends ActionBarActivity {
     private Helper helper = new Helper(this);
@@ -66,10 +63,7 @@ public class CreateCake extends ActionBarActivity {
                 });
             }
         }.execute(null, null, null);
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,139 +124,43 @@ public class CreateCake extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(Void param) {
-
+                // hide all views
                 setTextViewsInvisible();
-                List<String> stringList = new ArrayList<String>();
-                List<String> stringList2 = new ArrayList<String>();
-                List<String> stringList3 = new ArrayList<String>();
-                List<String> stringList4 = new ArrayList<String>();
-                List<String> stringList5 = new ArrayList<String>();
-
-                // BROWNIE has 2 categories:
-                // category[0] = shapes
-                // category[1] = sizes
+                // get the cake type
                 String cakeType = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).name;
-                System.out.println(cakeType);
+
+                // BROWNIE
                 if (cakeType.matches("Brownie")) {
-                    TextView textView = (TextView) findViewById(R.id.textView4);
-                    textView.setText(rules.categories.get(0).name + ":");
-                    textView.setVisibility(textView.VISIBLE);
-                    TextView textView2 = (TextView) findViewById(R.id.textView5);
-                    textView2.setText(rules.categories.get(1).name + ":");
-                    textView2.setVisibility(textView.VISIBLE);
-
-                    for (int i = 0; i < rules.categories.size() - 1; i++) {
-                        for (int j = 0; j < rules.categories.get(i).items.size(); j++) {
-                            stringList.add(rules.categories.get(i).items.get(j).name);
-;
-                        }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList);
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                        ((Spinner) findViewById(R.id.spinner2)).setAdapter(adapter);
-                        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-                        spinner.setVisibility(spinner.VISIBLE);
-                    }
-                    for (int i = 1; i < rules.categories.size(); i++) {
-                        for (int j = 0; j < rules.categories.get(i).items.size(); j++) {
-                            stringList2.add(rules.categories.get(i).items.get(j).name);
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList2);
-                            adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                            ((Spinner) findViewById(R.id.spinner3)).setAdapter(adapter);
-                            Spinner spinner = (Spinner) findViewById(R.id.spinner3);
-                            spinner.setVisibility(spinner.VISIBLE);
-                        }
+                    // set Text Views (categories) based on the DB
+                    setTextViews(rules.categories.size());
+                    // set Spinners (items) based on the DB
+                    for (int i = 0; i < rules.categories.size(); i++) {
+                        setSpinners(i, rules.categories.get(i).items.size());
                     }
                 }
+                // LAYER CAKE
                 else if (cakeType.matches("Layer Cake")) {
-                    stringList.clear();
-                    stringList2.clear();
-                    stringList3.clear();
+                    setTextViews(rules.categories.size());
 
-                    Spinner spinners = (Spinner) findViewById(R.id.spinner2);
-                    Spinner spinners2 = (Spinner) findViewById(R.id.spinner3);
-                    Spinner spinners3 = (Spinner) findViewById(R.id.spinner4);
-                    Spinner spinners4 = (Spinner) findViewById(R.id.spinner5);
-                    Spinner spinners5 = (Spinner) findViewById(R.id.spinner);
-                    spinners.setAdapter(null);
-                    spinners2.setAdapter(null);
-
-                    spinners.setVisibility(spinners.VISIBLE);
-                    spinners2.setVisibility(spinners2.VISIBLE);
-                    spinners3.setVisibility(spinners3.VISIBLE);
-                    spinners4.setVisibility(spinners4.VISIBLE);
-                    spinners5.setVisibility(spinners5.VISIBLE);
-
-                    TextView textView = (TextView) findViewById(R.id.textView4);
-                    textView.setText(rules.categories.get(0).name + ":");
-                    textView.setVisibility(textView.VISIBLE);
-
-                    TextView textView2 = (TextView) findViewById(R.id.textView5);
-                    textView2.setText(rules.categories.get(1).name + ":");
-                    textView2.setVisibility(textView2.VISIBLE);
-
-                    TextView textView3 = (TextView) findViewById(R.id.textView6);
-                    textView3.setText(rules.categories.get(2).name + ":");
-                    textView3.setVisibility(textView3.VISIBLE);
-
-                    TextView textView4 = (TextView) findViewById(R.id.textView);
-                    textView4.setText(rules.categories.get(3).name + ":");
-                    textView4.setVisibility(textView4.VISIBLE);
-
-                    TextView textView5 = (TextView) findViewById(R.id.textView2);
-                    textView5.setText(rules.categories.get(4).name + ":");
-                    textView5.setVisibility(textView5.VISIBLE);
-
-                    System.out.println(rules.categories.get(1).items.size());
-
-                    for (int j = 0; j < rules.categories.get(0).items.size(); j++) {
-
-                        stringList.add(rules.categories.get(0).items.get(j).name);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList);
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                        ((Spinner) findViewById(R.id.spinner2)).setAdapter(adapter);
+                    for (int i = 0; i < rules.categories.size(); i++) {
+                        setSpinners(i, rules.categories.get(i).items.size());
                     }
+                }
+                // LOG CAKE
+                else if (cakeType.matches("Log Cake")) {
+                    setTextViews(rules.categories.size());
 
-                    for (int j = 0; j < rules.categories.get(1).items.size(); j++) {
-
-                        stringList2.add(rules.categories.get(1).items.get(j).name);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList2);
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                        ((Spinner) findViewById(R.id.spinner3)).setAdapter(adapter);
-
+                    for (int i = 0; i < rules.categories.size(); i++) {
+                        setSpinners(i, rules.categories.get(i).items.size());
                     }
+                }
+                // SIMPLE CAKE
+                else if (cakeType.matches("Simple Cake")) {
+                    setTextViews(rules.categories.size());
 
-                    for (int j = 0; j < rules.categories.get(2).items.size(); j++) {
-
-                        stringList3.add(rules.categories.get(2).items.get(j).name);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList3);
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                        ((Spinner) findViewById(R.id.spinner4)).setAdapter(adapter);
-
+                    for (int i = 0; i < rules.categories.size(); i++) {
+                        setSpinners(i, rules.categories.get(i).items.size());
                     }
-
-                    for (int j = 0; j < rules.categories.get(3).items.size(); j++) {
-
-                        stringList4.add(rules.categories.get(3).items.get(j).name);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList4);
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                        ((Spinner) findViewById(R.id.spinner)).setAdapter(adapter);
-                    }
-
-                    for (int j = 0; j < rules.categories.get(4).items.size(); j++) {
-
-                        stringList5.add(rules.categories.get(4).items.get(j).name);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList5);
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                        ((Spinner) findViewById(R.id.spinner5)).setAdapter(adapter);
-                    }
-
                 }
             }
         }.execute(null, null, null);
@@ -271,32 +169,51 @@ public class CreateCake extends ActionBarActivity {
     public void save(View view) {
         loadRules();
     }
+
     public void setTextViewsInvisible() {
-        TextView textView = (TextView) findViewById(R.id.textView4);
-        textView.setVisibility(textView.INVISIBLE);
+        for (int i = 0; i < 5; i++) {
+            String id = "CCTV" + (i + 1);
+            int resID = getResources().getIdentifier(id, "id", getPackageName());
 
-        TextView textView2 = (TextView) findViewById(R.id.textView5);
-        textView2.setVisibility(textView2.INVISIBLE);
+            TextView textView = (TextView) findViewById(resID);
+            textView.setVisibility(textView.INVISIBLE);
+        }
 
-        TextView textView3 = (TextView) findViewById(R.id.textView6);
-        textView3.setVisibility(textView3.INVISIBLE);
+        for (int i = 0; i < 5; i++){
+            String id = "spinner" + (i + 1);
+            int resID = getResources().getIdentifier(id, "id", getPackageName());
 
-        TextView textView4 = (TextView) findViewById(R.id.textView);
-        textView4.setVisibility(textView4.INVISIBLE);
+            Spinner spinners = (Spinner) findViewById(resID);
+            spinners.setVisibility(spinners.INVISIBLE);
+        }
+    }
 
-        TextView textView5 = (TextView) findViewById(R.id.textView2);
-        textView5.setVisibility(textView5.INVISIBLE);
+    public void setTextViews(int categorySize) {
+        for (int i = 0; i < categorySize; i++) {
+            String id = "CCTV" + (i + 1);
+            System.out.println(id);
+            int resID = getResources().getIdentifier(id, "id", getPackageName());
+            TextView textView = (TextView) findViewById(resID);
 
-        Spinner spinners = (Spinner) findViewById(R.id.spinner2);
-        Spinner spinners2 = (Spinner) findViewById(R.id.spinner3);
-        Spinner spinners3 = (Spinner) findViewById(R.id.spinner4);
-        Spinner spinners4 = (Spinner) findViewById(R.id.spinner5);
-        Spinner spinners5 = (Spinner) findViewById(R.id.spinner);
+            textView.setText(rules.categories.get(i).name + ":");
+            textView.setVisibility(textView.VISIBLE);
+        }
+    }
 
-        spinners.setVisibility(spinners.INVISIBLE);
-        spinners2.setVisibility(spinners2.INVISIBLE);
-        spinners3.setVisibility(spinners3.INVISIBLE);
-        spinners4.setVisibility(spinners4.INVISIBLE);
-        spinners5.setVisibility(spinners5.INVISIBLE);
+    public void setSpinners(int index, int itemSize) {
+        List<String> stringList = new ArrayList<String>();
+        for (int i = 0; i < itemSize; i++) {
+            String id = "spinner" + (index + 1);
+            int resID = getResources().getIdentifier(id, "id", getPackageName());
+
+            stringList.add(rules.categories.get(index).items.get(i).name);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList);
+            adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+            ((Spinner) findViewById(resID)).setAdapter(adapter);
+
+            Spinner spinners = (Spinner) findViewById(resID);
+            spinners.setVisibility(spinners.VISIBLE);
+        }
     }
 }
