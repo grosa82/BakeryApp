@@ -131,6 +131,7 @@ public class CreateCake extends ActionBarActivity {
             @Override
             protected void onPostExecute(Void param) {
 
+                setTextViewsInvisible();
                 List<String> stringList = new ArrayList<String>();
                 List<String> stringList2 = new ArrayList<String>();
                 List<String> stringList3 = new ArrayList<String>();
@@ -143,8 +144,6 @@ public class CreateCake extends ActionBarActivity {
                 String cakeType = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).name;
                 System.out.println(cakeType);
                 if (cakeType.matches("Brownie")) {
-                    TextView textView3 = (TextView) findViewById(R.id.textView6);
-                    textView3.setVisibility(textView3.INVISIBLE);
                     TextView textView = (TextView) findViewById(R.id.textView4);
                     textView.setText(rules.categories.get(0).name + ":");
                     textView.setVisibility(textView.VISIBLE);
@@ -180,19 +179,41 @@ public class CreateCake extends ActionBarActivity {
                     stringList.clear();
                     stringList2.clear();
                     stringList3.clear();
-                    Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-                    spinner.setAdapter(null);
-                    Spinner spinner2 = (Spinner) findViewById(R.id.spinner3);
-                    spinner2.setAdapter(null);
+
+                    Spinner spinners = (Spinner) findViewById(R.id.spinner2);
+                    Spinner spinners2 = (Spinner) findViewById(R.id.spinner3);
+                    Spinner spinners3 = (Spinner) findViewById(R.id.spinner4);
+                    Spinner spinners4 = (Spinner) findViewById(R.id.spinner5);
+                    Spinner spinners5 = (Spinner) findViewById(R.id.spinner);
+                    spinners.setAdapter(null);
+                    spinners2.setAdapter(null);
+
+                    spinners.setVisibility(spinners.VISIBLE);
+                    spinners2.setVisibility(spinners2.VISIBLE);
+                    spinners3.setVisibility(spinners3.VISIBLE);
+                    spinners4.setVisibility(spinners4.VISIBLE);
+                    spinners5.setVisibility(spinners5.VISIBLE);
+
                     TextView textView = (TextView) findViewById(R.id.textView4);
                     textView.setText(rules.categories.get(0).name + ":");
+                    textView.setVisibility(textView.VISIBLE);
 
                     TextView textView2 = (TextView) findViewById(R.id.textView5);
                     textView2.setText(rules.categories.get(1).name + ":");
+                    textView2.setVisibility(textView2.VISIBLE);
 
                     TextView textView3 = (TextView) findViewById(R.id.textView6);
                     textView3.setText(rules.categories.get(2).name + ":");
                     textView3.setVisibility(textView3.VISIBLE);
+
+                    TextView textView4 = (TextView) findViewById(R.id.textView);
+                    textView4.setText(rules.categories.get(3).name + ":");
+                    textView4.setVisibility(textView4.VISIBLE);
+
+                    TextView textView5 = (TextView) findViewById(R.id.textView2);
+                    textView5.setText(rules.categories.get(4).name + ":");
+                    textView5.setVisibility(textView5.VISIBLE);
+
                     System.out.println(rules.categories.get(1).items.size());
 
                     for (int j = 0; j < rules.categories.get(0).items.size(); j++) {
@@ -202,7 +223,6 @@ public class CreateCake extends ActionBarActivity {
                         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 
                         ((Spinner) findViewById(R.id.spinner2)).setAdapter(adapter);
-                        Spinner spinners = (Spinner) findViewById(R.id.spinner2);
                     }
 
                     for (int j = 0; j < rules.categories.get(1).items.size(); j++) {
@@ -212,7 +232,6 @@ public class CreateCake extends ActionBarActivity {
                         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 
                         ((Spinner) findViewById(R.id.spinner3)).setAdapter(adapter);
-                        Spinner spinners = (Spinner) findViewById(R.id.spinner3);
 
                     }
 
@@ -223,8 +242,25 @@ public class CreateCake extends ActionBarActivity {
                         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 
                         ((Spinner) findViewById(R.id.spinner4)).setAdapter(adapter);
-                        Spinner spinners = (Spinner) findViewById(R.id.spinner4);
 
+                    }
+
+                    for (int j = 0; j < rules.categories.get(3).items.size(); j++) {
+
+                        stringList4.add(rules.categories.get(3).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList4);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner)).setAdapter(adapter);
+                    }
+
+                    for (int j = 0; j < rules.categories.get(4).items.size(); j++) {
+
+                        stringList5.add(rules.categories.get(4).items.get(j).name);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList5);
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                        ((Spinner) findViewById(R.id.spinner5)).setAdapter(adapter);
                     }
 
                 }
@@ -235,5 +271,32 @@ public class CreateCake extends ActionBarActivity {
     public void save(View view) {
         loadRules();
     }
+    public void setTextViewsInvisible() {
+        TextView textView = (TextView) findViewById(R.id.textView4);
+        textView.setVisibility(textView.INVISIBLE);
 
+        TextView textView2 = (TextView) findViewById(R.id.textView5);
+        textView2.setVisibility(textView2.INVISIBLE);
+
+        TextView textView3 = (TextView) findViewById(R.id.textView6);
+        textView3.setVisibility(textView3.INVISIBLE);
+
+        TextView textView4 = (TextView) findViewById(R.id.textView);
+        textView4.setVisibility(textView4.INVISIBLE);
+
+        TextView textView5 = (TextView) findViewById(R.id.textView2);
+        textView5.setVisibility(textView5.INVISIBLE);
+
+        Spinner spinners = (Spinner) findViewById(R.id.spinner2);
+        Spinner spinners2 = (Spinner) findViewById(R.id.spinner3);
+        Spinner spinners3 = (Spinner) findViewById(R.id.spinner4);
+        Spinner spinners4 = (Spinner) findViewById(R.id.spinner5);
+        Spinner spinners5 = (Spinner) findViewById(R.id.spinner);
+
+        spinners.setVisibility(spinners.INVISIBLE);
+        spinners2.setVisibility(spinners2.INVISIBLE);
+        spinners3.setVisibility(spinners3.INVISIBLE);
+        spinners4.setVisibility(spinners4.INVISIBLE);
+        spinners5.setVisibility(spinners5.INVISIBLE);
+    }
 }
