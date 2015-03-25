@@ -132,22 +132,31 @@ public class CreateCake extends ActionBarActivity {
                     // Create text views at runtime
                     TextView textView = new TextView(CreateCake.this);
                     textView.setText(rules.categories.get(i).name + ": ");
+                    // define layout for text view
                     RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     layoutParams.setMargins(0, 100 * i, 0, 0);
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                     textView.setLayoutParams(layoutParams);
                     textView.setTextAppearance(CreateCake.this, R.style.boldText);
+                    // add the text view to the parent view
                     layout.addView(textView);
 
                     // Create spinners at runtime
                     Spinner spinner = new Spinner(CreateCake.this);
+                    // create adapter with the options to populate the spinner
                     ArrayAdapter<Item> adapter = new ArrayAdapter<Item>(CreateCake.this, android.R.layout.simple_gallery_item, rules.categories.get(i).items);
-                    adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+                    // enable multiple choice if the max quantity is greater than 1
+                    if (rules.categories.get(i).maxQuantity > 1)
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
+                    else
+                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                     spinner.setAdapter(adapter);
+                    // define layout
                     layoutParams = new RelativeLayout.LayoutParams(600, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     layoutParams.setMargins(0, 100 * i, 0, 0);
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     spinner.setLayoutParams(layoutParams);
+                    // add spinner to the parent view
                     layout.addView(spinner);
                 }
             }
