@@ -316,4 +316,90 @@ public class Helper {
     public String toString() {
         return returnedString;
     }
+
+    /**
+     * Validate a phone number
+     * @param phone
+     * @return
+     */
+    public Response validatePhone(String phone) {
+
+        Response response = new Response();
+        response.success = true;
+
+        // Matches 800-555-5555 | 333-444-5555 | 212-666-1234
+        // Non-Matches 000-000-0000 | 123-456-7890 | 2126661234
+        String regexForPhone = "^[2-9]\\d{2}-\\d{3}-\\d{4}$";
+
+        if (!phone.matches(regexForPhone)) {
+            response.success = false;
+            response.message = "Phone should be in the form of ###-###-####";
+        }
+        return response;
+    }
+
+    /**
+     * Validate the name
+     * @param name
+     * @return
+     */
+    public Response validateName(String name) {
+
+        Response response = new Response();
+        response.success = true;
+
+        // Matches T.F. Johnson | John O'Neil | Mary-Kate Johnson
+        // Non-Matches sam_johnson | Joe--Bob Jones | dfjsd0rd
+        String regexForName = "^[a-zA-Z]+(([\\'\\,\\.\\- ][a-zA-Z ])?[a-zA-Z]*)*$";
+
+        if (!name.matches(regexForName) && name.length() < 3) {
+            response.success = false;
+            response.message = "Invalid name. Please try again";
+        }
+        return response;
+    }
+
+    /**
+     * Validate email address
+     * @param email
+     * @return
+     */
+    public Response validateEmail(String email) {
+
+        Response response = new Response();
+        response.success = true;
+
+        // Matches john-smith@example.com | john.smith@example.com | john_smith@x-ample.com
+        // Non-Matches .john-smith@example.com | @example.com | johnsmith@example.
+        String regexForEmail = "^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@" +
+                "[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$";
+
+        if (!email.matches(regexForEmail)) {
+            response.success = false;
+            response.message = "Invalid email. Please try again";
+        }
+        return response;
+    }
+
+    /**
+     * Validate password
+     * @param password
+     * @param confirmation
+     * @return
+     */
+    public Response validatePassword(String password, String confirmation) {
+
+        Response response = new Response();
+        response.success = true;
+
+        if (!password.equals(confirmation)) {
+            response.success = false;
+            response.message = "Password and confirmation does not match";
+        }
+        else if (password.length() < 6) {
+            response.success = false;
+            response.message = "Password should be at least 6 characters long";
+        }
+        return response;
+    }
 }
