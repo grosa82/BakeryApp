@@ -1,6 +1,5 @@
 package com.cs246.bakery.myapplication;
 
-import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -12,16 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.CakeType;
-import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Item;
 import com.cs246.bakery.myapplication.model.Rules;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreateCake extends ActionBarActivity {
