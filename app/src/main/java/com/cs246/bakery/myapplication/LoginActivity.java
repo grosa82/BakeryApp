@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.User;
 
 
@@ -64,6 +65,19 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void signOn(View view) {
-        new AuthenticateTask().execute();
+
+        String email = ((EditText)findViewById(R.id.email)).getText().toString();
+        String password = ((EditText)findViewById(R.id.password)).getText().toString();
+
+        Response emailResponse = helper.validateEmail(email);
+        Response passwordResponse = helper.validatePassword(password, password);
+
+        if (!emailResponse.success) {
+            helper.displayMessage(emailResponse.message);
+        } else if (!passwordResponse.success) {
+            helper.displayMessage(passwordResponse.message);
+        } else {
+            new AuthenticateTask().execute();
+        }
     }
 }
