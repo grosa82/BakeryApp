@@ -63,49 +63,31 @@ public class CreateAccount extends ActionBarActivity {
 
     private boolean isFormValid(User newUser, String confirm) {
         /*
-        http://www.regexlib.net/
+        Regular expressions came from http://www.regexlib.net/
         */
 
-        // Matches 800-555-5555 | 333-444-5555 | 212-666-1234
-        // Non-Matches 000-000-0000 | 123-456-7890 | 2126661234
-        String regexForPhone = "^[2-9]\\d{2}-\\d{3}-\\d{4}$";
+        Response phoneResponse = helper.validatePhone(newUser.phone);
+        Response nameResponse = helper.validateName(newUser.name);
+        Response emailResponse = helper.validateEmail(newUser.email);
+        Response passwordResponse = helper.validatePassword(newUser.password, confirm);
 
-        // Matches T.F. Johnson | John O'Neil | Mary-Kate Johnson
-        // Non-Matches sam_johnson | Joe--Bob Jones | dfjsd0rd
-        String regexForName = "^[a-zA-Z]+(([\\'\\,\\.\\- ][a-zA-Z ])?[a-zA-Z]*)*$";
-
-        // Matches john-smith@example.com | john.smith@example.com | john_smith@x-ample.com
-        // Non-Matches .john-smith@example.com | @example.com | johnsmith@example.
-        String regexForEmail = "^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@" +
-                "[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$";
-
-        if (!newUser.name.matches(regexForName) || newUser.name.length() < 3) {
-            helper.displayMessage("Invalid name. Please try again");
-            ((EditText)findViewById(R.id.name)).setText("");
+        if (!nameResponse.success) {
+            helper.displayMessage(nameResponse.message);
             ((EditText)findViewById(R.id.name)).requestFocus();
             return false;
         }
-        else if (!newUser.phone.matches(regexForPhone)) {
-            helper.displayMessage("Phone should be in the form of ###-###-####");
-            ((EditText)findViewById(R.id.phone)).setText("");
+        else if (!phoneResponse.success) {
+            helper.displayMessage(phoneResponse.message);
             ((EditText)findViewById(R.id.phone)).requestFocus();
             return false;
         }
-        else if (!newUser.email.matches(regexForEmail)) {
-            helper.displayMessage("Invalid email. Please try again");
-            ((EditText)findViewById(R.id.email)).setText("");
+        else if (!emailResponse.success) {
+            helper.displayMessage(emailResponse.message);
             ((EditText)findViewById(R.id.email)).requestFocus();
             return false;
         }
-        else if (!newUser.password.equals(confirm)) {
-            helper.displayMessage("Password and confirmation does not match");
-            ((EditText)findViewById(R.id.confirm)).setText("");
-            ((EditText)findViewById(R.id.password)).setText("");
-            ((EditText)findViewById(R.id.password)).requestFocus();
-            return false;
-        }
-        else if (newUser.password.length() < 8) {
-            helper.displayMessage("Password should be at least 8 characters long");
+        else if (!passwordResponse.success) {
+            helper.displayMessage(passwordResponse.message);
             ((EditText)findViewById(R.id.confirm)).setText("");
             ((EditText)findViewById(R.id.password)).setText("");
             ((EditText)findViewById(R.id.password)).requestFocus();
