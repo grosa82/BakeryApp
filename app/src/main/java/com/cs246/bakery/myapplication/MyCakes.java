@@ -170,7 +170,7 @@ public class MyCakes extends ActionBarActivity {
 
 
     public void chooseType(View view) {
-        Intent homepage = new Intent(MyCakes.this, orderCatagory.class);
+        Intent homepage = new Intent(MyCakes.this, CreateCake.class);
         startActivity(homepage);
     }
 

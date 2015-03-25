@@ -165,8 +165,6 @@
         android:onClick="save"
         android:background="@color/button_color"
         android:textColor="@color/button_text"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/CCTV3"
-        android:layout_alignStart="@+id/CCTV3" />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

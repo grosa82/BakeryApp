@@ -9,11 +9,12 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:id="@+id/listView"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="60dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,20 +24,19 @@
         android:text="No orders found!"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_below="@+id/title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="153dp"
-        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:text="Create Order"
         android:id="@+id/button2"
         android:onClick="chooseType"
         android:background="@color/button_color"
         android:textColor="@color/button_text"
-        android:layout_below="@+id/listView"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         />
 
     <ProgressBar
