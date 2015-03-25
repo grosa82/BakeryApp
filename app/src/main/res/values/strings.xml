@@ -6,7 +6,7 @@
     <string name="action_signOut">Sign Out</string>
     <string name="action_about_us">Location</string>
     <string name="action_call_me">Call Me</string>
-    <string name="action_my_profile">Profile</string>
+    <string name="action_my_profile">Edit Profile</string>
     <string name="title_activity_create_account">Create Account</string>
     <string name="title_activity_create_cake">New Cake</string>
     <string name="title_activity_login">Login</string>

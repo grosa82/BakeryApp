@@ -21,7 +21,7 @@
                 android:title="@string/action_call_me" />
 
             <item android:id="@+id/my_profile"
-                android:icon="@drawable/profile"
+                android:icon="@android:drawable/ic_menu_edit"
                 app:showAsAction="ifRoom"
                 android:title="@string/action_my_profile" />
 
