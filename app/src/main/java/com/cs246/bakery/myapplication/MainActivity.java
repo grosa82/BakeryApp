@@ -38,8 +38,8 @@ public class MainActivity extends Activity {
 
         @Override
         public void onPostExecute(CompanyInfo info) {
-        //    ((TextView)findViewById(R.id.companyName)).setText(info.name);
-       //     ((TextView)findViewById(R.id.phone)).setText(info.phone);
+            ((TextView)findViewById(R.id.companyName)).setText(info.name);
+            ((TextView)findViewById(R.id.phone)).setText(info.phone);
 
             helper.savePreferences("companyName", info.name);
             helper.savePreferences("companyAddress", info.address);
