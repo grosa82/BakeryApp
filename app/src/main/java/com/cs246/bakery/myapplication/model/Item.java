@@ -8,4 +8,9 @@ public class Item {
     public String name;
     public String description;
     public boolean active;
+
+    @Override
+    public String toString () {
+        return name;
+    }
 }

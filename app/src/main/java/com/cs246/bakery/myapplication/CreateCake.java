@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -9,11 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.CakeType;
+import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.Item;
 import com.cs246.bakery.myapplication.model.Rules;
 
 import java.util.ArrayList;
@@ -124,43 +129,30 @@ public class CreateCake extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(Void param) {
-                // hide all views
-                setTextViewsInvisible();
-                // get the cake type
-                String cakeType = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).name;
+                RelativeLayout layout = (RelativeLayout)findViewById(R.id.container);
+                layout.removeAllViews();
 
-                // BROWNIE
-                if (cakeType.matches("Brownie")) {
-                    // set Text Views (categories) based on the DB
-                    setTextViews(rules.categories.size());
-                    // set Spinners (items) based on the DB
-                    for (int i = 0; i < rules.categories.size(); i++) {
-                        setSpinners(i, rules.categories.get(i).items.size());
-                    }
-                }
-                // LAYER CAKE
-                else if (cakeType.matches("Layer Cake")) {
-                    setTextViews(rules.categories.size());
+                for (int i = 0; i < rules.categories.size(); i++) {
+                    // Create text views at runtime
+                    TextView textView = new TextView(CreateCake.this);
+                    textView.setText(rules.categories.get(i).name + ": ");
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams.setMargins(0, 100 * i, 0, 0);
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                    textView.setLayoutParams(layoutParams);
+                    textView.setTextAppearance(CreateCake.this, R.style.boldText);
+                    layout.addView(textView);
 
-                    for (int i = 0; i < rules.categories.size(); i++) {
-                        setSpinners(i, rules.categories.get(i).items.size());
-                    }
-                }
-                // LOG CAKE
-                else if (cakeType.matches("Log Cake")) {
-                    setTextViews(rules.categories.size());
-
-                    for (int i = 0; i < rules.categories.size(); i++) {
-                        setSpinners(i, rules.categories.get(i).items.size());
-                    }
-                }
-                // SIMPLE CAKE
-                else if (cakeType.matches("Simple Cake")) {
-                    setTextViews(rules.categories.size());
-
-                    for (int i = 0; i < rules.categories.size(); i++) {
-                        setSpinners(i, rules.categories.get(i).items.size());
-                    }
+                    // Create spinners at runtime
+                    Spinner spinner = new Spinner(CreateCake.this);
+                    ArrayAdapter<Item> adapter = new ArrayAdapter<Item>(CreateCake.this, android.R.layout.simple_gallery_item, rules.categories.get(i).items);
+                    adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+                    spinner.setAdapter(adapter);
+                    layoutParams = new RelativeLayout.LayoutParams(600, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams.setMargins(0, 100 * i, 0, 0);
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    spinner.setLayoutParams(layoutParams);
+                    layout.addView(spinner);
                 }
             }
         }.execute(null, null, null);
@@ -168,52 +160,5 @@ public class CreateCake extends ActionBarActivity {
 
     public void save(View view) {
         loadRules();
-    }
-
-    public void setTextViewsInvisible() {
-        for (int i = 0; i < 5; i++) {
-            String id = "CCTV" + (i + 1);
-            int resID = getResources().getIdentifier(id, "id", getPackageName());
-
-            TextView textView = (TextView) findViewById(resID);
-            textView.setVisibility(textView.INVISIBLE);
-        }
-
-        for (int i = 0; i < 5; i++){
-            String id = "spinner" + (i + 1);
-            int resID = getResources().getIdentifier(id, "id", getPackageName());
-
-            Spinner spinners = (Spinner) findViewById(resID);
-            spinners.setVisibility(spinners.INVISIBLE);
-        }
-    }
-
-    public void setTextViews(int categorySize) {
-        for (int i = 0; i < categorySize; i++) {
-            String id = "CCTV" + (i + 1);
-            System.out.println(id);
-            int resID = getResources().getIdentifier(id, "id", getPackageName());
-            TextView textView = (TextView) findViewById(resID);
-
-            textView.setText(rules.categories.get(i).name + ":");
-            textView.setVisibility(textView.VISIBLE);
-        }
-    }
-
-    public void setSpinners(int index, int itemSize) {
-        List<String> stringList = new ArrayList<String>();
-        for (int i = 0; i < itemSize; i++) {
-            String id = "spinner" + (index + 1);
-            int resID = getResources().getIdentifier(id, "id", getPackageName());
-
-            stringList.add(rules.categories.get(index).items.get(i).name);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateCake.this, android.R.layout.simple_gallery_item, stringList);
-            adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-            ((Spinner) findViewById(resID)).setAdapter(adapter);
-
-            Spinner spinners = (Spinner) findViewById(resID);
-            spinners.setVisibility(spinners.VISIBLE);
-        }
     }
 }
