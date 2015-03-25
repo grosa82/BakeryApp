@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
 
@@ -15,10 +16,33 @@ public class MyProfile extends ActionBarActivity {
 
     private Helper helper = new Helper(this);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+        // get the user info
+        String name = helper.getPreferences("name");
+        String email = helper.getPreferences("email");
+        String phone = helper.getPreferences("phone");
+
+        if (!name.isEmpty()) {
+            TextView textView = ((TextView) findViewById(R.id.name));
+            if (textView != null)
+                textView.setText("Name: " + name);
+        }
+
+        if (!email.isEmpty()) {
+            TextView textView = ((TextView) findViewById(R.id.email));
+            if (textView != null)
+                textView.setText("Email: " + email);
+        }
+
+        if (!phone.isEmpty()) {
+            TextView textView = ((TextView) findViewById(R.id.phone));
+            if (textView != null)
+                textView.setText("Phone: " + phone);
+        }
     }
 
 
@@ -52,7 +76,7 @@ public class MyProfile extends ActionBarActivity {
         }
 
         if (id == R.id.my_profile) {
-            helper.goToProfile();
+           helper.goToProfile();
             return true;
         }
 

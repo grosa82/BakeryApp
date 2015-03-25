@@ -92,6 +92,11 @@
             android:screenOrientation="portrait"
             android:label="@string/title_activity_ordered_cake" >
         </activity>
+        <activity
+            android:name=".MyProfile"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_my_profile" >
+        </activity>
     </application>
 
 </manifest>
