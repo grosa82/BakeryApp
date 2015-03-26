@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs246.bakery.myapplication.MainActivity;
+import com.cs246.bakery.myapplication.MyCakes;
 import com.cs246.bakery.myapplication.R;
 import com.cs246.bakery.myapplication.MyProfile;
 
@@ -27,6 +28,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -111,6 +113,14 @@ public class Helper {
      */
     public void goToProfile() {
         Intent intent = new Intent(context, MyProfile.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * Redirects the user to My Cakes view
+     */
+    public void goToMyCakes() {
+        Intent intent = new Intent(context, MyCakes.class);
         context.startActivity(intent);
     }
 
@@ -233,8 +243,22 @@ public class Helper {
     public Date parseDate(String text) {
         /* i.e. 2015-02-28T00:29:34 */
         String[] dateTxt = text.split("T");
-        String year = dateTxt[0].substring(0, 3);
-        return new Date();
+        int year = Integer.parseInt(dateTxt[0].substring(0, 4));
+        int month = Integer.parseInt(dateTxt[0].substring(5, 7));
+        int day = Integer.parseInt(dateTxt[0].substring(8, 10));
+        int hour = Integer.parseInt(dateTxt[1].substring(0, 2));
+        int minute = Integer.parseInt(dateTxt[1].substring(3, 5));
+        int second = Integer.parseInt(dateTxt[1].substring(6, 8));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, second);
+
+        return calendar.getTime();
     }
 
     /**

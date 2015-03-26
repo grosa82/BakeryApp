@@ -1,6 +1,7 @@
 package com.cs246.bakery.myapplication;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,20 +10,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.cs246.bakery.myapplication.model.Cake;
 import com.cs246.bakery.myapplication.model.CakeType;
+import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Item;
+import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.Rules;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateCake extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private Rules rules;
+    ProgressBar progressBar;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -33,10 +41,12 @@ public class CreateCake extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cake);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
 
         new AsyncTask<Void, Void, List<CakeType>>() {
             @Override
             protected List<CakeType> doInBackground(Void... params) {
+                progressBar.setVisibility(View.VISIBLE);
                 return new CakeType(CreateCake.this).getCakeTypes();
             }
             @Override
@@ -53,7 +63,6 @@ public class CreateCake extends ActionBarActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
-
                         loadRules();
                     }
 
@@ -62,6 +71,7 @@ public class CreateCake extends ActionBarActivity {
 
                     }
                 });
+                progressBar.setVisibility(View.GONE);
             }
         }.execute(null, null, null);
     }
@@ -112,6 +122,7 @@ public class CreateCake extends ActionBarActivity {
      * Loads rules based on the cake type selected
      */
     private void loadRules() {
+        progressBar.setVisibility(View.VISIBLE);
         // gets the selected cake type
         final Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
         // gets the rules for this cake type id
@@ -159,11 +170,46 @@ public class CreateCake extends ActionBarActivity {
                     // add spinner to the parent view
                     layout.addView(spinner);
                 }
+                progressBar.setVisibility(View.GONE);
             }
         }.execute(null, null, null);
     }
 
     public void save(View view) {
-        loadRules();
+        // enable progress bar
+        progressBar.setVisibility(View.VISIBLE);
+
+        // call the web service
+        new AsyncTask<Void, Void, Response>() {
+            @Override
+            protected Response doInBackground(Void... params) {
+                // get cake type id
+                Integer cakeTypeId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+                // get selected items
+                List<String> selectedItems = new ArrayList<>();
+                RelativeLayout parentRelativeLayout = (RelativeLayout)findViewById(R.id.container);
+                for (int i = 0; i < parentRelativeLayout.getChildCount(); i++) {
+                    View child = parentRelativeLayout.getChildAt(i);
+                    if (child instanceof Spinner) {
+                        // get selected item
+                        Spinner childSpinner = (Spinner)child;
+                        Integer selectedId = ((Item)childSpinner.getSelectedItem()).id;
+                        selectedItems.add(selectedId.toString());
+                    }
+                }
+                // create a new instance of cake
+                Cake newCake = new Cake(CreateCake.this);
+                return newCake.createCake("ageRange", "colors", "writing", "comments", cakeTypeId.toString(), selectedItems, "cakeEvent", "orderName");
+            }
+
+            @Override
+            protected void onPostExecute(Response response) {
+                // disable progress bar
+                progressBar.setVisibility(View.GONE);
+                helper.displayMessage(response.message);
+
+                helper.goToMyCakes();
+            }
+        }.execute(null, null, null);
     }
 }

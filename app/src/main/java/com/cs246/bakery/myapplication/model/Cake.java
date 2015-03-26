@@ -58,6 +58,10 @@ public class Cake {
         helper = new Helper(activity);
     }
 
+    private Cake() {
+
+    }
+
     /**
      * Gets the user's cakes
      * @return List of cakes
@@ -123,29 +127,30 @@ public class Cake {
      * @return Cake
      */
     private Cake parseCake(String text) {
+        Cake cake = new Cake();
         if (text.isEmpty()) {
             return null;
         } else {
             try {
                 JSONObject respObj = new JSONObject(text);
-                id = respObj.getInt("id");
-                ageRange = respObj.getString("ageRange");
-                colors = respObj.getString("colors");
-                writing = respObj.getString("writing");
-                comments = respObj.getString("comments");
-                price = respObj.getDouble("price");
-                status = new Status().parseJson(respObj.getString("status"));
-                type = new CakeType((Activity)helper.getContext()).parseJson(respObj.getString("type"));
-                cakeEvent = respObj.getString("cakeEvent");
-                orderDate = helper.parseDate(respObj.getString("orderDate"));
-                submitted = respObj.getBoolean("submitted");
-                name = respObj.getString("name");
+                cake.id = respObj.getInt("id");
+                cake.ageRange = respObj.getString("ageRange");
+                cake.colors = respObj.getString("colors");
+                cake.writing = respObj.getString("writing");
+                cake.comments = respObj.getString("comments");
+                cake.price = respObj.getDouble("price");
+                cake.status = new Status().parseJson(respObj.getString("status"));
+                cake.type = new CakeType((Activity)helper.getContext()).parseJson(respObj.getString("type"));
+                cake.cakeEvent = respObj.getString("cakeEvent");
+                cake.orderDate = helper.parseDate(respObj.getString("orderDate"));
+                cake.submitted = respObj.getBoolean("submitted");
+                cake.name = respObj.getString("name");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return null;
             }
         }
-        return this;
+        return cake;
     }
 
     /**
@@ -161,7 +166,7 @@ public class Cake {
      * @return Response object
      */
     public Response createCake(String ageRange, String colors, String writing, String comments, String idCakeType,
-                               String[] items, String cakeEvent, String orderName) {
+                               List<String> items, String cakeEvent, String orderName) {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
         requestPackage.setUri("CreateCake");
@@ -172,7 +177,7 @@ public class Cake {
         requestPackage.setParam("idCakeType", idCakeType);
         requestPackage.setParam("items", TextUtils.join(",", items));
         requestPackage.setParam("cakeEvent", cakeEvent);
-        requestPackage.setParam("orderName", orderName);
+        requestPackage.setParam("name", orderName);
         requestPackage.setParam("userId", helper.getPreferences("id"));
         requestPackage.setParam("userToken", helper.getPreferences("token"));
         return helper.callWebService(requestPackage).toResponse();
@@ -192,7 +197,7 @@ public class Cake {
      * @return Response object
      */
     public Response updateCake(String cakeId, String ageRange, String colors, String writing, String comments, String idCakeType,
-                               String[] items, String cakeEvent, String orderName) {
+                               List<String> items, String cakeEvent, String orderName) {
 
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
@@ -205,7 +210,7 @@ public class Cake {
         requestPackage.setParam("idCakeType", idCakeType);
         requestPackage.setParam("items", TextUtils.join(",", items));
         requestPackage.setParam("cakeEvent", cakeEvent);
-        requestPackage.setParam("orderName", orderName);
+        requestPackage.setParam("name", orderName);
         requestPackage.setParam("userId", helper.getPreferences("id"));
         requestPackage.setParam("userToken", helper.getPreferences("token"));
         return helper.callWebService(requestPackage).toResponse();

@@ -55,4 +55,13 @@
         android:textColor="@color/button_text"
         android:layout_alignParentBottom="true" />
 
+    <ProgressBar
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/progressbar"/>
+
 </RelativeLayout>
