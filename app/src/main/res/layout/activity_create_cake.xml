@@ -37,10 +37,61 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="240dp"
         android:layout_below="@+id/cakeType"
-        android:layout_marginBottom="60dp"
         android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/firstForm">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:hint="Order Name"
+            android:id="@+id/orderName"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/orderName"
+            android:id="@+id/colors"
+            android:hint="Describe the colors you want"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/colors"
+            android:id="@+id/cakeEvent"
+            android:hint="For which event?"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/cakeEvent"
+            android:id="@+id/writing"
+            android:hint="Writing on top of the cake"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/writing"
+            android:id="@+id/comments"
+            android:hint="Any comments to the decorator"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/ageRange"
+            android:layout_below="@+id/comments"
+            android:hint="Age range">
+        </Spinner>
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/firstForm"
+        android:layout_marginBottom="60dp"
         android:paddingLeft="10dp"
         android:id="@+id/container">
     </RelativeLayout>

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -74,6 +75,12 @@ public class CreateCake extends ActionBarActivity {
                 progressBar.setVisibility(View.GONE);
             }
         }.execute(null, null, null);
+
+        Spinner spinner = (Spinner) findViewById(R.id.ageRange);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.ageRange_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     @Override
@@ -179,6 +186,13 @@ public class CreateCake extends ActionBarActivity {
         // enable progress bar
         progressBar.setVisibility(View.VISIBLE);
 
+        final String ageRange = ((Spinner)findViewById(R.id.ageRange)).getSelectedItem().toString();
+        final String colors = ((EditText)findViewById(R.id.colors)).getText().toString();
+        final String orderName = ((EditText)findViewById(R.id.orderName)).getText().toString();
+        final String cakeEvent = ((EditText)findViewById(R.id.cakeEvent)).getText().toString();
+        final String writings = ((EditText)findViewById(R.id.writing)).getText().toString();
+        final String comments = ((EditText)findViewById(R.id.comments)).getText().toString();
+
         // call the web service
         new AsyncTask<Void, Void, Response>() {
             @Override
@@ -199,7 +213,7 @@ public class CreateCake extends ActionBarActivity {
                 }
                 // create a new instance of cake
                 Cake newCake = new Cake(CreateCake.this);
-                return newCake.createCake("ageRange", "colors", "writing", "comments", cakeTypeId.toString(), selectedItems, "cakeEvent", "orderName");
+                return newCake.createCake(ageRange, colors, writings, comments, cakeTypeId.toString(), selectedItems, cakeEvent, orderName);
             }
 
             @Override
