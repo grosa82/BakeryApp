@@ -7,10 +7,8 @@
     tools:context="com.cs246.bakery.myapplication.MyProfile"
     android:background="@drawable/background">
 
-    <TextView android:text="Welcome to your profile.
-                      Change the text to edit your profile.
-                To keep your password leave the password field blank."
-        android:layout_width="wrap_content"
+    <TextView android:text="Welcome to your profile.\nChange the text to edit your profile.\nTo keep your password leave the password field blank."
+        android:layout_width="fill_parent"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
@@ -19,89 +17,92 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/name"
-        android:text="No Profile found"
+        android:hint="Name"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_below="@+id/welcome"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:id="@+id/email"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="true"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:id="@+id/phone"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/email"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:id="@+id/password"
-        android:hint="Password"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/phone"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        />
+        android:layout_below="@+id/welcome" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:id="@+id/confirmPassword"
+        android:id="@+id/email"
+        android:hint="Email"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/name" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/phone"
+        android:hint="Phone"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/email" />
+
+    <TextView android:text="Fill the password field only if you want to change it"
+        android:layout_width="fill_parent"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordInfo"
+        android:layout_below="@+id/phone"
+        android:layout_marginTop="20dp"
+        android:textColor="#ff0000"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/password"
+        android:hint="Password"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/passwordInfo" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/confirm"
         android:hint="Confirm Password"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_below="@+id/password"
+        android:layout_below="@+id/password" />
+
+    <Button
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/cancel"
+        android:background="@color/button_color"
+        android:textColor="@color/button_text"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:text="Save Profile"
-        android:id="@+id/button1"
+        android:text="Save Changes"
+        android:id="@+id/save"
         android:background="@color/button_color"
         android:textColor="@color/button_text"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentRight="true"
+        android:onClick="save"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel/Back"
-        android:id="@+id/button2"
-        android:layout_toRightOf="@+id/button1"
-        android:background="@color/button_color"
-        android:textColor="@color/button_text"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        />
+    <ProgressBar
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/progressbar"/>
 
 </RelativeLayout>

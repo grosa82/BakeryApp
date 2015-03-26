@@ -117,13 +117,13 @@ public class User {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
         requestPackage.setUri("UpdateAccount");
-        requestPackage.setParam("id", helper.getPreferences("id"));
-        requestPackage.setParam("token", helper.getPreferences("token"));
         requestPackage.setParam("name",user.name);
         requestPackage.setParam("phone",user.phone);
         requestPackage.setParam("email",user.email);
-        requestPackage.setParam("password",user.password);
-        requestPackage.setParam("regID", user.regID);
+        requestPackage.setParam("password",(user.password == null)?"":user.password);
+        requestPackage.setParam("regID", helper.getPreferences("regID"));
+        requestPackage.setParam("id", helper.getPreferences("id"));
+        requestPackage.setParam("token", helper.getPreferences("token"));
         return helper.callWebService(requestPackage).toResponse();
     }
 
@@ -170,13 +170,12 @@ public class User {
     }
 
     private String getRegistrationId() {
-        final SharedPreferences prefs = activity.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
-        String registrationId = prefs.getString(REG_ID, "");
+        String registrationId = helper.getPreferences("regID");
         if (registrationId.isEmpty()) {
             Log.i(TAG, "Registration not found.");
             return "";
         }
-        int registeredVersion = prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
+        int registeredVersion = Integer.parseInt(helper.getPreferences(APP_VERSION));
         int currentVersion = getAppVersion(activity);
         if (registeredVersion != currentVersion) {
             Log.i(TAG, "App version changed");
@@ -221,11 +220,8 @@ public class User {
     }
 
     private void storeRegistrationId(String regId) {
-        final SharedPreferences prefs = activity.getSharedPreferences(User.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = getAppVersion(activity);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(REG_ID, regId);
-        editor.putInt(APP_VERSION, appVersion);
-        editor.commit();
+        Integer appVersion = getAppVersion(activity);
+        helper.savePreferences("regID", regId);
+        helper.savePreferences(APP_VERSION, appVersion.toString());
     }
 }

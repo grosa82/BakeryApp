@@ -40,6 +40,7 @@ public class Helper {
     private static final String PREFS_NAME = "CakeAppPreferences";
     /** Context */
     private Context context;
+    private static final String TAG = "Helper";
 
     public Helper(Activity activity) {
         context = activity;
@@ -209,6 +210,20 @@ public class Helper {
     }
 
     /**
+     * Register device Id
+     */
+    public void registerDeviceId() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                User user = new User((Activity) context);
+                user.registerDeviceId();
+                return null;
+            }
+        }.execute(null, null, null);
+    }
+
+    /**
      * Parse json string response to an object Response
      * @param text json string
      * @return Response object
@@ -225,8 +240,8 @@ public class Helper {
                 response.message = respObj.getString("message");
                 response.exception = respObj.getString("exception");
                 response.createdId = respObj.getInt("id");
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                Log.e(TAG, "parseResponse", e);
                 return null;
             }
         }
@@ -277,7 +292,7 @@ public class Helper {
      */
     public Helper callWebService(RequestPackage requestPackage) {
 
-        Log.i(this.getClass().getName(), requestPackage.getUri());
+        //Log.i(this.getClass().getName(), requestPackage.getUri());
 
         BufferedReader reader = null;
         String uri = "http://cakeapp.toughland.com/api/webapi/" + requestPackage.getUri();
@@ -291,6 +306,8 @@ public class Helper {
                 url = new URL(uri + "?json=true");
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod(requestPackage.getMethod());
+
+            Log.i(TAG, requestPackage.getMethod() + " " + url.toString());
 
             if (requestPackage.getMethod().equals("POST")) {
                 con.setDoOutput(true);
@@ -307,14 +324,14 @@ public class Helper {
             }
             returnedString = sb.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "callWebService", e);
             returnedString = "";
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "callWebService", e);
                     returnedString = "";
                 }
             }
