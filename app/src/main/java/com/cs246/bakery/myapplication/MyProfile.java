@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Helper;
@@ -27,22 +28,26 @@ public class MyProfile extends ActionBarActivity {
         String phone = helper.getPreferences("phone");
 
         if (!name.isEmpty()) {
-            TextView textView = ((TextView) findViewById(R.id.name));
+            EditText textView = ((EditText) findViewById(R.id.name));
             if (textView != null)
-                textView.setText("Name: " + name);
+                textView.setText(name);
         }
 
         if (!email.isEmpty()) {
-            TextView textView = ((TextView) findViewById(R.id.email));
+            EditText textView = ((EditText) findViewById(R.id.email));
             if (textView != null)
-                textView.setText("Email: " + email);
+                textView.setText(email);
         }
 
         if (!phone.isEmpty()) {
-            TextView textView = ((TextView) findViewById(R.id.phone));
+            EditText textView = ((EditText) findViewById(R.id.phone));
             if (textView != null)
-                textView.setText("Phone: " + phone);
+                textView.setText(phone);
         }
+    }
+
+    public void updateUser(){
+
     }
 
 
