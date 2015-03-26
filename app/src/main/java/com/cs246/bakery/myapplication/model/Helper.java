@@ -363,6 +363,23 @@ public class Helper {
     }
 
     /**
+     * Validate if the text is filled out
+     * @param text Text to validate
+     * @param name Field name
+     * @return Response
+     */
+    public Response validateRequiredText(String text, String name) {
+        Response response = new Response();
+        response.success = true;
+
+        if (text.isEmpty()) {
+            response.success = false;
+            response.message = name + " is required";
+        }
+        return response;
+    }
+
+    /**
      * Validate the name
      * @param name
      * @return

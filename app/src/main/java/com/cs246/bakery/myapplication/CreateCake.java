@@ -193,37 +193,46 @@ public class CreateCake extends ActionBarActivity {
         final String writings = ((EditText)findViewById(R.id.writing)).getText().toString();
         final String comments = ((EditText)findViewById(R.id.comments)).getText().toString();
 
-        // call the web service
-        new AsyncTask<Void, Void, Response>() {
-            @Override
-            protected Response doInBackground(Void... params) {
-                // get cake type id
-                Integer cakeTypeId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
-                // get selected items
-                List<String> selectedItems = new ArrayList<>();
-                RelativeLayout parentRelativeLayout = (RelativeLayout)findViewById(R.id.container);
-                for (int i = 0; i < parentRelativeLayout.getChildCount(); i++) {
-                    View child = parentRelativeLayout.getChildAt(i);
-                    if (child instanceof Spinner) {
-                        // get selected item
-                        Spinner childSpinner = (Spinner)child;
-                        Integer selectedId = ((Item)childSpinner.getSelectedItem()).id;
-                        selectedItems.add(selectedId.toString());
+        Response colorsResponse = helper.validateRequiredText(colors, "Colors");
+
+        // validate the user information before call the web service
+        if (colorsResponse.success) {
+            ((EditText)findViewById(R.id.colors)).requestFocus();
+            helper.displayMessage(colorsResponse.message);
+        } else {
+
+            // call the web service
+            new AsyncTask<Void, Void, Response>() {
+                @Override
+                protected Response doInBackground(Void... params) {
+                    // get cake type id
+                    Integer cakeTypeId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+                    // get selected items
+                    List<String> selectedItems = new ArrayList<>();
+                    RelativeLayout parentRelativeLayout = (RelativeLayout) findViewById(R.id.container);
+                    for (int i = 0; i < parentRelativeLayout.getChildCount(); i++) {
+                        View child = parentRelativeLayout.getChildAt(i);
+                        if (child instanceof Spinner) {
+                            // get selected item
+                            Spinner childSpinner = (Spinner) child;
+                            Integer selectedId = ((Item) childSpinner.getSelectedItem()).id;
+                            selectedItems.add(selectedId.toString());
+                        }
                     }
+                    // create a new instance of cake
+                    Cake newCake = new Cake(CreateCake.this);
+                    return newCake.createCake(ageRange, colors, writings, comments, cakeTypeId.toString(), selectedItems, cakeEvent, orderName);
                 }
-                // create a new instance of cake
-                Cake newCake = new Cake(CreateCake.this);
-                return newCake.createCake(ageRange, colors, writings, comments, cakeTypeId.toString(), selectedItems, cakeEvent, orderName);
-            }
 
-            @Override
-            protected void onPostExecute(Response response) {
-                // disable progress bar
-                progressBar.setVisibility(View.GONE);
-                helper.displayMessage(response.message);
+                @Override
+                protected void onPostExecute(Response response) {
+                    // disable progress bar
+                    progressBar.setVisibility(View.GONE);
+                    helper.displayMessage(response.message);
 
-                helper.goToMyCakes();
-            }
-        }.execute(null, null, null);
+                    helper.goToMyCakes();
+                }
+            }.execute(null, null, null);
+        }
     }
 }
