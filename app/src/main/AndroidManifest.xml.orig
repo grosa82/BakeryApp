@@ -16,11 +16,16 @@
         android:name="com.example.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission
+    <android:uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
+<<<<<<< HEAD
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+=======
+    <android:uses-permission
+        android:name="android.permission.READ_PHONE_STATE" />
+>>>>>>> 0b8c22da2c41d8a9e0868e47aa49ba2ff2d6b6ad
+    <android:uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 
@@ -73,6 +78,24 @@
             android:name=".MyCakes"
             android:label="@string/title_activity_my_cakes"
             android:screenOrientation="portrait" >
+<<<<<<< HEAD
+        </activity>
+        <activity
+            android:name=".orderCatagory"
+            android:label="@string/title_activity_order_catagory"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".orderTemplates"
+            android:label="@string/title_activity_order_templates"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".uploadPicture"
+            android:label="@string/title_activity_upload_picture"
+            android:screenOrientation="portrait" >
+=======
+>>>>>>> 0b8c22da2c41d8a9e0868e47aa49ba2ff2d6b6ad
         </activity>
         <activity
             android:name=".CreateCake"
@@ -90,12 +113,13 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".OrderDetails"
             android:label="@string/title_activity_order_details" >
-        </activity>
-        <activity
+=======
             android:name=".upload_photo"
             android:label="@string/title_activity_upload_photo" >
+>>>>>>> 0b8c22da2c41d8a9e0868e47aa49ba2ff2d6b6ad
         </activity>
     </application>
 

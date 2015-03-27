@@ -59,7 +59,13 @@
     <string name="title_activity_orderd_cake">Ordered Cake</string>
     <string name="title_activity_ordered_cake">Ordered Cake</string>
     <string name="title_activity_my_profile">Profile Info</string>
+<<<<<<< HEAD
     <string name="title_activity_order_details">OrderDetails</string>
+
+    <string name="hello_world">Hello world!</string>
+=======
     <string name="title_activity_upload_photo">upload_photo</string>
     <string name="hello_world">Hello world!</string>
+
+>>>>>>> 0b8c22da2c41d8a9e0868e47aa49ba2ff2d6b6ad
 </resources>
