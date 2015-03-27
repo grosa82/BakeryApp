@@ -19,8 +19,6 @@ import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.User;
 
-import java.util.List;
-
 
 public class MyProfile extends ActionBarActivity {
 

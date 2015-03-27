@@ -15,6 +15,7 @@
     <string name="title_activity_order_catagory">orderCatagory</string>
     <string name="title_activity_order_templates">orderTemplates</string>
     <string name="title_activity_upload_picture">uploadPicture</string>
+
     <string-array name="cakeSize_array">
         <item>8\" Round</item>
         <item>9\" Round</item>
@@ -54,7 +55,11 @@
         <item>18 - 25</item>
         <item>25+</item>
     </string-array>
+
     <string name="title_activity_orderd_cake">Ordered Cake</string>
     <string name="title_activity_ordered_cake">Ordered Cake</string>
     <string name="title_activity_my_profile">Profile Info</string>
+    <string name="title_activity_upload_photo">upload_photo</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
