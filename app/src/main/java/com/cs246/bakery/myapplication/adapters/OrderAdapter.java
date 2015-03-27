@@ -40,6 +40,7 @@ public class OrderAdapter extends ArrayAdapter<Cake> {
         TextView status = (TextView)view.findViewById(R.id.status);
         TextView type = (TextView)view.findViewById(R.id.type);
         ImageView image = (ImageView) view.findViewById(R.id.list_image);
+        TextView cakeId = (TextView)view.findViewById(R.id.cakeId);
 
         nickname.setText(order.name);
         DateFormat df = DateFormat.getDateTimeInstance();
@@ -48,6 +49,18 @@ public class OrderAdapter extends ArrayAdapter<Cake> {
         type.setText(order.type.name);
         image.setImageBitmap(order.type.bitmap);
         image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        Integer orderId = order.id;
+        cakeId.setText(orderId.toString());
+
+        if (order.status.id == 1 || order.status.id == 3) {
+            status.setBackgroundResource(R.drawable.red_status);
+        } else if (order.status.id == 2) {
+            status.setBackgroundResource(R.drawable.blue_status);
+        } else if (order.status.id == 5 || order.status.id == 6) {
+            status.setBackgroundResource(R.drawable.yellow_status);
+        } else {
+            status.setBackgroundResource(R.drawable.green_status);
+        }
 
         return view;
     }

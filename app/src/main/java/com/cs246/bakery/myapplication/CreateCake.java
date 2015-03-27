@@ -31,6 +31,12 @@ public class CreateCake extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private Rules rules;
     ProgressBar progressBar;
+    Spinner ageRange;
+    EditText colors;
+    EditText orderName;
+    EditText cakeEvent;
+    EditText writings;
+    EditText comments;
 
     @Override
     public void onStart() {
@@ -52,6 +58,8 @@ public class CreateCake extends ActionBarActivity {
             }
             @Override
             protected void onPostExecute(List<CakeType> cakeTypes) {
+                ((Spinner) findViewById(R.id.cakeType)).setAdapter(null);
+
                 // Create an ArrayAdapter using the cake type array
                 ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
@@ -81,6 +89,13 @@ public class CreateCake extends ActionBarActivity {
                 R.array.ageRange_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        ageRange = (Spinner)findViewById(R.id.ageRange);
+        colors = (EditText)findViewById(R.id.colors);
+        orderName = (EditText)findViewById(R.id.orderName);
+        cakeEvent = (EditText)findViewById(R.id.cakeEvent);
+        writings = (EditText)findViewById(R.id.writing);
+        comments = (EditText)findViewById(R.id.comments);
     }
 
     @Override
@@ -186,21 +201,19 @@ public class CreateCake extends ActionBarActivity {
         // enable progress bar
         progressBar.setVisibility(View.VISIBLE);
 
-        final String ageRange = ((Spinner)findViewById(R.id.ageRange)).getSelectedItem().toString();
-        final String colors = ((EditText)findViewById(R.id.colors)).getText().toString();
-        final String orderName = ((EditText)findViewById(R.id.orderName)).getText().toString();
-        final String cakeEvent = ((EditText)findViewById(R.id.cakeEvent)).getText().toString();
-        final String writings = ((EditText)findViewById(R.id.writing)).getText().toString();
-        final String comments = ((EditText)findViewById(R.id.comments)).getText().toString();
-
-        Response colorsResponse = helper.validateRequiredText(colors, "Colors");
+        Response colorsResponse = helper.validateRequiredText(colors.getText().toString(), "Colors");
+        Response orderNameResponse = helper.validateRequiredText(orderName.getText().toString(), "Order Name");
 
         // validate the user information before call the web service
-        if (colorsResponse.success) {
-            ((EditText)findViewById(R.id.colors)).requestFocus();
+        if (!colorsResponse.success) {
+            colors.requestFocus();
             helper.displayMessage(colorsResponse.message);
+            progressBar.setVisibility(View.GONE);
+        } else if (!orderNameResponse.success) {
+            orderName.requestFocus();
+            helper.displayMessage(orderNameResponse.message);
+            progressBar.setVisibility(View.GONE);
         } else {
-
             // call the web service
             new AsyncTask<Void, Void, Response>() {
                 @Override
@@ -221,7 +234,9 @@ public class CreateCake extends ActionBarActivity {
                     }
                     // create a new instance of cake
                     Cake newCake = new Cake(CreateCake.this);
-                    return newCake.createCake(ageRange, colors, writings, comments, cakeTypeId.toString(), selectedItems, cakeEvent, orderName);
+                    return newCake.createCake(ageRange.getSelectedItem().toString(), colors.getText().toString(),
+                            writings.getText().toString(), comments.getText().toString(), cakeTypeId.toString(), selectedItems,
+                            cakeEvent.getText().toString(), orderName.getText().toString());
                 }
 
                 @Override

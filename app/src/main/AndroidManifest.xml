@@ -16,6 +16,14 @@
         android:name="com.example.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -37,8 +45,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,50 +60,53 @@
 
         <activity
             android:name=".CreateAccount"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_create_account" >
+            android:label="@string/title_activity_create_account"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name=".MyCakes"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_my_cakes" >
+            android:label="@string/title_activity_my_cakes"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".orderCatagory"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_order_catagory" >
+            android:label="@string/title_activity_order_catagory"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".orderTemplates"
-            android:screenOrientation="portrait"
-
-            android:label="@string/title_activity_order_templates" >
+            android:label="@string/title_activity_order_templates"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".uploadPicture"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_upload_picture" >
+            android:label="@string/title_activity_upload_picture"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CreateCake"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_create_cake" >
+            android:label="@string/title_activity_create_cake"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".OrderedCake"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_ordered_cake" >
+            android:label="@string/title_activity_ordered_cake"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MyProfile"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_my_profile" >
+            android:label="@string/title_activity_my_profile"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".OrderDetails"
+            android:label="@string/title_activity_order_details" >
         </activity>
     </application>
 

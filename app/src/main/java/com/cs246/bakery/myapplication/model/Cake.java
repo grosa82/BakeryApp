@@ -42,6 +42,7 @@ public class Cake {
     public Boolean submitted;
     /** Cake name */
     public String name;
+    public List<Item> items;
 
     /**
      * Cake action enumerator
@@ -55,11 +56,13 @@ public class Cake {
 
     public Cake(Activity activity) {
         categories = new ArrayList<Category>();
+        items = new ArrayList<Item>();
         helper = new Helper(activity);
     }
 
     private Cake() {
-
+        categories = new ArrayList<Category>();
+        items = new ArrayList<Item>();
     }
 
     /**
@@ -76,7 +79,7 @@ public class Cake {
         List<Cake> orders = new ArrayList<>();
 
         String jsonString = helper.callWebService(requestPackage).toString();
-        if (jsonString == null || jsonString.equals("null\n"))
+        if (jsonString == null || jsonString.equals("null\n") || jsonString.equals("[]\n"))
             return null;
         else {
             try {
@@ -145,6 +148,17 @@ public class Cake {
                 cake.orderDate = helper.parseDate(respObj.getString("orderDate"));
                 cake.submitted = respObj.getBoolean("submitted");
                 cake.name = respObj.getString("name");
+                JSONArray items = respObj.getJSONArray("characteristics");
+                if (items != null) {
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONObject jsonItem = items.getJSONObject(i);
+                        Item item = new Item();
+                        item.id = jsonItem.getInt("id");
+                        item.name = jsonItem.getString("name");
+                        item.description = jsonItem.getString("description");
+                        cake.items.add(item);
+                    }
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return null;

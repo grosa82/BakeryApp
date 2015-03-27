@@ -1,0 +1,285 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.cs246.bakery.myapplication.OrderDetails"
+    android:background="@drawable/background"
+    android:isScrollContainer="true">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp">
+
+        <ImageView
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:id="@+id/cakeTypeImage"
+            android:background="#FFFFFF"
+            android:padding="2dp"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="20dp">
+
+        <TextView android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/orderName"
+            android:textSize="23dp"
+            android:textAppearance="@style/boldText"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cakeType"
+            android:textSize="18dp"
+            android:layout_below="@+id/status"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@+id/orderName"
+            android:id="@+id/status"
+            android:background="@drawable/rounded_border"
+            android:textAppearance="@style/boldText"
+            android:textColor="@color/button_text"
+            android:textSize="15dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@color/button_color"
+        android:layout_below="@+id/info"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/separator2"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ageRangeLine"
+        android:orientation="horizontal"
+        android:layout_below="@+id/separator2"
+        android:layout_marginBottom="6dp">
+
+        <TextView android:text="Age Range: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ageRangeTitle"
+            android:textSize="18dp"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="@style/boldText"/>
+
+        <TextView android:text=""
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ageRange"
+            android:layout_alignParentRight="true"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/colorsLine"
+        android:orientation="horizontal"
+        android:layout_below="@+id/ageRangeLine"
+        android:layout_marginBottom="6dp">
+
+        <TextView android:text="Colors: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/colorsTitle"
+            android:textSize="18dp"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="@style/boldText"/>
+
+        <TextView android:text=""
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/colors"
+            android:layout_alignParentRight="true"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/writingLine"
+        android:orientation="horizontal"
+        android:layout_below="@+id/colorsLine"
+        android:layout_marginBottom="6dp">
+
+        <TextView android:text="Writing on Cake: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/writingTitle"
+            android:textSize="18dp"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="@style/boldText"/>
+
+        <TextView android:text=""
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/writing"
+            android:layout_alignParentRight="true"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/commentsLine"
+        android:orientation="horizontal"
+        android:layout_below="@+id/writingLine"
+        android:layout_marginBottom="6dp">
+
+        <TextView android:text="Comments: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/commentsTitle"
+            android:textSize="18dp"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="@style/boldText"/>
+
+        <TextView android:text=""
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/comments"
+            android:layout_alignParentRight="true"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cakeEventLine"
+        android:orientation="horizontal"
+        android:layout_below="@+id/commentsLine"
+        android:layout_marginBottom="6dp">
+
+        <TextView android:text="Event: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cakeEventTitle"
+            android:textSize="18dp"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="@style/boldText"/>
+
+        <TextView android:text=""
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cakeEvent"
+            android:layout_alignParentRight="true"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@color/button_color"
+        android:layout_below="@+id/cakeEventLine"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/separator3"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator3"
+        android:orientation="vertical"
+        android:id="@+id/characteristicsLine">
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/characteristics">
+        </ListView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@color/button_color"
+        android:layout_below="@+id/characteristicsLine"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/separator4"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/priceLine"
+        android:orientation="horizontal"
+        android:layout_below="@+id/separator4"
+        android:layout_marginBottom="6dp">
+
+        <TextView android:text="Cost: $ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/costTitle"
+            android:textSize="18dp"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="@style/boldText"/>
+
+        <TextView android:text=""
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cost"
+            android:layout_alignParentRight="true"
+            android:textSize="18dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/priceLine"
+        android:layout_marginBottom="6dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_color"
+            android:textColor="@color/button_text"
+            android:text="Button1"
+            android:id="@+id/button1" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_color"
+            android:textColor="@color/button_text"
+            android:id="@+id/button2"
+            android:text="Button2"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/progressbar"/>
+
+</RelativeLayout>

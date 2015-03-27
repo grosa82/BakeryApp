@@ -30,8 +30,6 @@ import java.util.List;
 public class MyCakes extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private ProgressBar progressBar;
-    public final static String CAKE_NICKNAME = "com.cs246.bakery.myapplication.MESSAGE";
-    public final static String DATE = "com.cs246.bakery.myapplication.MESSAGE2";
     List<Cake> orders;
 
     @Override
@@ -99,13 +97,8 @@ public class MyCakes extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position,
                                             long id) {
-                        Intent intent = new Intent(MyCakes.this, OrderedCake.class);
-                        TextView nickname = (TextView)view.findViewById(R.id.nickname);
-                        TextView date = (TextView)view.findViewById(R.id.date);
-                        String message = nickname.getText().toString();
-                        String message2 = date.getText().toString();
-                        intent.putExtra(CAKE_NICKNAME, message);
-                        intent.putExtra(DATE, message2);
+                        Intent intent = new Intent(MyCakes.this, OrderDetails.class);
+                        intent.putExtra("cakeId", ((TextView)view.findViewById(R.id.cakeId)).getText().toString());
                         startActivity(intent);
                     }
                 });
