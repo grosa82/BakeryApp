@@ -156,6 +156,7 @@ public class Cake {
                         item.id = jsonItem.getInt("id");
                         item.name = jsonItem.getString("name");
                         item.description = jsonItem.getString("description");
+                        item.categoryId = jsonItem.getInt("idCategory");
                         cake.items.add(item);
                     }
                 }

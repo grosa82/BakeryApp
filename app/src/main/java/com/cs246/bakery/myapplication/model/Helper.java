@@ -39,7 +39,7 @@ public class Helper {
     /** Constant with the name of the shared preferences */
     private static final String PREFS_NAME = "CakeAppPreferences";
     /** Context */
-    private Context context;
+    public Context context;
     private static final String TAG = "Helper";
 
     public Helper(Activity activity) {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,24 +14,27 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.cs246.bakery.myapplication.adapters.ItemAdapter;
-import com.cs246.bakery.myapplication.adapters.OrderAdapter;
+import com.cs246.bakery.myapplication.adapters.CharacteristicAdapter;
 import com.cs246.bakery.myapplication.model.Cake;
+import com.cs246.bakery.myapplication.model.CakeType;
 import com.cs246.bakery.myapplication.model.Category;
+import com.cs246.bakery.myapplication.model.Characteristic;
 import com.cs246.bakery.myapplication.model.Helper;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class OrderDetails extends Activity {
     Helper helper = new Helper(OrderDetails.this);
     ProgressBar progressBar;
     String cakeId;
-    List<Category> categories;
+    Map<Integer, String> categories;
 
     private class loadCake extends AsyncTask<Void, Void, Cake> {
 
@@ -53,6 +55,11 @@ public class OrderDetails extends Activity {
             }
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             cake.type.bitmap = bitmap;
+
+            // fill the map of categories
+            Category category = new Category(OrderDetails.this);
+            categories = category.getCategories();
+
             return cake;
         }
 
@@ -63,13 +70,23 @@ public class OrderDetails extends Activity {
             status.setText(cake.status.name);
             ((TextView)findViewById(R.id.orderName)).setText(cake.name);
             ((TextView)findViewById(R.id.cakeType)).setText(cake.type.name);
-            ((TextView)findViewById(R.id.colors)).setText(cake.colors);
-            ((TextView)findViewById(R.id.writing)).setText(cake.writing);
-            ((TextView)findViewById(R.id.comments)).setText(cake.comments);
-            ((TextView)findViewById(R.id.ageRange)).setText(cake.ageRange);
-            ((TextView)findViewById(R.id.cakeEvent)).setText(cake.cakeEvent);
             ((ImageView)findViewById(R.id.cakeTypeImage)).setImageBitmap(cake.type.bitmap);
-            ((TextView)findViewById(R.id.cost)).setText(String.format("%.2f", cake.price));
+
+            List<Characteristic> characteristics = new ArrayList<>();
+            characteristics.add(new Characteristic("Colors ", cake.colors));
+            characteristics.add(new Characteristic("Writings ", cake.writing));
+            characteristics.add(new Characteristic("Comments ", cake.comments));
+            characteristics.add(new Characteristic("Age range ", cake.ageRange));
+            characteristics.add(new Characteristic("Cake event ", cake.cakeEvent));
+            DateFormat df = DateFormat.getDateTimeInstance();
+            characteristics.add(new Characteristic("Order date ", df.format(cake.orderDate)));
+            characteristics.add(new Characteristic("Price ", String.format("$ %.2f", cake.price)));
+
+            for (int i = 0; i < cake.items.size(); i++) {
+                characteristics.add(new Characteristic(
+                        categories.get(cake.items.get(i).categoryId),
+                        cake.items.get(i).name));
+            }
 
             if (cake.status.id == 1 || cake.status.id == 3) {
                 status.setBackgroundResource(R.drawable.red_status);
@@ -81,7 +98,7 @@ public class OrderDetails extends Activity {
                 status.setBackgroundResource(R.drawable.green_status);
             }
 
-            ItemAdapter adapter = new ItemAdapter(OrderDetails.this.getApplicationContext(), R.layout.layout_items, cake.items);
+            CharacteristicAdapter adapter = new CharacteristicAdapter(OrderDetails.this.getApplicationContext(), R.layout.layout_items, characteristics);
             ((ListView)findViewById(R.id.characteristics)).setAdapter(adapter);
 
             progressBar.setVisibility(View.GONE);
@@ -97,7 +114,6 @@ public class OrderDetails extends Activity {
 
         Intent intent = getIntent();
         cakeId = intent.getStringExtra("cakeId");
-        categories = new ArrayList<>();
 
         new loadCake().execute(null, null, null);
     }

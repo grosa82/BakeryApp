@@ -8,6 +8,7 @@ public class Item {
     public String name;
     public String description;
     public boolean active;
+    public int categoryId;
 
     @Override
     public String toString () {
