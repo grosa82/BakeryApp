@@ -51,7 +51,7 @@ public class GcmIntentService extends IntentService {
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 // Post notification of received message.
-                sendNotification("Hey! your order received an update: " + extras.getString("message") + "\n\nCheck it out.");
+                sendNotification("Hey! your order received an update:\n" + extras.getString("message") + "\n\nCheck it out.");
                 Log.i(TAG, "Received: " + extras.toString());
             }
         }
