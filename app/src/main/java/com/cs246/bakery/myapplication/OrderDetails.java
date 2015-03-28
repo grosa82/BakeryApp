@@ -1,6 +1,7 @@
 package com.cs246.bakery.myapplication;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -35,6 +37,8 @@ public class OrderDetails extends Activity {
     ProgressBar progressBar;
     String cakeId;
     Map<Integer, String> categories;
+    Button button1;
+    Button button2;
 
     private class loadCake extends AsyncTask<Void, Void, Cake> {
 
@@ -66,11 +70,11 @@ public class OrderDetails extends Activity {
         @Override
         protected void onPostExecute(Cake cake) {
             // display cake info
-            TextView status = (TextView)findViewById(R.id.status);
+            TextView status = (TextView) findViewById(R.id.status);
             status.setText(cake.status.name);
-            ((TextView)findViewById(R.id.orderName)).setText(cake.name);
-            ((TextView)findViewById(R.id.cakeType)).setText(cake.type.name);
-            ((ImageView)findViewById(R.id.cakeTypeImage)).setImageBitmap(cake.type.bitmap);
+            ((TextView) findViewById(R.id.orderName)).setText(cake.name);
+            ((TextView) findViewById(R.id.cakeType)).setText(cake.type.name);
+            ((ImageView) findViewById(R.id.cakeTypeImage)).setImageBitmap(cake.type.bitmap);
 
             List<Characteristic> characteristics = new ArrayList<>();
             characteristics.add(new Characteristic("Colors ", cake.colors));
@@ -98,8 +102,47 @@ public class OrderDetails extends Activity {
                 status.setBackgroundResource(R.drawable.green_status);
             }
 
+            // back listener
+            View.OnClickListener backListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    helper.goToMyCakes();
+                }
+            };
+            // cancel order listener
+            View.OnClickListener cancelListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    helper.goToMyCakes();
+                }
+            };
+
+            if (cake.status.id == 2 || cake.status.id == 5 || cake.status.id == 6) {
+                button1.setText("Back");
+                button1.setOnClickListener(backListener);
+                button2.setVisibility(View.GONE);
+            } else if (cake.status.id == 3) {
+                button1.setText("Buy Cake");
+                button1.setOnClickListener(backListener);
+                button2.setVisibility(View.VISIBLE);
+                button2.setText("Cancel Order");
+                button2.setOnClickListener(cancelListener);
+            } else if (cake.status.id == 1) {
+                button1.setText("Request Price");
+                button1.setOnClickListener(backListener);
+                button2.setVisibility(View.VISIBLE);
+                button2.setText("Cancel Order");
+                button2.setOnClickListener(cancelListener);
+            } else if (cake.status.id == 7) {
+                button1.setText("Back");
+                button1.setOnClickListener(backListener);
+                button2.setVisibility(View.VISIBLE);
+                button2.setText("Show Location");
+                button2.setOnClickListener(cancelListener);
+            }
+
             CharacteristicAdapter adapter = new CharacteristicAdapter(OrderDetails.this.getApplicationContext(), R.layout.layout_items, characteristics);
-            ((ListView)findViewById(R.id.characteristics)).setAdapter(adapter);
+            ((ListView) findViewById(R.id.characteristics)).setAdapter(adapter);
 
             progressBar.setVisibility(View.GONE);
         }
@@ -111,6 +154,8 @@ public class OrderDetails extends Activity {
         setContentView(R.layout.activity_order_details);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.bringToFront();
+        button1 = (Button) findViewById(R.id.button1);
+        button2 = (Button) findViewById(R.id.button2);
 
         Intent intent = getIntent();
         cakeId = intent.getStringExtra("cakeId");
