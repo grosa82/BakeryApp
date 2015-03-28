@@ -22,6 +22,8 @@ import com.cs246.bakery.myapplication.model.CakeType;
 import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Characteristic;
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.RequestPackage;
+import com.cs246.bakery.myapplication.model.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -109,13 +111,6 @@ public class OrderDetails extends Activity {
                     helper.goToMyCakes();
                 }
             };
-            // cancel order listener
-            View.OnClickListener cancelListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    helper.displayMessage("Cancel Order Click");
-                }
-            };
             // show company info listener
             View.OnClickListener infoListener = new View.OnClickListener() {
                 @Override
@@ -123,13 +118,12 @@ public class OrderDetails extends Activity {
                     helper.displayCompanyInfo().show();
                 }
             };
+            // cancel order listener
+            View.OnClickListener cancelListener = changeStatus(4, "Order Canceled");
             // buy listener
-            View.OnClickListener buyListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    helper.displayMessage("Buy Cake Click");
-                }
-            };
+            View.OnClickListener buyListener = changeStatus(5, "Price Confirmed");
+            // request price listener
+            View.OnClickListener requestPriceListener = changeStatus(2, "Status Updated");
 
             if (cake.status.id == 2 || cake.status.id == 5 || cake.status.id == 6) {
                 button1.setText("Back");
@@ -143,7 +137,7 @@ public class OrderDetails extends Activity {
                 button2.setOnClickListener(cancelListener);
             } else if (cake.status.id == 1) {
                 button1.setText("Request Price");
-                button1.setOnClickListener(backListener);
+                button1.setOnClickListener(requestPriceListener);
                 button2.setVisibility(View.VISIBLE);
                 button2.setText("Cancel Order");
                 button2.setOnClickListener(cancelListener);
@@ -160,6 +154,44 @@ public class OrderDetails extends Activity {
 
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    private View.OnClickListener changeStatus(final Integer statusId, final String successMessage) {
+        View.OnClickListener newListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AsyncTask<Void, Void, Response>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    protected Response doInBackground(Void... params) {
+                        RequestPackage requestPackage = new RequestPackage();
+                        requestPackage.setMethod("POST");
+                        requestPackage.setUri("UpdateStatus");
+                        requestPackage.setParam("userId", helper.getPreferences("id"));
+                        requestPackage.setParam("userToken", helper.getPreferences("token"));
+                        requestPackage.setParam("id", cakeId);
+                        requestPackage.setParam("statusId", statusId.toString());
+                        return helper.callWebService(requestPackage).toResponse();
+                    }
+
+                    @Override
+                    protected void onPostExecute(Response response) {
+                        if (response.success) {
+                            helper.displayMessage(successMessage);
+                            helper.goToMyCakes();
+                        } else
+                            helper.displayMessage(response.message);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }.execute(null, null, null);
+            }
+        };
+        return newListener;
     }
 
     @Override
