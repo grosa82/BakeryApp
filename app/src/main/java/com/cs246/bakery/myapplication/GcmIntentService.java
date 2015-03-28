@@ -1,4 +1,5 @@
 package com.cs246.bakery.myapplication;
+
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.app.IntentService;
@@ -26,6 +27,7 @@ public class GcmIntentService extends IntentService {
     public GcmIntentService() {
         super("GcmIntentService");
     }
+
     public static final String TAG = "GcmIntentService";
 
     @Override
@@ -70,7 +72,7 @@ public class GcmIntentService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.cakeicon)
-                        //.setTicker("!")
+                                //.setTicker("!")
                         .setContentTitle("Cake Info")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))

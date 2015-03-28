@@ -30,10 +30,12 @@ public class User {
     /**
      * Default constructor
      */
-    public User() {}
+    public User() {
+    }
 
     /**
      * User constructor for activities calls
+     *
      * @param activity Activity context
      */
     public User(Activity activity) {
@@ -41,23 +43,38 @@ public class User {
         helper = new Helper(this.activity);
     }
 
-    /** Unique key */
+    /**
+     * Unique key
+     */
     public int id;
-    /** User full name */
+    /**
+     * User full name
+     */
     public String name;
-    /** User phone number */
+    /**
+     * User phone number
+     */
     public String phone;
-    /** Password */
+    /**
+     * Password
+     */
     public String password;
-    /** Email address */
+    /**
+     * Email address
+     */
     public String email;
-    /** Token */
+    /**
+     * Token
+     */
     public String token;
-    /** Registration ID */
+    /**
+     * Registration ID
+     */
     public String regID;
 
     /**
      * Parse json string to user object
+     *
      * @param text json text
      * @return user object
      */
@@ -83,7 +100,8 @@ public class User {
 
     /**
      * Authenticates user
-     * @param email Email
+     *
+     * @param email    Email
      * @param password Password
      * @return Null if user not found, otherwise returns the User object
      */
@@ -110,6 +128,7 @@ public class User {
 
     /**
      * Updates user account
+     *
      * @param user User object
      * @return Response object
      */
@@ -117,10 +136,10 @@ public class User {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
         requestPackage.setUri("UpdateAccount");
-        requestPackage.setParam("name",user.name);
-        requestPackage.setParam("phone",user.phone);
-        requestPackage.setParam("email",user.email);
-        requestPackage.setParam("password",(user.password == null)?"":user.password);
+        requestPackage.setParam("name", user.name);
+        requestPackage.setParam("phone", user.phone);
+        requestPackage.setParam("email", user.email);
+        requestPackage.setParam("password", (user.password == null) ? "" : user.password);
         requestPackage.setParam("regID", helper.getPreferences("regID"));
         requestPackage.setParam("id", helper.getPreferences("id"));
         requestPackage.setParam("token", helper.getPreferences("token"));
@@ -129,6 +148,7 @@ public class User {
 
     /**
      * Creates a new account
+     *
      * @param user User object
      * @return Response object
      */
@@ -136,16 +156,17 @@ public class User {
         RequestPackage requestPackage = new RequestPackage();
         requestPackage.setMethod("POST");
         requestPackage.setUri("CreateAccount");
-        requestPackage.setParam("name",user.name);
-        requestPackage.setParam("phone",user.phone);
-        requestPackage.setParam("email",user.email);
-        requestPackage.setParam("password",user.password);
+        requestPackage.setParam("name", user.name);
+        requestPackage.setParam("phone", user.phone);
+        requestPackage.setParam("email", user.email);
+        requestPackage.setParam("password", user.password);
         requestPackage.setParam("regID", user.regID);
         return helper.callWebService(requestPackage).toResponse();
     }
 
     /**
      * Checks if the user is authenticated
+     *
      * @return True / False
      */
     public boolean isAuthenticated() {

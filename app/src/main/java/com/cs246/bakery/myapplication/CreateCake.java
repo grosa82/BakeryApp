@@ -48,7 +48,7 @@ public class CreateCake extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cake);
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         new AsyncTask<Void, Void, List<CakeType>>() {
             @Override
@@ -56,6 +56,7 @@ public class CreateCake extends ActionBarActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 return new CakeType(CreateCake.this).getCakeTypes();
             }
+
             @Override
             protected void onPostExecute(List<CakeType> cakeTypes) {
                 ((Spinner) findViewById(R.id.cakeType)).setAdapter(null);
@@ -71,7 +72,7 @@ public class CreateCake extends ActionBarActivity {
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+                        Integer databaseId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
                         loadRules();
                     }
 
@@ -90,12 +91,12 @@ public class CreateCake extends ActionBarActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        ageRange = (Spinner)findViewById(R.id.ageRange);
-        colors = (EditText)findViewById(R.id.colors);
-        orderName = (EditText)findViewById(R.id.orderName);
-        cakeEvent = (EditText)findViewById(R.id.cakeEvent);
-        writings = (EditText)findViewById(R.id.writing);
-        comments = (EditText)findViewById(R.id.comments);
+        ageRange = (Spinner) findViewById(R.id.ageRange);
+        colors = (EditText) findViewById(R.id.colors);
+        orderName = (EditText) findViewById(R.id.orderName);
+        cakeEvent = (EditText) findViewById(R.id.cakeEvent);
+        writings = (EditText) findViewById(R.id.writing);
+        comments = (EditText) findViewById(R.id.comments);
     }
 
     @Override
@@ -146,7 +147,7 @@ public class CreateCake extends ActionBarActivity {
     private void loadRules() {
         progressBar.setVisibility(View.VISIBLE);
         // gets the selected cake type
-        final Integer databaseId = ((CakeType)((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
+        final Integer databaseId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
         // gets the rules for this cake type id
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -158,7 +159,7 @@ public class CreateCake extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(Void param) {
-                RelativeLayout layout = (RelativeLayout)findViewById(R.id.container);
+                RelativeLayout layout = (RelativeLayout) findViewById(R.id.container);
                 layout.removeAllViews();
 
                 for (int i = 0; i < rules.categories.size(); i++) {

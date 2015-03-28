@@ -43,6 +43,7 @@ public class RequestPackage {
 
     /**
      * Parses the params to a query string format
+     *
      * @return String encoded
      */
     public String getEncodedParams() {

@@ -1,84 +1,87 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:clickable="true"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.cs246.bakery.myapplication.CreateAccount"
-    android:background="@drawable/background"
-    android:clickable="true">
+    tools:context="com.cs246.bakery.myapplication.CreateAccount">
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:layout_marginTop="30dp"
         android:id="@+id/name"
-        android:textColor="#ff3d4140"
-        android:textColorHint="#ff3d4140"
-        android:typeface="serif"
-        android:paddingLeft="10dp" />
-
-    <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:hint="Name"
+        android:paddingLeft="10dp"
+        android:textColor="#ff3d4140"
+        android:textColorHint="#ff3d4140"
+        android:typeface="serif" />
+
+    <EditText
         android:id="@+id/phone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/name"
+        android:layout_marginTop="20dp"
+        android:hint="Phone"
+        android:paddingLeft="10dp"
         android:textColor="#ff3d4140"
         android:textColorHint="#ff3d4140"
-        android:typeface="serif"
-        android:paddingLeft="10dp" />
+        android:typeface="serif" />
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:layout_marginTop="20dp"
         android:id="@+id/email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/phone"
+        android:layout_marginTop="20dp"
+        android:hint="Email"
+        android:paddingLeft="10dp"
         android:textColor="#ff3d4140"
         android:textColorHint="#ff3d4140"
-        android:typeface="serif"
-        android:paddingLeft="10dp" />
+        android:typeface="serif" />
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:layout_marginTop="20dp"
         android:id="@+id/password"
-        android:layout_below="@+id/email"
-        android:inputType="textPassword"
-        android:textColor="#ff3d4140"
-        android:textColorHint="#ff3d4140"
-        android:typeface="serif"
-        android:paddingLeft="10dp" />
-
-    <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm password"
+        android:layout_below="@+id/email"
         android:layout_marginTop="20dp"
-        android:id="@+id/confirm"
-        android:layout_below="@+id/password"
+        android:hint="Password"
         android:inputType="textPassword"
+        android:paddingLeft="10dp"
         android:textColor="#ff3d4140"
         android:textColorHint="#ff3d4140"
-        android:typeface="serif"
-        android:paddingLeft="10dp" />
+        android:typeface="serif" />
 
-    <Button android:layout_width="fill_parent"
+    <EditText
+        android:id="@+id/confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="20dp"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="#ff3d4140"
+        android:textColorHint="#ff3d4140"
+        android:typeface="serif" />
+
+    <Button
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/confirm"
         android:layout_marginTop="30dp"
-        android:text="Create my account"
-        android:onClick="addUser"
         android:background="#6cc8c2"
+        android:onClick="addUser"
+        android:text="Create my account"
         android:textColor="#ffffffff"
-        android:textStyle="bold"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:typeface="sans">
 
     </Button>

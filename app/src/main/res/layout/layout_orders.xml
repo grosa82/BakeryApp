@@ -79,13 +79,13 @@
         android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:text=">"
         android:textColor="#6cc8c2"
         android:textSize="25dip"
-        android:textStyle="bold"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/cakeId"

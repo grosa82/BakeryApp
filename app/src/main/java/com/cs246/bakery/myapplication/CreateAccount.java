@@ -32,8 +32,7 @@ public class CreateAccount extends ActionBarActivity {
             if (response.success) {
                 helper.displayMessage(response.message);
                 startActivity(new Intent(CreateAccount.this, LoginActivity.class));
-            }
-            else
+            } else
                 helper.displayMessage(response.message);
         }
     }
@@ -47,11 +46,11 @@ public class CreateAccount extends ActionBarActivity {
 
     public void addUser(View view) {
         User newUser = new User(CreateAccount.this);
-        newUser.name = ((EditText)findViewById(R.id.name)).getText().toString();
-        newUser.email = ((EditText)findViewById(R.id.email)).getText().toString();
-        newUser.phone = ((EditText)findViewById(R.id.phone)).getText().toString();
-        newUser.password = ((EditText)findViewById(R.id.password)).getText().toString();
-        String confirm = ((EditText)findViewById(R.id.confirm)).getText().toString();
+        newUser.name = ((EditText) findViewById(R.id.name)).getText().toString();
+        newUser.email = ((EditText) findViewById(R.id.email)).getText().toString();
+        newUser.phone = ((EditText) findViewById(R.id.phone)).getText().toString();
+        newUser.password = ((EditText) findViewById(R.id.password)).getText().toString();
+        String confirm = ((EditText) findViewById(R.id.confirm)).getText().toString();
         newUser.registerDeviceId();
 
         Log.e(TAG, newUser.regID);
@@ -73,24 +72,21 @@ public class CreateAccount extends ActionBarActivity {
 
         if (!nameResponse.success) {
             helper.displayMessage(nameResponse.message);
-            ((EditText)findViewById(R.id.name)).requestFocus();
+            ((EditText) findViewById(R.id.name)).requestFocus();
             return false;
-        }
-        else if (!phoneResponse.success) {
+        } else if (!phoneResponse.success) {
             helper.displayMessage(phoneResponse.message);
-            ((EditText)findViewById(R.id.phone)).requestFocus();
+            ((EditText) findViewById(R.id.phone)).requestFocus();
             return false;
-        }
-        else if (!emailResponse.success) {
+        } else if (!emailResponse.success) {
             helper.displayMessage(emailResponse.message);
-            ((EditText)findViewById(R.id.email)).requestFocus();
+            ((EditText) findViewById(R.id.email)).requestFocus();
             return false;
-        }
-        else if (!passwordResponse.success) {
+        } else if (!passwordResponse.success) {
             helper.displayMessage(passwordResponse.message);
-            ((EditText)findViewById(R.id.confirm)).setText("");
-            ((EditText)findViewById(R.id.password)).setText("");
-            ((EditText)findViewById(R.id.password)).requestFocus();
+            ((EditText) findViewById(R.id.confirm)).setText("");
+            ((EditText) findViewById(R.id.password)).setText("");
+            ((EditText) findViewById(R.id.password)).requestFocus();
             return false;
         }
         return true;

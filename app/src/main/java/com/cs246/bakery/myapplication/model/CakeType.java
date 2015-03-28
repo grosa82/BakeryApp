@@ -27,13 +27,14 @@ public class CakeType {
 
     /**
      * Parses json string to CakeType obj
+     *
      * @param json
      * @return
      */
     public CakeType parseJson(String json) {
         CakeType cakeType = null;
         try {
-            cakeType = new CakeType((Activity)helper.getContext());
+            cakeType = new CakeType((Activity) helper.getContext());
             JSONObject respObj = new JSONObject(json);
             cakeType.id = respObj.getInt("id");
             cakeType.name = respObj.getString("name");
@@ -48,6 +49,7 @@ public class CakeType {
 
     /**
      * Gets all cake types
+     *
      * @return
      */
     public List<CakeType> getCakeTypes() {
@@ -77,7 +79,7 @@ public class CakeType {
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         return name;
     }
 }

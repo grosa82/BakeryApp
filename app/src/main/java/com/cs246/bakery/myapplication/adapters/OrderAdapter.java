@@ -31,16 +31,16 @@ public class OrderAdapter extends ArrayAdapter<Cake> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.layout_orders, parent, false);
 
         Cake order = orderList.get(position);
-        TextView nickname = (TextView)view.findViewById(R.id.nickname);
-        TextView date = (TextView)view.findViewById(R.id.date);
-        TextView status = (TextView)view.findViewById(R.id.status);
-        TextView type = (TextView)view.findViewById(R.id.type);
+        TextView nickname = (TextView) view.findViewById(R.id.nickname);
+        TextView date = (TextView) view.findViewById(R.id.date);
+        TextView status = (TextView) view.findViewById(R.id.status);
+        TextView type = (TextView) view.findViewById(R.id.type);
         ImageView image = (ImageView) view.findViewById(R.id.list_image);
-        TextView cakeId = (TextView)view.findViewById(R.id.cakeId);
+        TextView cakeId = (TextView) view.findViewById(R.id.cakeId);
 
         nickname.setText(order.name);
         DateFormat df = DateFormat.getDateTimeInstance();

@@ -24,10 +24,11 @@ public class LoginActivity extends ActionBarActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.bringToFront();
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        ((EditText)findViewById(R.id.email)).requestFocus();
+        ((EditText) findViewById(R.id.email)).requestFocus();
     }
 
     public class AuthenticateTask extends AsyncTask<Void, String, User> {
@@ -38,9 +39,9 @@ public class LoginActivity extends ActionBarActivity {
         }
 
         @Override
-        protected User doInBackground(Void... nullValue ) {
-            String email = ((EditText)findViewById(R.id.email)).getText().toString();
-            String password = ((EditText)findViewById(R.id.password)).getText().toString();
+        protected User doInBackground(Void... nullValue) {
+            String email = ((EditText) findViewById(R.id.email)).getText().toString();
+            String password = ((EditText) findViewById(R.id.password)).getText().toString();
 
             User user = new User(LoginActivity.this);
             return user.authenticate(email, password);
@@ -52,8 +53,7 @@ public class LoginActivity extends ActionBarActivity {
             if (response != null) {
                 Intent homepage = new Intent(LoginActivity.this, MyCakes.class);
                 startActivity(homepage);
-            }
-            else
+            } else
                 helper.displayMessage("Wrong email or password. Please try again");
         }
     }
@@ -66,8 +66,8 @@ public class LoginActivity extends ActionBarActivity {
 
     public void signOn(View view) {
 
-        String email = ((EditText)findViewById(R.id.email)).getText().toString();
-        String password = ((EditText)findViewById(R.id.password)).getText().toString();
+        String email = ((EditText) findViewById(R.id.email)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password)).getText().toString();
 
         Response emailResponse = helper.validateEmail(email);
         Response passwordResponse = helper.validatePassword(password, password);

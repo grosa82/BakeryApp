@@ -4,32 +4,36 @@
 
     <item
         android:id="@+id/empty"
-        android:title="Options"
+        android:icon="@drawable/ic_action_overflow"
         android:orderInCategory="101"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_action_overflow">
+        android:title="Options"
+        app:showAsAction="always">
 
         <menu>
-            <item android:id="@+id/action_about_us"
+            <item
+                android:id="@+id/action_about_us"
                 android:icon="@android:drawable/ic_menu_info_details"
-                app:showAsAction="ifRoom"
-                android:title="@string/action_about_us" />
+                android:title="@string/action_about_us"
+                app:showAsAction="ifRoom" />
 
-            <item android:id="@+id/call_me"
+            <item
+                android:id="@+id/call_me"
                 android:icon="@android:drawable/ic_menu_call"
-                app:showAsAction="ifRoom"
-                android:title="@string/action_call_me" />
+                android:title="@string/action_call_me"
+                app:showAsAction="ifRoom" />
 
-            <item android:id="@+id/my_profile"
+            <item
+                android:id="@+id/my_profile"
                 android:icon="@android:drawable/ic_menu_edit"
-                app:showAsAction="ifRoom"
-                android:title="@string/action_my_profile" />
+                android:title="@string/action_my_profile"
+                app:showAsAction="ifRoom" />
 
 
-            <item android:id="@+id/action_signOut"
+            <item
+                android:id="@+id/action_signOut"
                 android:icon="@android:drawable/ic_menu_close_clear_cancel"
-                app:showAsAction="ifRoom"
-                android:title="@string/action_signOut" />
+                android:title="@string/action_signOut"
+                app:showAsAction="ifRoom" />
         </menu>
 
     </item>

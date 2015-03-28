@@ -36,9 +36,13 @@ import java.util.Date;
  */
 public class Helper {
 
-    /** Constant with the name of the shared preferences */
+    /**
+     * Constant with the name of the shared preferences
+     */
     private static final String PREFS_NAME = "CakeAppPreferences";
-    /** Context */
+    /**
+     * Context
+     */
     public Context context;
     private static final String TAG = "Helper";
 
@@ -54,12 +58,13 @@ public class Helper {
 
     /**
      * Display a message on screen
+     *
      * @param message message to display
      */
     public void displayMessage(String message) {
-        LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = layoutInflater.inflate(R.layout.layout_toast,
-           (ViewGroup)((Activity)context).findViewById(R.id.toast_layout_root));
+                (ViewGroup) ((Activity) context).findViewById(R.id.toast_layout_root));
 
         TextView text = (TextView) layout.findViewById(R.id.text);
         text.setText(message);
@@ -181,6 +186,7 @@ public class Helper {
 
     /**
      * Save information on SharedPreferences
+     *
      * @param key
      * @param value
      */
@@ -201,6 +207,7 @@ public class Helper {
 
     /**
      * Get information from SharedPreferences
+     *
      * @param key
      * @return value
      */
@@ -225,6 +232,7 @@ public class Helper {
 
     /**
      * Parse json string response to an object Response
+     *
      * @param text json string
      * @return Response object
      */
@@ -249,9 +257,9 @@ public class Helper {
     }
 
 
-
     /**
      * Parse a json date to a Date object
+     *
      * @param text
      * @return Date
      */
@@ -278,6 +286,7 @@ public class Helper {
 
     /**
      * Parse boolean
+     *
      * @param text
      * @return
      */
@@ -287,6 +296,7 @@ public class Helper {
 
     /**
      * Make a request to the web service layer
+     *
      * @param requestPackage
      * @return string returned from server
      */
@@ -304,7 +314,7 @@ public class Helper {
             URL url = new URL(uri);
             if (requestPackage.getMethod().equals("POST"))
                 url = new URL(uri + "?json=true");
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod(requestPackage.getMethod());
 
             Log.i(TAG, requestPackage.getMethod() + " " + url.toString());
@@ -341,6 +351,7 @@ public class Helper {
 
     /**
      * Converts a string to a Response object
+     *
      * @return Response
      */
     public Response toResponse() {
@@ -360,6 +371,7 @@ public class Helper {
 
     /**
      * Validate a phone number
+     *
      * @param phone
      * @return
      */
@@ -381,6 +393,7 @@ public class Helper {
 
     /**
      * Validate if the text is filled out
+     *
      * @param text Text to validate
      * @param name Field name
      * @return Response
@@ -398,6 +411,7 @@ public class Helper {
 
     /**
      * Validate the name
+     *
      * @param name
      * @return
      */
@@ -419,6 +433,7 @@ public class Helper {
 
     /**
      * Validate email address
+     *
      * @param email
      * @return
      */
@@ -441,6 +456,7 @@ public class Helper {
 
     /**
      * Validate password
+     *
      * @param password
      * @param confirmation
      * @return
@@ -453,8 +469,7 @@ public class Helper {
         if (!password.equals(confirmation)) {
             response.success = false;
             response.message = "Password and confirmation does not match";
-        }
-        else if (password.length() < 6) {
+        } else if (password.length() < 6) {
             response.success = false;
             response.message = "Password should be at least 6 characters long";
         }

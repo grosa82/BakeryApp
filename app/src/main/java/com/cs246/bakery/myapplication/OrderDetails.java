@@ -113,7 +113,21 @@ public class OrderDetails extends Activity {
             View.OnClickListener cancelListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    helper.goToMyCakes();
+                    helper.displayMessage("Cancel Order Click");
+                }
+            };
+            // show company info listener
+            View.OnClickListener infoListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    helper.displayCompanyInfo().show();
+                }
+            };
+            // buy listener
+            View.OnClickListener buyListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    helper.displayMessage("Buy Cake Click");
                 }
             };
 
@@ -123,7 +137,7 @@ public class OrderDetails extends Activity {
                 button2.setVisibility(View.GONE);
             } else if (cake.status.id == 3) {
                 button1.setText("Buy Cake");
-                button1.setOnClickListener(backListener);
+                button1.setOnClickListener(buyListener);
                 button2.setVisibility(View.VISIBLE);
                 button2.setText("Cancel Order");
                 button2.setOnClickListener(cancelListener);
@@ -138,7 +152,7 @@ public class OrderDetails extends Activity {
                 button1.setOnClickListener(backListener);
                 button2.setVisibility(View.VISIBLE);
                 button2.setText("Show Location");
-                button2.setOnClickListener(cancelListener);
+                button2.setOnClickListener(infoListener);
             }
 
             CharacteristicAdapter adapter = new CharacteristicAdapter(OrderDetails.this.getApplicationContext(), R.layout.layout_items, characteristics);

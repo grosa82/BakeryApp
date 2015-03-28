@@ -23,6 +23,7 @@ public class Rules {
 
     /**
      * Gets the rules of a specific cake type
+     *
      * @param cake_type_id
      */
     private void getRules(Integer cake_type_id) {
@@ -43,7 +44,7 @@ public class Rules {
                 JSONArray rulesJson = new JSONArray(jsonString);
                 for (int i = 0; i < rulesJson.length(); i++) {
                     JSONObject obj = rulesJson.getJSONObject(i);
-                    Category category = new Category((Activity)helper.context);
+                    Category category = new Category((Activity) helper.context);
                     category.maxQuantity = obj.getInt("maxQuant");
                     // parses the categories
                     JSONObject categoryJson = obj.getJSONObject("category");

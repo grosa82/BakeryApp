@@ -37,14 +37,14 @@ public class MyProfile extends ActionBarActivity {
         ((EditText) findViewById(R.id.email)).setText(helper.getPreferences("email"));
 
         // gets the progress bar
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // get the elements
-        name = (EditText)findViewById(R.id.name);
-        phone = (EditText)findViewById(R.id.phone);
-        email = (EditText)findViewById(R.id.email);
-        password = (EditText)findViewById(R.id.password);
-        confirm = (EditText)findViewById(R.id.confirm);
+        name = (EditText) findViewById(R.id.name);
+        phone = (EditText) findViewById(R.id.phone);
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
+        confirm = (EditText) findViewById(R.id.confirm);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class MyProfile extends ActionBarActivity {
         }
 
         if (id == R.id.my_profile) {
-           helper.goToProfile();
+            helper.goToProfile();
             return true;
         }
 

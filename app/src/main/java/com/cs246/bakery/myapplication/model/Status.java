@@ -12,6 +12,7 @@ public class Status {
 
     /**
      * Parse json string to status obj
+     *
      * @param json
      * @return
      */

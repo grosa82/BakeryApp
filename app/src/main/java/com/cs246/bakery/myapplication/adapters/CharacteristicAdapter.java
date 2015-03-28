@@ -32,12 +32,12 @@ public class CharacteristicAdapter extends ArrayAdapter<Characteristic> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.layout_items, parent, false);
 
         Characteristic item = itemList.get(position);
-        ((TextView)view.findViewById(R.id.key)).setText(item.key);
-        ((TextView)view.findViewById(R.id.value)).setText(item.value);
+        ((TextView) view.findViewById(R.id.key)).setText(item.key);
+        ((TextView) view.findViewById(R.id.value)).setText(item.value);
         return view;
     }
 }

@@ -16,6 +16,7 @@ public class CompanyInfo {
 
     /**
      * Gets the company info
+     *
      * @return CompanyInfo object
      */
     public CompanyInfo getCompanyInfo() {

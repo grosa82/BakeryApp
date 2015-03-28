@@ -1,119 +1,122 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:isScrollContainer="true"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.cs246.bakery.myapplication.OrderDetails"
-    android:background="@drawable/background"
-    android:isScrollContainer="true">
+    tools:context="com.cs246.bakery.myapplication.OrderDetails">
 
     <LinearLayout
+        android:id="@+id/info"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/info"
-        android:orientation="horizontal"
-        android:layout_marginBottom="6dp">
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/cakeTypeImage"
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:id="@+id/cakeTypeImage"
             android:background="#FFFFFF"
-            android:padding="2dp"/>
+            android:padding="2dp"
+            android:scaleType="fitCenter" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="20dp">
-
-        <TextView android:text=""
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/orderName"
-            android:textSize="23dp"
-            android:textAppearance="@style/boldText"
-            android:layout_centerHorizontal="true"/>
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
 
-        <TextView android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cakeType"
-            android:textSize="18dp"
-            android:layout_below="@+id/status"/>
+            <TextView
+                android:id="@+id/orderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text=""
+                android:textAppearance="@style/boldText"
+                android:textSize="23dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_below="@+id/orderName"
-            android:id="@+id/status"
-            android:background="@drawable/rounded_border"
-            android:textAppearance="@style/boldText"
-            android:textColor="@color/button_text"
-            android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/cakeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/status"
+                android:text=""
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/orderName"
+                android:background="@drawable/rounded_border"
+                android:text=""
+                android:textAppearance="@style/boldText"
+                android:textColor="@color/button_text"
+                android:textSize="15dp" />
         </LinearLayout>
     </LinearLayout>
 
     <View
+        android:id="@+id/separator3"
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:background="@color/button_color"
         android:layout_below="@+id/info"
-        android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
-        android:id="@+id/separator3"/>
+        android:layout_marginTop="6dp"
+        android:background="@color/button_color" />
 
-        <ListView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/characteristics"
-            android:layout_below="@+id/separator3"
-            android:layout_marginBottom="60dp">
-        </ListView>
+    <ListView
+        android:id="@+id/characteristics"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/separator3"
+        android:layout_marginBottom="60dp"></ListView>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/characteristics"
         android:layout_marginTop="-50dp"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/button_color"
-            android:textColor="@color/button_text"
-            android:text="Button1"
             android:id="@+id/button1"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"/>
-
-        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:layout_weight="1"
             android:background="@color/button_color"
-            android:textColor="@color/button_text"
+            android:text="Button1"
+            android:textColor="@color/button_text" />
+
+        <Button
             android:id="@+id/button2"
-            android:text="Button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"/>
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:background="@color/button_color"
+            android:text="Button2"
+            android:textColor="@color/button_text" />
     </LinearLayout>
 
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="256px"
         android:layout_height="256px"
-        android:id="@+id/progressBar"
-        android:layout_gravity="center"
         android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:indeterminateDrawable="@drawable/progressbar"/>
+        android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/progressbar"
+        android:visibility="gone" />
 
 </RelativeLayout>

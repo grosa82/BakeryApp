@@ -16,31 +16,57 @@ import java.util.List;
 public class Cake {
     private Helper helper;
 
-    /** Unique ID for each cake */
+    /**
+     * Unique ID for each cake
+     */
     public int id;
-    /** The array list for the characteristics */
+    /**
+     * The array list for the characteristics
+     */
     public List<Category> categories;
-    /** The range of age of the intended customer */
+    /**
+     * The range of age of the intended customer
+     */
     public String ageRange;
-    /** Writing that will be placed on the cake MAX = 50; */
+    /**
+     * Writing that will be placed on the cake MAX = 50;
+     */
     public String writing;
-    /** Comments for the baker */
+    /**
+     * Comments for the baker
+     */
     public String comments;
-    /** Colors on top of the cake */
+    /**
+     * Colors on top of the cake
+     */
     public String colors;
-    /** Price for the cake */
+    /**
+     * Price for the cake
+     */
     public double price;
-    /** Status of the cake */
+    /**
+     * Status of the cake
+     */
     public Status status;
-    /** Cake type */
+    /**
+     * Cake type
+     */
     public CakeType type;
-    /** Cake event */
+    /**
+     * Cake event
+     */
     public String cakeEvent;
-    /** Order date */
+    /**
+     * Order date
+     */
     public Date orderDate;
-    /** Submitted */
+    /**
+     * Submitted
+     */
     public Boolean submitted;
-    /** Cake name */
+    /**
+     * Cake name
+     */
     public String name;
     public List<Item> items;
 
@@ -67,6 +93,7 @@ public class Cake {
 
     /**
      * Gets the user's cakes
+     *
      * @return List of cakes
      */
     public List<Cake> getCakes() {
@@ -98,6 +125,7 @@ public class Cake {
 
     /**
      * Gets a user cake
+     *
      * @return Cake
      */
     public Cake getCake(String cakeId) {
@@ -126,6 +154,7 @@ public class Cake {
 
     /**
      * Parse a json string to a cake object
+     *
      * @param text
      * @return Cake
      */
@@ -143,7 +172,7 @@ public class Cake {
                 cake.comments = respObj.getString("comments");
                 cake.price = respObj.getDouble("price");
                 cake.status = new Status().parseJson(respObj.getString("status"));
-                cake.type = new CakeType((Activity)helper.getContext()).parseJson(respObj.getString("type"));
+                cake.type = new CakeType((Activity) helper.getContext()).parseJson(respObj.getString("type"));
                 cake.cakeEvent = respObj.getString("cakeEvent");
                 cake.orderDate = helper.parseDate(respObj.getString("orderDate"));
                 cake.submitted = respObj.getBoolean("submitted");
@@ -170,14 +199,15 @@ public class Cake {
 
     /**
      * Adds a new cake to the user account
+     *
      * @param ageRange
      * @param colors
      * @param writing
      * @param comments
      * @param idCakeType
-     * @param items Items IDs that defines the characteristics of the cake
+     * @param items      Items IDs that defines the characteristics of the cake
      * @param cakeEvent
-     * @param orderName Name to distinguish one order to another
+     * @param orderName  Name to distinguish one order to another
      * @return Response object
      */
     public Response createCake(String ageRange, String colors, String writing, String comments, String idCakeType,
@@ -200,15 +230,16 @@ public class Cake {
 
     /**
      * Updates the cake info
-     * @param cakeId Cake id
+     *
+     * @param cakeId     Cake id
      * @param ageRange
      * @param colors
      * @param writing
      * @param comments
      * @param idCakeType
-     * @param items Items IDs that defines the characteristics of the cake
+     * @param items      Items IDs that defines the characteristics of the cake
      * @param cakeEvent
-     * @param orderName Name to distinguish one order to another
+     * @param orderName  Name to distinguish one order to another
      * @return Response object
      */
     public Response updateCake(String cakeId, String ageRange, String colors, String writing, String comments, String idCakeType,
@@ -233,6 +264,7 @@ public class Cake {
 
     /**
      * Updates cake actions (submit, cancel, approve price, or enable edit)
+     *
      * @param cakeId Cake id
      * @param action
      * @return Response object

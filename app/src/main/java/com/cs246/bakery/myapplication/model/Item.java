@@ -11,7 +11,7 @@ public class Item {
     public int categoryId;
 
     @Override
-    public String toString () {
+    public String toString() {
         return name;
     }
 }

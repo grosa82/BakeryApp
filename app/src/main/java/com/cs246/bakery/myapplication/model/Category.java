@@ -27,6 +27,7 @@ public class Category {
 
     /**
      * Gets all cake types
+     *
      * @return
      */
     public Map<Integer, String> getCategories() {
@@ -44,7 +45,7 @@ public class Category {
             try {
                 JSONArray categoriesJson = new JSONArray(jsonString);
                 for (int i = 0; i < categoriesJson.length(); i++) {
-                    Category category = new Category((Activity)helper.context);
+                    Category category = new Category((Activity) helper.context);
                     JSONObject obj = categoriesJson.getJSONObject(i);
                     categories.put(obj.getInt("id"), obj.getString("name"));
                 }
