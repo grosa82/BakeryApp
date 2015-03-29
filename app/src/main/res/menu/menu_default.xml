@@ -11,6 +11,11 @@
 
         <menu>
             <item
+                android:id="@+id/my_cakes"
+                android:title="@string/action_my_cakes"
+                app:showAsAction="ifRoom" />
+
+            <item
                 android:id="@+id/action_about_us"
                 android:icon="@android:drawable/ic_menu_info_details"
                 android:title="@string/action_about_us"

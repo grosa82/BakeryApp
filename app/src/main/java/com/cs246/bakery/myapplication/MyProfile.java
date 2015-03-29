@@ -84,6 +84,11 @@ public class MyProfile extends ActionBarActivity {
             return true;
         }
 
+        if (id == R.id.my_cakes) {
+            helper.goToMyCakes();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

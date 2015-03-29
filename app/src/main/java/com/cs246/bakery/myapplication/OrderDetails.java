@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class OrderDetails extends Activity {
+public class OrderDetails extends ActionBarActivity {
     private Helper helper = new Helper(OrderDetails.this);
     private ProgressDialog progressDialog;
     private String cakeId;
@@ -223,6 +224,7 @@ public class OrderDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
+
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
         editButton = (Button) findViewById(R.id.edit);
@@ -236,7 +238,7 @@ public class OrderDetails extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_order_details, menu);
+        getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
 
@@ -247,8 +249,33 @@ public class OrderDetails extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about_us) {
+            helper.displayCompanyInfo().show();
+            return true;
+        }
+
+        if (id == R.id.call_me) {
+            helper.displayOkCancelDialog("We can call you to help you with your order", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    helper.callMe();
+                }
+            }).show();
+            return true;
+        }
+
+        if (id == R.id.my_profile) {
+            helper.goToProfile();
+            return true;
+        }
+
+        if (id == R.id.action_signOut) {
+            helper.signOut();
+            return true;
+        }
+
+        if (id == R.id.my_cakes) {
+            helper.goToMyCakes();
             return true;
         }
 
