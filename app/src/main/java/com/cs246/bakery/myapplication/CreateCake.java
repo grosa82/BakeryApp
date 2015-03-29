@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -30,73 +31,125 @@ import java.util.List;
 public class CreateCake extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private Rules rules;
-    ProgressBar progressBar;
-    Spinner ageRange;
-    EditText colors;
-    EditText orderName;
-    EditText cakeEvent;
-    EditText writings;
-    EditText comments;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        helper.displayMessage("Customize Your Cake");
-    }
+    private ProgressBar progressBar;
+    private Spinner ageRange, cakeType;
+    private EditText colors, orderName, cakeEvent, writings, comments;
+    private String cakeId;
+    private Button actionButton;
+    private CakeType cakeTypeSelected = null;
+    private Cake cakeSelected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cake);
+
+        // get cake id if it is an update call
+        Intent intent = getIntent();
+        cakeId = intent.getStringExtra("cakeId");
+
+        // get views for future use
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        new AsyncTask<Void, Void, List<CakeType>>() {
-            @Override
-            protected List<CakeType> doInBackground(Void... params) {
-                progressBar.setVisibility(View.VISIBLE);
-                return new CakeType(CreateCake.this).getCakeTypes();
-            }
-
-            @Override
-            protected void onPostExecute(List<CakeType> cakeTypes) {
-                ((Spinner) findViewById(R.id.cakeType)).setAdapter(null);
-
-                // Create an ArrayAdapter using the cake type array
-                ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
-                adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-
-                // Apply the adapter to the spinner
-                ((Spinner) findViewById(R.id.cakeType)).setAdapter(adapter);
-                Spinner spinner = (Spinner) findViewById(R.id.cakeType);
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        Integer databaseId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
-                        loadRules();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                progressBar.setVisibility(View.GONE);
-            }
-        }.execute(null, null, null);
-
-        Spinner spinner = (Spinner) findViewById(R.id.ageRange);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.ageRange_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
+        actionButton = (Button) findViewById(R.id.actionButton);
+        cakeType = (Spinner) findViewById(R.id.cakeType);
         ageRange = (Spinner) findViewById(R.id.ageRange);
         colors = (EditText) findViewById(R.id.colors);
         orderName = (EditText) findViewById(R.id.orderName);
         cakeEvent = (EditText) findViewById(R.id.cakeEvent);
         writings = (EditText) findViewById(R.id.writing);
         comments = (EditText) findViewById(R.id.comments);
+
+        loadCakeTypes();
+    }
+
+    private void loadCakeTypes() {
+
+        new AsyncTask<Void, Void, List<CakeType>>() {
+            @Override
+            protected void onPreExecute() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected List<CakeType> doInBackground(Void... params) {
+                return new CakeType(CreateCake.this).getCakeTypes();
+            }
+
+            @Override
+            protected void onPostExecute(final List<CakeType> cakeTypes) {
+                cakeType.setAdapter(null);
+
+                // Create an ArrayAdapter using the cake type array
+                final ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
+                adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+                // Apply the adapter to the spinner
+                cakeType.setAdapter(adapter);
+
+                loadRulesCallBackFunction();
+            }
+        }.execute(null, null, null);
+    }
+
+    private void loadRulesCallBackFunction() {
+        if (cakeId != null) {
+            // update cake
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doAction(true);
+                }
+            });
+
+            // load the age range options
+            Spinner spinner = (Spinner) findViewById(R.id.ageRange);
+            final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.ageRange_array, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
+            // load current information
+            new AsyncTask<Void, Void, Cake>() {
+
+                List<CakeType> cakeTypes = null;
+
+                @Override
+                protected Cake doInBackground(Void... params) {
+                    Cake cake = new Cake(CreateCake.this);
+                    cakeTypes = new CakeType(CreateCake.this).getCakeTypes();
+                    cakeSelected = cake.getCake(cakeId);
+                    return cakeSelected;
+                }
+
+                @Override
+                protected void onPostExecute(Cake cake) {
+                    // fill the input fields
+                    ageRange.setSelection(adapter.getPosition(cake.ageRange));
+                    colors.setText(cake.colors);
+                    orderName.setText(cake.name);
+                    cakeEvent.setText(cake.cakeEvent);
+                    writings.setText(cake.writing);
+                    comments.setText(cake.comments);
+                    CakeType cakeTypeSelected = null;
+                    for (CakeType cakeType : cakeTypes) {
+                        if (cake.type.id == cakeType.id)
+                            cakeTypeSelected = cakeType;
+                    }
+                    ArrayAdapter<CakeType> cakeTypeAdapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
+                    cakeType.setSelection(cakeTypeAdapter.getPosition(cakeTypeSelected));
+
+                    loadRules();
+                }
+            }.execute(null, null, null);
+        } else {
+            // save cake
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doAction(false);
+                }
+            });
+        }
     }
 
     @Override
@@ -145,11 +198,12 @@ public class CreateCake extends ActionBarActivity {
      * Loads rules based on the cake type selected
      */
     private void loadRules() {
-        progressBar.setVisibility(View.VISIBLE);
+
         // gets the selected cake type
         final Integer databaseId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
         // gets the rules for this cake type id
         new AsyncTask<Void, Void, Void>() {
+
             @Override
             protected Void doInBackground(Void... params) {
                 // creating the Rule obj is loading the categories behind the scenes
@@ -185,6 +239,14 @@ public class CreateCake extends ActionBarActivity {
                     else
                         adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                     spinner.setAdapter(adapter);
+
+                    if (cakeSelected != null) {
+                        Item itemSelected = null;
+                        for (Item item : cakeSelected.items) {
+                            spinner.setSelection(adapter.getPosition(item));
+                        }
+                    }
+
                     // define layout
                     layoutParams = new RelativeLayout.LayoutParams(600, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     layoutParams.setMargins(0, 100 * i, 0, 0);
@@ -193,12 +255,26 @@ public class CreateCake extends ActionBarActivity {
                     // add spinner to the parent view
                     layout.addView(spinner);
                 }
+
+                cakeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Integer databaseId = ((CakeType) cakeType.getSelectedItem()).id;
+                        loadRules();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
                 progressBar.setVisibility(View.GONE);
             }
         }.execute(null, null, null);
     }
 
-    public void save(View view) {
+    public void doAction(final boolean isUpdate) {
         // enable progress bar
         progressBar.setVisibility(View.VISIBLE);
 
@@ -235,9 +311,16 @@ public class CreateCake extends ActionBarActivity {
                     }
                     // create a new instance of cake
                     Cake newCake = new Cake(CreateCake.this);
-                    return newCake.createCake(ageRange.getSelectedItem().toString(), colors.getText().toString(),
-                            writings.getText().toString(), comments.getText().toString(), cakeTypeId.toString(), selectedItems,
-                            cakeEvent.getText().toString(), orderName.getText().toString());
+
+                    if (!isUpdate) {
+                        return newCake.createCake(ageRange.getSelectedItem().toString(), colors.getText().toString(),
+                                writings.getText().toString(), comments.getText().toString(), cakeTypeId.toString(), selectedItems,
+                                cakeEvent.getText().toString(), orderName.getText().toString());
+                    } else {
+                        return newCake.updateCake(cakeId, ageRange.getSelectedItem().toString(), colors.getText().toString(),
+                                writings.getText().toString(), comments.getText().toString(), cakeTypeId.toString(), selectedItems,
+                                cakeEvent.getText().toString(), orderName.getText().toString());
+                    }
                 }
 
                 @Override
@@ -246,7 +329,12 @@ public class CreateCake extends ActionBarActivity {
                     progressBar.setVisibility(View.GONE);
                     helper.displayMessage(response.message);
 
-                    helper.goToMyCakes();
+                    if (response.success) {
+                        Intent intent = new Intent(CreateCake.this, OrderDetails.class);
+                        Integer cakeId = response.createdId;
+                        intent.putExtra("cakeId", cakeId.toString());
+                        startActivity(intent);
+                    }
                 }
             }.execute(null, null, null);
         }

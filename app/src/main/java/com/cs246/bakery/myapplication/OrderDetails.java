@@ -39,8 +39,7 @@ public class OrderDetails extends Activity {
     ProgressBar progressBar;
     String cakeId;
     Map<Integer, String> categories;
-    Button button1;
-    Button button2;
+    Button button1, button2, editButton;
 
     private class loadCake extends AsyncTask<Void, Void, Cake> {
 
@@ -79,20 +78,20 @@ public class OrderDetails extends Activity {
             ((ImageView) findViewById(R.id.cakeTypeImage)).setImageBitmap(cake.type.bitmap);
 
             List<Characteristic> characteristics = new ArrayList<>();
-            characteristics.add(new Characteristic("Colors ", cake.colors));
-            characteristics.add(new Characteristic("Writings ", cake.writing));
-            characteristics.add(new Characteristic("Comments ", cake.comments));
-            characteristics.add(new Characteristic("Age range ", cake.ageRange));
-            characteristics.add(new Characteristic("Cake event ", cake.cakeEvent));
+            characteristics.add(new Characteristic("Colors ", helper.parseText(cake.colors)));
+            characteristics.add(new Characteristic("Writings ", helper.parseText(cake.writing)));
+            characteristics.add(new Characteristic("Comments ", helper.parseText(cake.comments)));
+            characteristics.add(new Characteristic("Age range ", helper.parseText(cake.ageRange)));
+            characteristics.add(new Characteristic("Cake event ", helper.parseText(cake.cakeEvent)));
             DateFormat df = DateFormat.getDateTimeInstance();
             characteristics.add(new Characteristic("Order date ", df.format(cake.orderDate)));
-            characteristics.add(new Characteristic("Price ", String.format("$ %.2f", cake.price)));
-
             for (int i = 0; i < cake.items.size(); i++) {
                 characteristics.add(new Characteristic(
                         categories.get(cake.items.get(i).categoryId),
                         cake.items.get(i).name));
             }
+            String price = (cake.price == 0) ? " - " : String.format("$ %.2f", cake.price);
+            characteristics.add(new Characteristic("Price ", price));
 
             if (cake.status.id == 1 || cake.status.id == 3) {
                 status.setBackgroundResource(R.drawable.red_status);
@@ -119,29 +118,48 @@ public class OrderDetails extends Activity {
                 }
             };
             // cancel order listener
-            View.OnClickListener cancelListener = changeStatus(4, "Order Canceled");
+            View.OnClickListener cancelListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    changeStatusAction(4, "Order Canceled", "Are you sure you want to cancel the order?\n\nThis action is irreversible");
+                }
+            };
             // buy listener
-            View.OnClickListener buyListener = changeStatus(5, "Price Confirmed");
+            View.OnClickListener buyListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    changeStatusAction(5, "Price Confirmed", "After you confirm the price, the cake will be baked. Do you want to proceed?");
+                }
+            };
             // request price listener
-            View.OnClickListener requestPriceListener = changeStatus(2, "Status Updated");
+            View.OnClickListener requestPriceListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    changeStatusAction(2, "Status Updated", null);
+                }
+            };
 
             if (cake.status.id == 2 || cake.status.id == 5 || cake.status.id == 6) {
+                editButton.setVisibility(View.GONE);
                 button1.setText("Back");
                 button1.setOnClickListener(backListener);
                 button2.setVisibility(View.GONE);
             } else if (cake.status.id == 3) {
+                editButton.setVisibility(View.VISIBLE);
                 button1.setText("Buy Cake");
                 button1.setOnClickListener(buyListener);
                 button2.setVisibility(View.VISIBLE);
                 button2.setText("Cancel Order");
                 button2.setOnClickListener(cancelListener);
             } else if (cake.status.id == 1) {
+                editButton.setVisibility(View.VISIBLE);
                 button1.setText("Request Price");
                 button1.setOnClickListener(requestPriceListener);
                 button2.setVisibility(View.VISIBLE);
                 button2.setText("Cancel Order");
                 button2.setOnClickListener(cancelListener);
             } else if (cake.status.id == 7) {
+                editButton.setVisibility(View.GONE);
                 button1.setText("Back");
                 button1.setOnClickListener(backListener);
                 button2.setVisibility(View.VISIBLE);
@@ -156,42 +174,48 @@ public class OrderDetails extends Activity {
         }
     }
 
-    private View.OnClickListener changeStatus(final Integer statusId, final String successMessage) {
-        View.OnClickListener newListener = new View.OnClickListener() {
+    private void changeStatusAction(final int statusId, final String successMessage, final String question) {
+        if (question != null) {
+            helper.displayOkCancelDialog(question, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    changeStatus(statusId, successMessage, question);
+                }
+            }).show();
+        } else {
+            changeStatus(statusId, successMessage, null);
+        }
+    }
+
+    private void changeStatus(final Integer statusId, final String successMessage, final String question) {
+        new AsyncTask<Void, Void, Response>() {
             @Override
-            public void onClick(View v) {
-                new AsyncTask<Void, Void, Response>() {
-
-                    @Override
-                    protected void onPreExecute() {
-                        progressBar.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    protected Response doInBackground(Void... params) {
-                        RequestPackage requestPackage = new RequestPackage();
-                        requestPackage.setMethod("POST");
-                        requestPackage.setUri("UpdateStatus");
-                        requestPackage.setParam("userId", helper.getPreferences("id"));
-                        requestPackage.setParam("userToken", helper.getPreferences("token"));
-                        requestPackage.setParam("id", cakeId);
-                        requestPackage.setParam("statusId", statusId.toString());
-                        return helper.callWebService(requestPackage).toResponse();
-                    }
-
-                    @Override
-                    protected void onPostExecute(Response response) {
-                        if (response.success) {
-                            helper.displayMessage(successMessage);
-                            helper.goToMyCakes();
-                        } else
-                            helper.displayMessage(response.message);
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }.execute(null, null, null);
+            protected void onPreExecute() {
+                progressBar.setVisibility(View.VISIBLE);
             }
-        };
-        return newListener;
+
+            @Override
+            protected Response doInBackground(Void... params) {
+                RequestPackage requestPackage = new RequestPackage();
+                requestPackage.setMethod("POST");
+                requestPackage.setUri("UpdateStatus");
+                requestPackage.setParam("userId", helper.getPreferences("id"));
+                requestPackage.setParam("userToken", helper.getPreferences("token"));
+                requestPackage.setParam("id", cakeId);
+                requestPackage.setParam("statusId", statusId.toString());
+                return helper.callWebService(requestPackage).toResponse();
+            }
+
+            @Override
+            protected void onPostExecute(Response response) {
+                if (response.success) {
+                    helper.displayMessage(successMessage);
+                    helper.goToMyCakes();
+                } else
+                    helper.displayMessage(response.message);
+                progressBar.setVisibility(View.GONE);
+            }
+        }.execute(null, null, null);
     }
 
     @Override
@@ -202,6 +226,7 @@ public class OrderDetails extends Activity {
         progressBar.bringToFront();
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
+        editButton = (Button) findViewById(R.id.edit);
 
         Intent intent = getIntent();
         cakeId = intent.getStringExtra("cakeId");
@@ -229,5 +254,11 @@ public class OrderDetails extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void edit(View view) {
+        Intent intent = new Intent(OrderDetails.this, CreateCake.class);
+        intent.putExtra("cakeId", cakeId);
+        startActivity(intent);
     }
 }

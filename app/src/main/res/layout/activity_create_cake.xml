@@ -97,12 +97,11 @@
         android:paddingLeft="10dp"></RelativeLayout>
 
     <Button
-        android:id="@+id/save"
+        android:id="@+id/actionButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/button_color"
-        android:onClick="save"
         android:text="Save"
         android:textColor="@color/button_text" />
 

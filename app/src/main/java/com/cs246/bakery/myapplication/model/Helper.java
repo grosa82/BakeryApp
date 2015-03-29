@@ -150,9 +150,9 @@ public class Helper {
                 .setTitle(getPreferences("companyName"));
 
         // Add the buttons
-        builder.setPositiveButton("Ok", okClickListener);
+        builder.setPositiveButton("Yes", okClickListener);
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
@@ -231,6 +231,18 @@ public class Helper {
     }
 
     /**
+     * Parses text
+     * @param text
+     * @return text or symbol "-" if it was empty
+     */
+    public String parseText(String text) {
+        if (text.isEmpty())
+            return " - ";
+        else
+            return text;
+    }
+
+    /**
      * Parse json string response to an object Response
      *
      * @param text json string
@@ -305,7 +317,8 @@ public class Helper {
         //Log.i(this.getClass().getName(), requestPackage.getUri());
 
         BufferedReader reader = null;
-        String uri = "http://cakeapp.toughland.com/api/webapi/" + requestPackage.getUri();
+        String uri = "http://192.168.10.3:8081/api/webapi/" + requestPackage.getUri();
+        //String uri = "http://cakeapp.toughland.com/api/webapi/" + requestPackage.getUri();
         if (requestPackage.getMethod().equals("GET")) {
             uri += "?" + requestPackage.getEncodedParams() + "&json=true";
         }

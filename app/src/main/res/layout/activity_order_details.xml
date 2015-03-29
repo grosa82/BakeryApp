@@ -22,7 +22,7 @@
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:adjustViewBounds="true"
-            android:background="#FFFFFF"
+            android:background="@drawable/rounded_border"
             android:padding="2dp"
             android:scaleType="fitCenter" />
 
@@ -60,14 +60,27 @@
                 android:textAppearance="@style/boldText"
                 android:textColor="@color/button_text"
                 android:textSize="15dp" />
+
+
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info"
+        android:background="@color/button_color"
+        android:text="Edit Cake"
+        android:textColor="@color/button_text"
+        android:visibility="gone"
+        android:onClick="edit"/>
 
     <View
         android:id="@+id/separator3"
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/info"
+        android:layout_below="@+id/edit"
         android:layout_marginBottom="6dp"
         android:layout_marginTop="6dp"
         android:background="@color/button_color" />
@@ -95,7 +108,7 @@
             android:layout_marginRight="3dp"
             android:layout_weight="1"
             android:background="@color/button_color"
-            android:text="Button1"
+            android:text=""
             android:textColor="@color/button_text" />
 
         <Button
@@ -106,7 +119,7 @@
             android:layout_marginRight="3dp"
             android:layout_weight="1"
             android:background="@color/button_color"
-            android:text="Button2"
+            android:text=""
             android:textColor="@color/button_text" />
     </LinearLayout>
 

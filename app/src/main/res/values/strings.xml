@@ -15,6 +15,7 @@
     <string name="title_activity_order_catagory">orderCatagory</string>
     <string name="title_activity_order_templates">orderTemplates</string>
     <string name="title_activity_upload_picture">uploadPicture</string>
+    <string name="call_me_text">We can call you to help you with your order</string>
 
     <string-array name="cakeSize_array">
         <item>8\" Round</item>
@@ -47,13 +48,12 @@
         <item>Chocolate Buttercream Frosting</item>
     </string-array>
     <string-array name="ageRange_array">
-        <item>0 - 2</item>
-        <item>2 - 5</item>
-        <item>5 - 10</item>
-        <item>11 - 15</item>
-        <item>15 - 18</item>
-        <item>18 - 25</item>
-        <item>25+</item>
+        <item>Age range: 0 - 2</item>
+        <item>Age range: 2 - 10</item>
+        <item>Age range: 10 - 16</item>
+        <item>Age range: 16 - 20</item>
+        <item>Age range: 20 - 30</item>
+        <item>Age range: 30+</item>
     </string-array>
 
     <string name="title_activity_orderd_cake">Ordered Cake</string>
