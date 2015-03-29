@@ -151,4 +151,8 @@ public class MyProfile extends ActionBarActivity {
             }.execute(null, null, null);
         }
     }
+
+    public void cancel(View view) {
+        helper.goToMyCakes();
+    }
 }
