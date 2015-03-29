@@ -90,6 +90,13 @@ public class CreateCake extends ActionBarActivity {
     }
 
     private void loadRulesCallBackFunction() {
+        // load the age range options
+        Spinner spinner = (Spinner) findViewById(R.id.ageRange);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.ageRange_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         if (cakeId != null) {
             // update cake
             actionButton.setOnClickListener(new View.OnClickListener() {
@@ -99,17 +106,15 @@ public class CreateCake extends ActionBarActivity {
                 }
             });
 
-            // load the age range options
-            Spinner spinner = (Spinner) findViewById(R.id.ageRange);
-            final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.ageRange_array, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-
             // load current information
             new AsyncTask<Void, Void, Cake>() {
 
                 List<CakeType> cakeTypes = null;
+
+                @Override
+                protected void onPreExecute() {
+                    progressDialog.setMessage("Loading Cake Options");
+                }
 
                 @Override
                 protected Cake doInBackground(Void... params) {
@@ -147,6 +152,8 @@ public class CreateCake extends ActionBarActivity {
                     doAction(false);
                 }
             });
+
+            loadRules();
         }
     }
 
@@ -189,6 +196,11 @@ public class CreateCake extends ActionBarActivity {
             return true;
         }
 
+        if (id == R.id.my_cakes) {
+            helper.goToMyCakes();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -201,6 +213,11 @@ public class CreateCake extends ActionBarActivity {
         final Integer databaseId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
         // gets the rules for this cake type id
         new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected void onPreExecute() {
+                progressDialog.setMessage("We are almost there :)");
+            }
 
             @Override
             protected Void doInBackground(Void... params) {
