@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,8 +20,14 @@ public class CreateAccount extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private final String TAG = "UserForm";
     private Context context;
+    private ProgressDialog progressDialog;
 
     class Services extends AsyncTask<User, String, Response> {
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(CreateAccount.this, "Please wait ...", "Creating Account", true);
+        }
+
         @Override
         protected Response doInBackground(User... users) {
             User user = new User(CreateAccount.this);
@@ -34,6 +41,8 @@ public class CreateAccount extends ActionBarActivity {
                 startActivity(new Intent(CreateAccount.this, LoginActivity.class));
             } else
                 helper.displayMessage(response.message);
+
+            progressDialog.dismiss();
         }
     }
 

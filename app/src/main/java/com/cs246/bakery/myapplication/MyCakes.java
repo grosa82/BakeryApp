@@ -1,12 +1,10 @@
 package com.cs246.bakery.myapplication;
 
-import android.app.Activity;
-import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -29,27 +27,12 @@ import java.util.List;
 
 public class MyCakes extends ActionBarActivity {
     private Helper helper = new Helper(this);
-    private ProgressBar progressBar;
-    List<Cake> orders;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.bringToFront();
-    }
-
+    private List<Cake> orders;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onResume() {
         super.onResume();
-        String name = helper.getPreferences("name");
-        if (!name.isEmpty()) {
-            TextView textView = ((TextView) findViewById(R.id.title));
-            if (textView != null)
-                textView.setText("Hi, " + name + "!");
-        }
-
         new LoadOrders().execute();
     }
 
@@ -57,7 +40,7 @@ public class MyCakes extends ActionBarActivity {
 
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
+            progressDialog = ProgressDialog.show(MyCakes.this, "Please wait ...", "Loading Cakes", true);
         }
 
         @Override
@@ -82,7 +65,7 @@ public class MyCakes extends ActionBarActivity {
 
         @Override
         public void onPostExecute(List<Cake> orders) {
-            progressBar.setVisibility(View.GONE);
+
             if (orders != null) {
                 ((ListView)findViewById(R.id.listView)).setVisibility(View.VISIBLE);
                 ((TextView)findViewById(R.id.message)).setVisibility(View.INVISIBLE);
@@ -107,6 +90,8 @@ public class MyCakes extends ActionBarActivity {
                 ((ListView)findViewById(R.id.listView)).setVisibility(View.INVISIBLE);
                 ((TextView)findViewById(R.id.message)).setVisibility(View.VISIBLE);
             }
+
+            progressDialog.dismiss();
         }
     }
 
@@ -156,13 +141,10 @@ public class MyCakes extends ActionBarActivity {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    public void chooseType(View view) {
+    public void createOrder(View view) {
         Intent homepage = new Intent(MyCakes.this, CreateCake.class);
         startActivity(homepage);
     }

@@ -2,51 +2,25 @@
 <resources>
 
     <string name="app_name">Bre\'s Specialty Bake Shop</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_signOut">Sign Out</string>
     <string name="action_about_us">Location</string>
     <string name="action_call_me">Call Me</string>
     <string name="action_my_profile">Edit Profile</string>
+
     <string name="title_activity_create_account">Create Account</string>
-    <string name="title_activity_create_cake">New Cake</string>
+    <string name="title_activity_create_cake">Edit Cake</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_main"></string>
     <string name="title_activity_my_cakes">My Cakes</string>
-    <string name="title_activity_order_catagory">orderCatagory</string>
-    <string name="title_activity_order_templates">orderTemplates</string>
     <string name="title_activity_upload_picture">uploadPicture</string>
+    <string name="title_activity_my_profile">Profile Info</string>
+    <string name="title_activity_order_details">OrderDetails</string>
+    <string name="title_activity_upload_photo">upload_photo</string>
+
     <string name="call_me_text">We can call you to help you with your order</string>
 
-    <string-array name="cakeSize_array">
-        <item>8\" Round</item>
-        <item>9\" Round</item>
-        <item>10\" Round</item>
-        <item>1/4 Sheet Cake (13x9)</item>
-        <item>1/2 Sheet Cake</item>
-        <item>Full Sheet Cake</item>
-    </string-array>
-    <string-array name="cakeFlavor_array">
-        <item>White Cake</item>
-        <item>Yellow Cake</item>
-        <item>Chocolate Cake</item>
-        <item>Red Velvet</item>
-        <item>Carrot Cake</item>
-        <item>Marble Cake</item>
-    </string-array>
-    <string-array name="cakeFilling_array">
-        <item>Raspberry</item>
-        <item>Strawberry</item>
-        <item>Custard</item>
-        <item>White Buttercream Frosting</item>
-        <item>Chocolate Buttercream Frosting</item>
-    </string-array>
-    <string-array name="cakeIcing_array">
-        <item>White Buttercream Frosting</item>
-        <item>Chocolate Buttercream Frosting</item>
-        <item>Ganache</item>
-        <item>Whipped Cream</item>
-        <item>Chocolate Buttercream Frosting</item>
-    </string-array>
     <string-array name="ageRange_array">
         <item>Age range: 0 - 2</item>
         <item>Age range: 2 - 10</item>
@@ -55,11 +29,4 @@
         <item>Age range: 20 - 30</item>
         <item>Age range: 30+</item>
     </string-array>
-
-    <string name="title_activity_orderd_cake">Ordered Cake</string>
-    <string name="title_activity_ordered_cake">Ordered Cake</string>
-    <string name="title_activity_my_profile">Profile Info</string>
-    <string name="title_activity_order_details">OrderDetails</string>
-    <string name="title_activity_upload_photo">upload_photo</string>
-    <string name="hello_world">Hello world!</string>
 </resources>

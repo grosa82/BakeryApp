@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,14 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.model.Cake;
 import com.cs246.bakery.myapplication.model.CakeType;
-import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Item;
 import com.cs246.bakery.myapplication.model.Response;
@@ -31,7 +30,7 @@ import java.util.List;
 public class CreateCake extends ActionBarActivity {
     private Helper helper = new Helper(this);
     private Rules rules;
-    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
     private Spinner ageRange, cakeType;
     private EditText colors, orderName, cakeEvent, writings, comments;
     private String cakeId;
@@ -49,7 +48,6 @@ public class CreateCake extends ActionBarActivity {
         cakeId = intent.getStringExtra("cakeId");
 
         // get views for future use
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         actionButton = (Button) findViewById(R.id.actionButton);
         cakeType = (Spinner) findViewById(R.id.cakeType);
         ageRange = (Spinner) findViewById(R.id.ageRange);
@@ -67,7 +65,7 @@ public class CreateCake extends ActionBarActivity {
         new AsyncTask<Void, Void, List<CakeType>>() {
             @Override
             protected void onPreExecute() {
-                progressBar.setVisibility(View.VISIBLE);
+                progressDialog = ProgressDialog.show(CreateCake.this, "Please wait ...", "Loading Categories", true);
             }
 
             @Override
@@ -269,27 +267,27 @@ public class CreateCake extends ActionBarActivity {
                     }
                 });
 
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         }.execute(null, null, null);
     }
 
     public void doAction(final boolean isUpdate) {
         // enable progress bar
-        progressBar.setVisibility(View.VISIBLE);
+        progressDialog = ProgressDialog.show(CreateCake.this, "Please wait ...", "Saving Cake", true);
 
         Response colorsResponse = helper.validateRequiredText(colors.getText().toString(), "Colors");
         Response orderNameResponse = helper.validateRequiredText(orderName.getText().toString(), "Order Name");
 
         // validate the user information before call the web service
-        if (!colorsResponse.success) {
-            colors.requestFocus();
-            helper.displayMessage(colorsResponse.message);
-            progressBar.setVisibility(View.GONE);
-        } else if (!orderNameResponse.success) {
+        if (!orderNameResponse.success) {
             orderName.requestFocus();
             helper.displayMessage(orderNameResponse.message);
-            progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
+        } else if (!colorsResponse.success) {
+            colors.requestFocus();
+            helper.displayMessage(colorsResponse.message);
+            progressDialog.dismiss();
         } else {
             // call the web service
             new AsyncTask<Void, Void, Response>() {
@@ -326,7 +324,6 @@ public class CreateCake extends ActionBarActivity {
                 @Override
                 protected void onPostExecute(Response response) {
                     // disable progress bar
-                    progressBar.setVisibility(View.GONE);
                     helper.displayMessage(response.message);
 
                     if (response.success) {
@@ -335,6 +332,7 @@ public class CreateCake extends ActionBarActivity {
                         intent.putExtra("cakeId", cakeId.toString());
                         startActivity(intent);
                     }
+                    progressDialog.dismiss();
                 }
             }.execute(null, null, null);
         }

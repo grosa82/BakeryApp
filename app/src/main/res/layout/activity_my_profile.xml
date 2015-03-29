@@ -99,13 +99,4 @@
         android:text="Save Changes"
         android:textColor="@color/button_text" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="256px"
-        android:layout_height="256px"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:indeterminateDrawable="@drawable/progressbar"
-        android:visibility="gone" />
-
 </RelativeLayout>

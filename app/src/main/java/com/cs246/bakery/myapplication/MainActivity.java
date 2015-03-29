@@ -2,6 +2,7 @@ package com.cs246.bakery.myapplication;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -20,6 +21,7 @@ import com.cs246.bakery.myapplication.model.User;
 
 public class MainActivity extends Activity {
     private Helper helper = new Helper(this);
+    private ProgressDialog progressDialog;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -29,6 +31,11 @@ public class MainActivity extends Activity {
     }
 
     class LoadCompanyInfo extends AsyncTask<Void, Void, CompanyInfo> {
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(MainActivity.this, "Please wait ...", "Loading App", true);
+        }
 
         @Override
         protected CompanyInfo doInBackground(Void... params) {
@@ -46,6 +53,8 @@ public class MainActivity extends Activity {
             helper.savePreferences("companyEmail", info.email);
             helper.savePreferences("companyPhone", info.phone);
             helper.savePreferences("companyWebsite", info.website);
+
+            progressDialog.dismiss();
         }
     }
 

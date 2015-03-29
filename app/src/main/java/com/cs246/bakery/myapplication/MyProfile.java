@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,8 +24,8 @@ import com.cs246.bakery.myapplication.model.User;
 public class MyProfile extends ActionBarActivity {
 
     private Helper helper = new Helper(this);
-    ProgressBar progressBar;
-    EditText name, phone, email, password, confirm;
+    private ProgressDialog progressDialog;
+    private EditText name, phone, email, password, confirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,6 @@ public class MyProfile extends ActionBarActivity {
         ((EditText) findViewById(R.id.name)).setText(helper.getPreferences("name"));
         ((EditText) findViewById(R.id.phone)).setText(helper.getPreferences("phone"));
         ((EditText) findViewById(R.id.email)).setText(helper.getPreferences("email"));
-
-        // gets the progress bar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // get the elements
         name = (EditText) findViewById(R.id.name);
@@ -115,7 +113,7 @@ public class MyProfile extends ActionBarActivity {
             new AsyncTask<Void, Void, Response>() {
                 @Override
                 protected void onPreExecute() {
-                    progressBar.setVisibility(View.VISIBLE);
+                    progressDialog = ProgressDialog.show(MyProfile.this, "Please wait ...", "Saving Profile", true);
                 }
 
                 @Override
@@ -132,8 +130,6 @@ public class MyProfile extends ActionBarActivity {
 
                 @Override
                 protected void onPostExecute(Response response) {
-                    progressBar.setVisibility(View.GONE);
-
                     if (response.success) {
                         helper.displayMessage("Profile Updated");
 
@@ -145,6 +141,7 @@ public class MyProfile extends ActionBarActivity {
                     } else {
                         helper.displayMessage(response.message);
                     }
+                    progressDialog.dismiss();
                 }
             }.execute(null, null, null);
         }

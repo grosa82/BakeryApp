@@ -1,6 +1,7 @@
 package com.cs246.bakery.myapplication;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,17 +36,17 @@ import java.util.Map;
 
 
 public class OrderDetails extends Activity {
-    Helper helper = new Helper(OrderDetails.this);
-    ProgressBar progressBar;
-    String cakeId;
-    Map<Integer, String> categories;
-    Button button1, button2, editButton;
+    private Helper helper = new Helper(OrderDetails.this);
+    private ProgressDialog progressDialog;
+    private String cakeId;
+    private Map<Integer, String> categories;
+    private Button button1, button2, editButton;
 
     private class loadCake extends AsyncTask<Void, Void, Cake> {
 
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
+            progressDialog = ProgressDialog.show(OrderDetails.this, "Please wait ...", "Loading Cake", true);
         }
 
         @Override
@@ -170,7 +171,7 @@ public class OrderDetails extends Activity {
             CharacteristicAdapter adapter = new CharacteristicAdapter(OrderDetails.this.getApplicationContext(), R.layout.layout_items, characteristics);
             ((ListView) findViewById(R.id.characteristics)).setAdapter(adapter);
 
-            progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
         }
     }
 
@@ -191,7 +192,7 @@ public class OrderDetails extends Activity {
         new AsyncTask<Void, Void, Response>() {
             @Override
             protected void onPreExecute() {
-                progressBar.setVisibility(View.VISIBLE);
+                progressDialog = ProgressDialog.show(OrderDetails.this, "Please wait ...", "Updating Status", true);
             }
 
             @Override
@@ -213,7 +214,7 @@ public class OrderDetails extends Activity {
                     helper.goToMyCakes();
                 } else
                     helper.displayMessage(response.message);
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
         }.execute(null, null, null);
     }
@@ -222,8 +223,6 @@ public class OrderDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.bringToFront();
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
         editButton = (Button) findViewById(R.id.edit);

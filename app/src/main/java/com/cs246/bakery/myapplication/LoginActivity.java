@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -17,13 +18,7 @@ import com.cs246.bakery.myapplication.model.User;
 
 public class LoginActivity extends ActionBarActivity {
     private Helper helper = new Helper(this);
-    private ProgressBar progressBar;
-
-    public void onStart() {
-        super.onStart();
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.bringToFront();
-    }
+    private ProgressDialog progressDialog;
 
     @Override
     public void onResume() {
@@ -35,7 +30,7 @@ public class LoginActivity extends ActionBarActivity {
 
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
+            progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait ...", "Logging In", true);
         }
 
         @Override
@@ -49,12 +44,13 @@ public class LoginActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(User response) {
-            progressBar.setVisibility(View.GONE);
             if (response != null) {
                 Intent homepage = new Intent(LoginActivity.this, MyCakes.class);
                 startActivity(homepage);
             } else
                 helper.displayMessage("Wrong email or password. Please try again");
+
+            progressDialog.dismiss();
         }
     }
 
