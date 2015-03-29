@@ -62,6 +62,17 @@ public class Helper {
      * @param message message to display
      */
     public void displayMessage(String message) {
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
+    }
+
+    /**
+     * Display a message on screen
+     *
+     * @param message message to display
+     */
+    public void displayFancyMessage(String message) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = layoutInflater.inflate(R.layout.layout_toast,
                 (ViewGroup) ((Activity) context).findViewById(R.id.toast_layout_root));
