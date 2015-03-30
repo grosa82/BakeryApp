@@ -185,6 +185,9 @@ public class CreateCake extends ActionBarActivity {
      * Loads rules based on the cake type selected
      */
     private void loadRules() {
+        // reset selections
+        selections.clear();
+        selectionsTextView.clear();
 
         // gets the selected cake type
         final Integer databaseId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
@@ -223,8 +226,11 @@ public class CreateCake extends ActionBarActivity {
 
                     // Create textView to show selection
                     String defaultText = "Pick " + helper.aOrAn(rules.categories.get(i).name) + " " + rules.categories.get(i).name;
+
                     final TextView valueTextView = new TextView(CreateCake.this);
                     valueTextView.setText(defaultText);
+                    valueTextView.setTextAppearance(CreateCake.this, R.style.defaultTextSize);
+
                     final MultipleChoiceSelection multipleChoiceSelection = new MultipleChoiceSelection();
                     multipleChoiceSelection.setContext(CreateCake.this);
                     multipleChoiceSelection.setItems(rules.categories.get(i).items);
@@ -243,12 +249,12 @@ public class CreateCake extends ActionBarActivity {
                         }
                     }
                     if (selectedItems.size() == 0)
-                        selectedItems.add(rules.categories.get(i).items.get(0));
+                        selectedItems.add(multipleChoiceSelection.getItems().get(0));
                     multipleChoiceSelection.setItemsSelected(selectedItems);
                     valueTextView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            multipleChoiceSelection.show(getFragmentManager(), "multi_choice");
+                            multipleChoiceSelection.show(getFragmentManager(), "multi_choice_" + multipleChoiceSelection.hashCode());
                         }
                     });
                     selections.add(multipleChoiceSelection);
