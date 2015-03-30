@@ -87,6 +87,22 @@ public class Helper {
         toast.show();
     }
 
+    public String aOrAn(String text) {
+        if (startsWithVowel(text))
+            return "an";
+        else
+            return "a";
+    }
+
+    private boolean startsWithVowel(String text) {
+        String[] vowels = {"a", "e", "i", "o", "u"};
+        for (int i = 0; i < 5; i++) {
+            if (text.toLowerCase().substring(0, 1) == vowels[i])
+                return true;
+        }
+        return false;
+    }
+
     public AlertDialog displayCompanyInfo() {
         StringBuilder sb = new StringBuilder();
         CompanyInfo info = new CompanyInfo();

@@ -222,13 +222,15 @@ public class CreateCake extends ActionBarActivity {
                     layout.addView(textView);
 
                     // Create textView to show selection
+                    String defaultText = "Pick " + helper.aOrAn(rules.categories.get(i).name) + " " + rules.categories.get(i).name;
                     final TextView valueTextView = new TextView(CreateCake.this);
-                    valueTextView.setText("Pick the " + rules.categories.get(i).name);
+                    valueTextView.setText(defaultText);
                     final MultipleChoiceSelection multipleChoiceSelection = new MultipleChoiceSelection();
                     multipleChoiceSelection.setContext(CreateCake.this);
                     multipleChoiceSelection.setItems(rules.categories.get(i).items);
                     multipleChoiceSelection.setTitle(rules.categories.get(i).name);
                     multipleChoiceSelection.setMaxSelections(rules.categories.get(i).maxQuantity);
+                    multipleChoiceSelection.setDefaultText(defaultText);
                     List<Item> selectedItems = new ArrayList<Item>();
                     if (cakeSelected != null) {
                         Item itemSelected = null;

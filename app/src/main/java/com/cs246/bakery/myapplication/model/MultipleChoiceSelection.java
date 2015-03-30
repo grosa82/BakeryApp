@@ -24,6 +24,7 @@ public class MultipleChoiceSelection extends DialogFragment {
     private List<Item> itemsSelected = new ArrayList<Item>();
     private String[] itemsArray;
     private boolean[] checkedItems;
+    private String defaultText;
 
     public List<Item> getItems() {
         return items;
@@ -78,6 +79,14 @@ public class MultipleChoiceSelection extends DialogFragment {
         }
     }
 
+    public String getDefaultText() {
+        return defaultText;
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -112,6 +121,6 @@ public class MultipleChoiceSelection extends DialogFragment {
         if (hasItems)
             return TextUtils.join(", ", selectedItems);
         else
-            return "Pick the " + title;
+            return defaultText;
     }
 }
