@@ -16,16 +16,20 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cs246.bakery.myapplication.model.Cake;
 import com.cs246.bakery.myapplication.model.CakeType;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Item;
+import com.cs246.bakery.myapplication.model.MultipleChoiceSelection;
 import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.Rules;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CreateCake extends ActionBarActivity {
     private Helper helper = new Helper(this);
@@ -39,6 +43,9 @@ public class CreateCake extends ActionBarActivity {
     private Cake cakeSelected = null;
     private List<CakeType> cakeTypes = null;
     private ArrayAdapter<CakeType> cakeTypeAdapter = null;
+    private List<MultipleChoiceSelection> selections = new ArrayList<>();
+    private List<TextView> selectionsTextView = new ArrayList<>();
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +66,27 @@ public class CreateCake extends ActionBarActivity {
         writings = (EditText) findViewById(R.id.writing);
         comments = (EditText) findViewById(R.id.comments);
 
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                updateUI();
+            }
+        }, 0, 1500);
+
         loadCakeTypes();
+    }
+
+    private Runnable Timer_Tick = new Runnable() {
+        public void run() {
+            for (int i = 0; i < selections.size(); i++) {
+                selectionsTextView.get(i).setText(selections.get(i).toString());
+            }
+        }
+    };
+
+    private void updateUI() {
+        this.runOnUiThread(Timer_Tick);
     }
 
     private void loadCakeTypes() {
@@ -194,35 +221,42 @@ public class CreateCake extends ActionBarActivity {
                     // add the text view to the parent view
                     layout.addView(textView);
 
-                    // Create spinners at runtime
-                    Spinner spinner = new Spinner(CreateCake.this);
-                    // create adapter with the options to populate the spinner
-                    ArrayAdapter<Item> adapter = new ArrayAdapter<Item>(CreateCake.this, android.R.layout.simple_gallery_item, rules.categories.get(i).items);
-                    // enable multiple choice if the max quantity is greater than 1
-                    if (rules.categories.get(i).maxQuantity > 1)
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
-                    else
-                        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-                    spinner.setAdapter(adapter);
-
+                    // Create textView to show selection
+                    final TextView valueTextView = new TextView(CreateCake.this);
+                    valueTextView.setText("Pick the " + rules.categories.get(i).name);
+                    final MultipleChoiceSelection multipleChoiceSelection = new MultipleChoiceSelection();
+                    multipleChoiceSelection.setContext(CreateCake.this);
+                    multipleChoiceSelection.setItems(rules.categories.get(i).items);
+                    multipleChoiceSelection.setTitle(rules.categories.get(i).name);
+                    multipleChoiceSelection.setMaxSelections(rules.categories.get(i).maxQuantity);
+                    List<Item> selectedItems = new ArrayList<Item>();
                     if (cakeSelected != null) {
                         Item itemSelected = null;
                         for (Item item : cakeSelected.items) {
-                            for (int x = 0; x < spinner.getCount(); x++) {
-                                if (((Item) spinner.getItemAtPosition(x)).id == item.id) {
-                                    spinner.setSelection(x);
+                            for (int x = 0; x < multipleChoiceSelection.getItems().size(); x++) {
+                                if (multipleChoiceSelection.getItems().get(x).id == item.id) {
+                                    selectedItems.add(multipleChoiceSelection.getItems().get(x));
                                 }
                             }
                         }
                     }
+                    multipleChoiceSelection.setItemsSelected(selectedItems);
+                    valueTextView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            multipleChoiceSelection.show(getFragmentManager(), "multi_choice");
+                        }
+                    });
+                    selections.add(multipleChoiceSelection);
+                    selectionsTextView.add(valueTextView);
 
                     // define layout
                     layoutParams = new RelativeLayout.LayoutParams(600, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     layoutParams.setMargins(0, 100 * i, 0, 0);
                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                    spinner.setLayoutParams(layoutParams);
+                    valueTextView.setLayoutParams(layoutParams);
                     // add spinner to the parent view
-                    layout.addView(spinner);
+                    layout.addView(valueTextView);
                 }
 
                 cakeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -315,16 +349,13 @@ public class CreateCake extends ActionBarActivity {
                     Integer cakeTypeId = ((CakeType) ((Spinner) findViewById(R.id.cakeType)).getSelectedItem()).id;
                     // get selected items
                     List<String> selectedItems = new ArrayList<>();
-                    RelativeLayout parentRelativeLayout = (RelativeLayout) findViewById(R.id.container);
-                    for (int i = 0; i < parentRelativeLayout.getChildCount(); i++) {
-                        View child = parentRelativeLayout.getChildAt(i);
-                        if (child instanceof Spinner) {
-                            // get selected item
-                            Spinner childSpinner = (Spinner) child;
-                            Integer selectedId = ((Item) childSpinner.getSelectedItem()).id;
-                            selectedItems.add(selectedId.toString());
+                    for (MultipleChoiceSelection multipleChoiceSelection : selections) {
+                        for (Item item : multipleChoiceSelection.getItemsSelected()) {
+                            Integer id = item.id;
+                            selectedItems.add(id.toString());
                         }
                     }
+
                     // create a new instance of cake
                     Cake newCake = new Cake(CreateCake.this);
 
