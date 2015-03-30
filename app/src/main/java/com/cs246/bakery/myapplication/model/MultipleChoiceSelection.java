@@ -1,5 +1,6 @@
 package com.cs246.bakery.myapplication.model;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -7,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,20 +87,48 @@ public class MultipleChoiceSelection extends DialogFragment {
         this.defaultText = defaultText;
     }
 
+    private int getCheckedItem() {
+        int id = 0;
+        for (int i = 0; i < items.size(); i++)
+            if (items.get(i).id == itemsSelected.get(0).id)
+                id = i;
+        return id;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title).setMultiChoiceItems(itemsArray, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setTitle(title + " (" + maxSelections + " max)");
 
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if (isChecked) {
+        if (maxSelections == 1) {
+            // just one option allowed
+            builder.setSingleChoiceItems(itemsArray, getCheckedItem(), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    itemsSelected = null;
+                    itemsSelected = new ArrayList<Item>();
                     itemsSelected.add(items.get(which));
-                } else if (itemsSelected.contains(items.get(which))) {
-                    itemsSelected.remove(items.get(which));
                 }
-            }
-        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            });
+        } else {
+            // multiple options allowed
+            builder.setMultiChoiceItems(itemsArray, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    if (isChecked) {
+                        if (itemsSelected.size() < maxSelections)
+                            itemsSelected.add(items.get(which));
+                        else {
+                            new Helper((Activity) context).displayMessage("Please select only " + maxSelections + " option(s)");
+                        }
+
+                    } else if (itemsSelected.contains(items.get(which))) {
+                        itemsSelected.remove(items.get(which));
+                    }
+                }
+            });
+        }
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dismiss();

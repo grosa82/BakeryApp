@@ -242,6 +242,8 @@ public class CreateCake extends ActionBarActivity {
                             }
                         }
                     }
+                    if (selectedItems.size() == 0)
+                        selectedItems.add(rules.categories.get(i).items.get(0));
                     multipleChoiceSelection.setItemsSelected(selectedItems);
                     valueTextView.setOnClickListener(new View.OnClickListener() {
                         @Override
