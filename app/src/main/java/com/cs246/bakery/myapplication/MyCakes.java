@@ -162,4 +162,9 @@ public class MyCakes extends ActionBarActivity {
         if (!user.isAuthenticated())
             startActivity(new Intent(MyCakes.this, MainActivity.class));
     }
+
+    @Override
+    public void onBackPressed() {
+        helper.goToMyCakes();
+    }
 }

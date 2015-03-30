@@ -155,4 +155,12 @@ public class MyProfile extends ActionBarActivity {
     public void cancel(View view) {
         helper.goToMyCakes();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        User user = new User(MyProfile.this);
+        if (!user.isAuthenticated())
+            startActivity(new Intent(MyProfile.this, MainActivity.class));
+    }
 }

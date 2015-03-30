@@ -26,6 +26,7 @@ import com.cs246.bakery.myapplication.model.Characteristic;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.RequestPackage;
 import com.cs246.bakery.myapplication.model.Response;
+import com.cs246.bakery.myapplication.model.User;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -286,5 +287,17 @@ public class OrderDetails extends ActionBarActivity {
         Intent intent = new Intent(OrderDetails.this, CreateCake.class);
         intent.putExtra("cakeId", cakeId);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        User user = new User(OrderDetails.this);
+        if (!user.isAuthenticated())
+            startActivity(new Intent(OrderDetails.this, MainActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
