@@ -14,7 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Welcome to your profile.\nChange the text to edit your profile.\nTo keep your password leave the password field blank."
+        android:text="Change the information below to edit your profile.\nTo keep your current password, leave it blank."
         android:textStyle="bold" />
 
     <EditText
@@ -54,7 +54,7 @@
         android:layout_below="@+id/phone"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Fill the password field only if you want to change it"
+        android:text="Type the password field only if you want to change it. Otherwise leave it blank."
         android:textColor="#ff0000"
         android:textStyle="bold" />
 
@@ -66,7 +66,8 @@
         android:layout_marginTop="20dp"
         android:hint="Password"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/confirm"
@@ -76,7 +77,8 @@
         android:layout_marginTop="20dp"
         android:hint="Confirm Password"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:layout_width="fill_parent"
