@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.cs246.bakery.myapplication.adapters.OrderAdapter;
 import com.cs246.bakery.myapplication.model.Helper;
 import com.cs246.bakery.myapplication.model.Cake;
+import com.cs246.bakery.myapplication.model.User;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -154,4 +155,11 @@ public class MyCakes extends ActionBarActivity {
         startActivity(homepage);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        User user = new User(MyCakes.this);
+        if (!user.isAuthenticated())
+            startActivity(new Intent(MyCakes.this, MainActivity.class));
+    }
 }

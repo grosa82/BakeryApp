@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import com.cs246.bakery.myapplication.model.Item;
 import com.cs246.bakery.myapplication.model.MultipleChoiceSelection;
 import com.cs246.bakery.myapplication.model.Response;
 import com.cs246.bakery.myapplication.model.Rules;
+import com.cs246.bakery.myapplication.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -208,21 +211,22 @@ public class CreateCake extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(Void param) {
-                RelativeLayout layout = (RelativeLayout) findViewById(R.id.container);
+                LinearLayout layout = (LinearLayout) findViewById(R.id.container);
                 layout.removeAllViews();
 
                 for (int i = 0; i < rules.categories.size(); i++) {
+
+                    LinearLayout line = new LinearLayout(CreateCake.this);
+                    line.setOrientation(LinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    line.setLayoutParams(lineParams);
+
                     // Create text views at runtime
                     TextView textView = new TextView(CreateCake.this);
                     textView.setText(rules.categories.get(i).name + ": ");
-                    // define layout for text view
-                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    layoutParams.setMargins(0, 100 * i, 0, 0);
-                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-                    textView.setLayoutParams(layoutParams);
                     textView.setTextAppearance(CreateCake.this, R.style.boldText);
                     // add the text view to the parent view
-                    layout.addView(textView);
+                    line.addView(textView);
 
                     // Create textView to show selection
                     String defaultText = "Pick " + helper.aOrAn(rules.categories.get(i).name) + " " + rules.categories.get(i).name;
@@ -259,14 +263,9 @@ public class CreateCake extends ActionBarActivity {
                     });
                     selections.add(multipleChoiceSelection);
                     selectionsTextView.add(valueTextView);
-
-                    // define layout
-                    layoutParams = new RelativeLayout.LayoutParams(600, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    layoutParams.setMargins(0, 100 * i, 0, 0);
-                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                    valueTextView.setLayoutParams(layoutParams);
                     // add spinner to the parent view
-                    layout.addView(valueTextView);
+                    line.addView(valueTextView);
+                    layout.addView(line);
                 }
 
                 cakeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -395,5 +394,13 @@ public class CreateCake extends ActionBarActivity {
                 }
             }.execute(null, null, null);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        User user = new User(CreateCake.this);
+        if (!user.isAuthenticated())
+            startActivity(new Intent(CreateCake.this, MainActivity.class));
     }
 }
