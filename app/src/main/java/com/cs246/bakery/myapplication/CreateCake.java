@@ -37,6 +37,8 @@ public class CreateCake extends ActionBarActivity {
     private Button actionButton;
     private CakeType cakeTypeSelected = null;
     private Cake cakeSelected = null;
+    private List<CakeType> cakeTypes = null;
+    private ArrayAdapter<CakeType> cakeTypeAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class CreateCake extends ActionBarActivity {
         new AsyncTask<Void, Void, List<CakeType>>() {
             @Override
             protected void onPreExecute() {
-                progressDialog = ProgressDialog.show(CreateCake.this, "Please wait ...", "Loading Categories", true);
+                progressDialog = ProgressDialog.show(CreateCake.this, "Please wait ...", "Loading Cake Types", true);
             }
 
             @Override
@@ -74,15 +76,15 @@ public class CreateCake extends ActionBarActivity {
             }
 
             @Override
-            protected void onPostExecute(final List<CakeType> cakeTypes) {
+            protected void onPostExecute(List<CakeType> cakeTypesList) {
+                cakeTypes = cakeTypesList;
                 cakeType.setAdapter(null);
-
                 // Create an ArrayAdapter using the cake type array
-                final ArrayAdapter<CakeType> adapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
-                adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+                cakeTypeAdapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
+                cakeTypeAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 
                 // Apply the adapter to the spinner
-                cakeType.setAdapter(adapter);
+                cakeType.setAdapter(cakeTypeAdapter);
 
                 loadRulesCallBackFunction();
             }
@@ -109,8 +111,6 @@ public class CreateCake extends ActionBarActivity {
             // load current information
             new AsyncTask<Void, Void, Cake>() {
 
-                List<CakeType> cakeTypes = null;
-
                 @Override
                 protected void onPreExecute() {
                     progressDialog.setMessage("Loading Cake Options");
@@ -119,7 +119,6 @@ public class CreateCake extends ActionBarActivity {
                 @Override
                 protected Cake doInBackground(Void... params) {
                     Cake cake = new Cake(CreateCake.this);
-                    cakeTypes = new CakeType(CreateCake.this).getCakeTypes();
                     cakeSelected = cake.getCake(cakeId);
                     return cakeSelected;
                 }
@@ -138,7 +137,6 @@ public class CreateCake extends ActionBarActivity {
                         if (cake.type.id == cakeType.id)
                             cakeTypeSelected = cakeType;
                     }
-                    ArrayAdapter<CakeType> cakeTypeAdapter = new ArrayAdapter<CakeType>(CreateCake.this, android.R.layout.simple_gallery_item, cakeTypes);
                     cakeType.setSelection(cakeTypeAdapter.getPosition(cakeTypeSelected));
 
                     loadRules();
@@ -152,56 +150,8 @@ public class CreateCake extends ActionBarActivity {
                     doAction(false);
                 }
             });
-
             loadRules();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_default, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_about_us) {
-            helper.displayCompanyInfo().show();
-            return true;
-        }
-
-        if (id == R.id.call_me) {
-            helper.displayOkCancelDialog("We can call you to help you with your order", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    helper.callMe();
-                }
-            }).show();
-            return true;
-        }
-
-        if (id == R.id.my_profile) {
-            helper.goToProfile();
-            return true;
-        }
-
-        if (id == R.id.action_signOut) {
-            helper.signOut();
-            return true;
-        }
-
-        if (id == R.id.my_cakes) {
-            helper.goToMyCakes();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -258,7 +208,11 @@ public class CreateCake extends ActionBarActivity {
                     if (cakeSelected != null) {
                         Item itemSelected = null;
                         for (Item item : cakeSelected.items) {
-                            spinner.setSelection(adapter.getPosition(item));
+                            for (int x = 0; x < spinner.getCount(); x++) {
+                                if (((Item) spinner.getItemAtPosition(x)).id == item.id) {
+                                    spinner.setSelection(x);
+                                }
+                            }
                         }
                     }
 
@@ -287,6 +241,53 @@ public class CreateCake extends ActionBarActivity {
                 progressDialog.dismiss();
             }
         }.execute(null, null, null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_default, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_about_us) {
+            helper.displayCompanyInfo().show();
+            return true;
+        }
+
+        if (id == R.id.call_me) {
+            helper.displayOkCancelDialog("We can call you to help you with your order", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    helper.callMe();
+                }
+            }).show();
+            return true;
+        }
+
+        if (id == R.id.my_profile) {
+            helper.goToProfile();
+            return true;
+        }
+
+        if (id == R.id.action_signOut) {
+            helper.signOut();
+            return true;
+        }
+
+        if (id == R.id.my_cakes) {
+            helper.goToMyCakes();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void doAction(final boolean isUpdate) {
