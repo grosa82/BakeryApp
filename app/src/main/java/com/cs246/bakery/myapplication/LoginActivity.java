@@ -58,6 +58,10 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Intent intent = getIntent();
+        if (intent.getStringExtra("email") != null)
+            ((EditText) findViewById(R.id.email)).setText(intent.getStringExtra("email"));
     }
 
     public void signOn(View view) {

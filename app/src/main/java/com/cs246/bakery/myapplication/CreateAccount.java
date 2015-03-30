@@ -38,7 +38,9 @@ public class CreateAccount extends ActionBarActivity {
         protected void onPostExecute(Response response) {
             if (response.success) {
                 helper.displayMessage(response.message);
-                startActivity(new Intent(CreateAccount.this, LoginActivity.class));
+                Intent intent = new Intent(CreateAccount.this, LoginActivity.class);
+                intent.putExtra("email", ((EditText) findViewById(R.id.email)).getText().toString());
+                startActivity(intent);
             } else
                 helper.displayMessage(response.message);
 
