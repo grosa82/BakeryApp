@@ -88,14 +88,22 @@
             android:hint="Age range"></Spinner>
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/container"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/firstForm"
-        android:layout_marginBottom="60dp"
-        android:paddingLeft="10dp"></LinearLayout>
+        android:layout_marginBottom="60dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="10dp"></LinearLayout>
+
+        </ScrollView>
+
+
 
     <Button
         android:id="@+id/actionButton"
