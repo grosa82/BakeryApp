@@ -23,6 +23,8 @@ import com.cs246.bakery.myapplication.MyProfile;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -366,6 +368,94 @@ public class Helper {
                 writer.flush();
             }
 
+            StringBuilder sb = new StringBuilder();
+            reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + '\n');
+            }
+            returnedString = sb.toString();
+        } catch (Exception e) {
+            Log.e(TAG, "callWebService", e);
+            returnedString = "";
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "callWebService", e);
+                    returnedString = "";
+                }
+            }
+            return this;
+        }
+    }
+
+    public Helper sendPictureToWebService(final FileInputStream fileInputStream, final String fileName) {
+
+        BufferedReader reader = null;
+        String uri = "http://cakeapp.toughland.com/api/webapi/SendFile/?json=true";
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+
+        try {
+            URL url = new URL(uri);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setUseCaches(false);
+
+            // creating header
+            con.setRequestProperty("Connection", "Keep-Alive");
+            con.setRequestProperty("Content-Type", "multipart/form-data;boundary=*****");
+
+            DataOutputStream dos = new DataOutputStream(con.getOutputStream());
+
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"title\""+ lineEnd);
+            dos.writeBytes(lineEnd);
+            dos.writeBytes("CakePicture");
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+            dos.writeBytes("Content-Disposition: form-data; name=\"description\""+ lineEnd);
+            dos.writeBytes(lineEnd);
+            dos.writeBytes("PictureFromCake");
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName +"\"" + lineEnd);
+            dos.writeBytes(lineEnd);
+            // end headers
+
+            // create a buffer of maximum size
+            int bytesAvailable = fileInputStream.available();
+
+            int maxBufferSize = 1024;
+            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            byte[ ] buffer = new byte[bufferSize];
+
+            // read file and write it into form...
+            int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+            while (bytesRead > 0)
+            {
+                dos.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable,maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0,bufferSize);
+            }
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+            // close streams
+            fileInputStream.close();
+
+            dos.flush();
+
+            // receives the return string
             StringBuilder sb = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String line;

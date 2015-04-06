@@ -1,7 +1,9 @@
 package com.cs246.bakery.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,11 +12,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cs246.bakery.myapplication.model.Helper;
+import com.cs246.bakery.myapplication.model.Response;
+
+import java.io.FileInputStream;
 
 
 public class upload_photo extends ActionBarActivity {
 
     private Helper helper = new Helper(this);
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +68,33 @@ public class upload_photo extends ActionBarActivity {
             return true;
         }
 
+        if (id == R.id.my_cakes) {
+            helper.goToMyCakes();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
+    public void uploadPhoto(View view) {
+        new AsyncTask<Void, Void, Response>() {
 
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(upload_photo.this, "Please wait ...", "Uploading Picture", true);
+            }
+
+            @Override
+            protected Response doInBackground(Void... params) {
+                return helper.sendPictureToWebService(new FileInputStream(""), "fileName").toResponse();
+            }
+
+            @Override
+            protected void onPostExecute(Response response) {
+                progressDialog.dismiss();
+                helper.displayMessage(response.message);
+            }
+        }.execute(null, null, null);
+    }
 }
