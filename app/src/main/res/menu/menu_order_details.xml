@@ -1,10 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.cs246.bakery.myapplication.OrderDetails">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/picture"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="Pick Picture"
+        app:showAsAction="always">
+        </item>
+
+    <item
+        android:id="@+id/empty"
+        android:icon="@drawable/ic_action_overflow"
+        android:orderInCategory="101"
+        android:title="Options"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/my_cakes"
+                android:title="@string/action_my_cakes"
+                app:showAsAction="ifRoom" />
+
+            <item
+                android:id="@+id/action_about_us"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="@string/action_about_us"
+                app:showAsAction="ifRoom" />
+
+            <item
+                android:id="@+id/call_me"
+                android:icon="@android:drawable/ic_menu_call"
+                android:title="@string/action_call_me"
+                app:showAsAction="ifRoom" />
+
+            <item
+                android:id="@+id/my_profile"
+                android:icon="@android:drawable/ic_menu_edit"
+                android:title="@string/action_my_profile"
+                app:showAsAction="ifRoom" />
+
+
+            <item
+                android:id="@+id/action_signOut"
+                android:icon="@android:drawable/ic_menu_close_clear_cancel"
+                android:title="@string/action_signOut"
+                app:showAsAction="ifRoom" />
+        </menu>
+
+    </item>
 </menu>

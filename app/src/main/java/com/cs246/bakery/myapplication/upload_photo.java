@@ -21,12 +21,15 @@ public class upload_photo extends ActionBarActivity {
 
     private Helper helper = new Helper(this);
     private ProgressDialog progressDialog;
-
+    private final int PICK_IMAGE = 1;
+    private String cakeId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_photo);
 
+        Intent intent = getIntent();
+        cakeId = intent.getStringExtra("cakeId");
     }
 
 
@@ -76,6 +79,17 @@ public class upload_photo extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Opens dialog picker, so the user can select image from the gallery. The
+     * result is returned in the method <code>onActivityResult()</code>
+     */
+    public void selectImageFromGallery(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+    }
+
     public void uploadPhoto(View view) {
         new AsyncTask<Void, Void, Response>() {
 
@@ -87,7 +101,8 @@ public class upload_photo extends ActionBarActivity {
 
             @Override
             protected Response doInBackground(Void... params) {
-                return helper.sendPictureToWebService(new FileInputStream(""), "fileName").toResponse();
+                //return helper.sendPictureToWebService(new FileInputStream(""), "fileName").toResponse();
+                return null;
             }
 
             @Override

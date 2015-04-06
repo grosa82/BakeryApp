@@ -239,7 +239,7 @@ public class OrderDetails extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_default, menu);
+        getMenuInflater().inflate(R.menu.menu_order_details, menu);
         return true;
     }
 
@@ -278,6 +278,12 @@ public class OrderDetails extends ActionBarActivity {
         if (id == R.id.my_cakes) {
             helper.goToMyCakes();
             return true;
+        }
+
+        if (id == R.id.picture) {
+            Intent intent = new Intent(OrderDetails.this, upload_photo.class);
+            intent.putExtra("cakeId", cakeId);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
