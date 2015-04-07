@@ -391,10 +391,10 @@ public class Helper {
         }
     }
 
-    public Helper sendPictureToWebService(final FileInputStream fileInputStream, final String fileName) {
+    public Helper sendPictureToWebService(final FileInputStream fileInputStream, final String fileName, String cakeId) {
 
         BufferedReader reader = null;
-        String uri = "http://cakeapp.toughland.com/api/webapi/SendFile/?json=true";
+        String uri = "http://192.168.10.3:8081/api/webapi/SendFile/?json=true";
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";

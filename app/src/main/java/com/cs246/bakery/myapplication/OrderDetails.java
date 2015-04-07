@@ -1,6 +1,5 @@
 package com.cs246.bakery.myapplication;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,12 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cs246.bakery.myapplication.adapters.CharacteristicAdapter;
 import com.cs246.bakery.myapplication.model.Cake;
-import com.cs246.bakery.myapplication.model.CakeType;
 import com.cs246.bakery.myapplication.model.Category;
 import com.cs246.bakery.myapplication.model.Characteristic;
 import com.cs246.bakery.myapplication.model.Helper;
@@ -281,7 +278,7 @@ public class OrderDetails extends ActionBarActivity {
         }
 
         if (id == R.id.picture) {
-            Intent intent = new Intent(OrderDetails.this, upload_photo.class);
+            Intent intent = new Intent(OrderDetails.this, UploadPhoto.class);
             intent.putExtra("cakeId", cakeId);
             startActivity(intent);
         }

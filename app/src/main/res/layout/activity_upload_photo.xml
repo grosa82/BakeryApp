@@ -6,23 +6,75 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cs246.bakery.myapplication.upload_photo">
+    tools:context="com.cs246.bakery.myapplication.UploadPhoto"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Up Load A Photo" />
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:text="Select one of the options below"
+        android:id="@+id/text"/>
 
-    <Button
-        android:id="@+id/image"
-        android:layout_width="165dp"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@color/button_color"
-        android:text="Upload Image"
-        android:textColor="@color/button_text"
-        android:onClick="selectImageFromGallery"/>
+        android:layout_below="@+id/text"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/options">
 
+        <Button
+            android:id="@+id/gallery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:background="@color/button_color"
+            android:text="Gallery"
+            android:textColor="@color/button_text"
+            android:onClick="selectImageFromGallery"/>
+
+        <Button
+            android:id="@+id/takePhoto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:background="@color/button_color"
+            android:text="Take Photo"
+            android:textColor="@color/button_text"
+            android:onClick="takePhoto" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/options"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="20dp"
+            android:id="@+id/photo"
+            android:layout_marginBottom="60dp"
+            android:scaleType="fitCenter" />
+
+        <Button
+            android:id="@+id/uploadPhoto"
+            android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_color"
+            android:text="Send Photo"
+            android:textColor="@color/button_text"
+            android:layout_marginTop="-50dp"
+            android:onClick="uploadPhoto"/>
+
+        </LinearLayout>
 </RelativeLayout>
